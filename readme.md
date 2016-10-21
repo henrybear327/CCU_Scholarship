@@ -15,7 +15,7 @@ The only way for adding features and code into the master branch is by pull requ
 
 Here are some instructions that you can follow after cloning the repository locally:
 1. make a `.env` file
-2. generate an app key
+2. generate an app key (`php artisan key:generate`)
 3. run `composer install`
 
 # System notes
