@@ -17,6 +17,8 @@ Here are some instructions that you can follow after cloning the repository loca
 1. make a `.env` file
 2. generate an app key (`php artisan key:generate`)
 3. run `composer install`
+4. setup database credentials
+5. run migration
 
 # System notes
 
