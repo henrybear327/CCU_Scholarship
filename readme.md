@@ -19,6 +19,7 @@ Here are some instructions that you can follow after cloning the repository loca
 3. run `composer install`
 4. setup database credentials
 5. run migration
+6. setup [ide helper](https://github.com/barryvdh/laravel-ide-helper) if you are using phpstorm
 
 # System notes
 
