@@ -28,6 +28,8 @@ Here are some instructions that you can follow after cloning the repository loca
     * 404 Page added
     * Google Analytics script added
     * mod_rewrite and virtual host is set up properly
+* 11/11/2016 
+   * `sudo apt-get install sqlite3 libsqlite3-dev`
 
 # Laravel License
 
