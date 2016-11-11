@@ -15,6 +15,7 @@ The only way for adding features and code into the master branch is by pull requ
 
 Here are some instructions that you can follow after cloning the repository locally:
    0. `chmod -R 777 storage && chmod -R bootstrap/cache`
+      * If you are using sqlite on the server, make sure the folder that the database file is residing in [also has write permission](http://stackoverflow.com/questions/3319112/sqlite-read-only-database). 
    1. make a `.env` file
    2. generate an app key (`php artisan key:generate`)
    3. run `composer install`
