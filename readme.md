@@ -14,6 +14,7 @@ Using `Laravel 5.3`, minimal requirements:
 The only way for adding features and code into the master branch is by pull requests! No direct commit on master branch is allowed, because master branch is suppose to be the always-ready demo product branch.
 
 Here are some instructions that you can follow after cloning the repository locally:
+   0. `chmod -R 777 storage && chmod -R bootstrap/cache`
    1. make a `.env` file
    2. generate an app key (`php artisan key:generate`)
    3. run `composer install`
