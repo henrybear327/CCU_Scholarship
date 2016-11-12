@@ -37,6 +37,7 @@ Here are some instructions that you can follow after cloning the repository loca
       * `composer require guzzlehttp/guzzle`
    * Allow updating columns in DB
       * `composer require doctrine/dbal`
+   * Set timezone to `Asia/Taipei`
 
 # Laravel License
 
