@@ -35,6 +35,8 @@ Here are some instructions that you can follow after cloning the repository loca
 * 11/12/2016
    * Add [sendgrid](https://sendgrid.com/docs/Integrate/Frameworks/laravel.html) for forget password!
       * `composer require guzzlehttp/guzzle`
+   * Allow updating columns in DB
+      * `composer require doctrine/dbal`
 
 # Laravel License
 
