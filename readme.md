@@ -34,6 +34,7 @@ Here are some instructions that you can follow after cloning the repository loca
    * [Install sqlite on server](https://laracasts.com/discuss/channels/laravel/connecting-laravel-to-sqlite-in-laravel-52) `sudo apt-get install sqlite3 libsqlite3-dev php7.0-sqlite3`
 * 11/12/2016
    * Add [sendgrid](https://sendgrid.com/docs/Integrate/Frameworks/laravel.html) for forget password!
+      * `composer require guzzlehttp/guzzle`
 
 # Laravel License
 
