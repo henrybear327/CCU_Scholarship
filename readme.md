@@ -14,6 +14,7 @@ Using `Laravel 5.3`, minimal requirements:
 The only way for adding features and code into the master branch is by pull requests! No direct commit on master branch is allowed, because master branch is suppose to be the always-ready demo product branch.
 
 Here are some instructions that you can follow after cloning the repository locally:
+
 1. `chmod -R 777 storage && chmod -R bootstrap/cache`
     * We are currently using SQLite as DB backend. So run `touch database/database.sqlite` at project root , and make sure the folder that the database file is residing in [also has write permission](http://stackoverflow.com/questions/3319112/sqlite-read-only-database).
 2. make a `.env` file
