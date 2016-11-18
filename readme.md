@@ -19,13 +19,13 @@ Here are some instructions that you can follow after cloning the repository loca
     2. make a `.env` file
         * update `APP_URL`
         * use `DB_CONNECTION=sqlite`
+        * setup mail server credentials
     3. generate an app key (`php artisan key:generate`)
     4. run `composer install`
     5. run `php artisan migrate`
     6. setup [ide helper](https://github.com/barryvdh/laravel-ide-helper) if you are using phpstorm. [Reference](http://oomusou.io/phpstorm/phpstorm-ide-helper/)
         * `composer require --dev barryvdh/laravel-ide-helper`
         * After updating composer, add the service provider to the providers array in `config/app.php`, `Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class`
-    7. Setup email server credentials
 
 # System notes
 
