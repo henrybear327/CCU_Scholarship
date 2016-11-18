@@ -22,7 +22,47 @@ Route::get('welcome', function () {
 Route::get('/home', 'HomeController@index');
 
 
-// User login, register, logout, and forget password routes are defined below
+
+/*
+ * administrator dashboard
+ */
+Route::group(['prefix' => 'administrator', 'middleware' => 'CheckAdmin'], function () {
+    // 申請案管理
+    Route::get('/application', 'adminApplicationController@showAllApplication');
+
+
+    // 基數與學費設定
+    Route::get('/capSetting', 'adminCapSettingController@showCurrentSetting');
+
+
+    // 帳號管理
+    Route::get('/accountManagement', 'adminAccountController@showAllAccount');
+
+
+    // 系統申請狀態設定
+    // Route::get('/statusSetting', 'HomeController@statusSetting');
+});
+
+/*
+ * reviewer dashboard
+ */
+Route::group(['prefix' => 'reviewer', 'middleware' => 'CheckReviewer'], function () {
+
+});
+
+/*
+ * student applicant dashboard
+ */
+Route::group(['prefix' => 'student', 'middleware' => 'CheckStudent'], function () {
+    // 學生申請表
+    Route::get('/applicationForm', 'studentApplicationController@showApplicationForm');
+});
+
+
+
+/*
+ * User login, register, logout, and forget password routes are defined below
+ */
 
 // Auth::routes(); // Illuminate/Routing/Router
 // Authentication Routes...
