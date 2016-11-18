@@ -26,6 +26,7 @@ Here are some instructions that you can follow after cloning the repository loca
 6. setup [ide helper](https://github.com/barryvdh/laravel-ide-helper) if you are using phpstorm. [Reference](http://oomusou.io/phpstorm/phpstorm-ide-helper/)
     * `composer require --dev barryvdh/laravel-ide-helper`
     * After updating composer, add the service provider to the providers array in `config/app.php`, `Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class`
+7. run `php artisan ide-helper:generate` and `php artisan ide-helper:meta`
 
 # System notes
 
