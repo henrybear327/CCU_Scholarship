@@ -35,6 +35,10 @@ Route::group(['prefix' => 'administrator', 'middleware' => 'CheckAdmin'], functi
     Route::get('/accountManagement', 'adminAccountController@showAllAccount');
 
 
+    // 公布欄
+    Route::get('/bulletinBoard', 'adminBulletinBoardController@showAllPost');
+
+
     // 系統申請狀態設定
     // Route::get('/statusSetting', 'HomeController@statusSetting');
 });

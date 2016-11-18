@@ -15,10 +15,12 @@
                         @endif!<hr>
 
                         @if(Auth::user()->userType == 3)
-                            <a href="{{ url('/administrator/application') }}">審查介面</a>:可以看到簡單版的申請資料<br>
-                            <a href="{{ url('/administrator/accountManagement') }}">帳號管理</a>：可以觀看所有帳號和任意刪除帳號(對，刪除任意帳號）<br>
-                            <a href="{{ url('/administrator/capSetting') }}">金額上限設定</a>:沒功能，只有靜態畫面<br>
-                            <a href="{{ url('/administrator/statusSetting') }}">系統狀態設定</a>:沒功能，只有靜態畫面<br>
+                            <a href="{{ url('/administrator/application') }}">審查介面</a>:還沒設定database<br>
+                            <a href="{{ url('/administrator/accountManagement') }}">帳號管理</a><br>
+                            <a href="{{ url('/administrator/capSetting') }}">金額上限設定</a><br>
+                            <a href="{{ url('/administrator/bulletinBoard') }}">公布欄</a>:還沒設定database<br>
+
+                            <a href="{{ url('/administrator/statusSetting') }}">系統狀態設定</a>:最後再進行實作<br>
                         @elseif(Auth::user()->userType == 2) reviewer
                         @else
                             TODO: 做申請文件下載區<br>
