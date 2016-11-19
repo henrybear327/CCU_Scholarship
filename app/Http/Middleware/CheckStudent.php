@@ -22,7 +22,7 @@ class CheckStudent
             } else {
                 return redirect()->guest('login');
             }
-        } elseif (Auth::user()->userType != 1) { // 1 is student
+        } elseif (Auth::user()->user_type != 1) { // 1 is student
             return redirect()->guest('login');
         }
 

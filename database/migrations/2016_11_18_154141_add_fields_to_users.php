@@ -14,7 +14,7 @@ class AddFieldsToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('userType')->default(3); // default to admin
+            $table->integer('user_type')->default(3); // default to admin
         });
     }
 
@@ -26,7 +26,7 @@ class AddFieldsToUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('userType');
+            $table->dropColumn('user_type');
         });
     }
 }

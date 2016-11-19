@@ -20,9 +20,9 @@
                 <tr>
                     <td>{{$user->name}}</td>
                     <td>
-                        @if($user->userType == 1)
+                        @if($user->user_type == 1)
                             Student
-                        @elseif($user->userType == 2)
+                        @elseif($user->user_type == 2)
                             Reviewer
                         @else
                             Admin

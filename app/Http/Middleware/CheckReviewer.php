@@ -22,7 +22,7 @@ class CheckReviewer
             } else {
                 return redirect()->guest('login');
             }
-        } elseif (Auth::user()->userType != 3) { // 2 is reviewer
+        } elseif (Auth::user()->user_type != 2) { // 2 is reviewer
             return redirect()->guest('login');
         }
 

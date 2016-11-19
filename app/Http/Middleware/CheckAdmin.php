@@ -22,7 +22,7 @@ class CheckAdmin
             } else {
                 return redirect()->guest('login');
             }
-        } elseif (Auth::user()->userType != 3) { // 3 is admin
+        } elseif (Auth::user()->user_type != 3) { // 3 is admin
             return redirect()->guest('login');
         }
 
