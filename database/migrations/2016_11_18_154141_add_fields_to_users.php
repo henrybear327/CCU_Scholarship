@@ -14,7 +14,7 @@ class AddFieldsToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('user_type')->default(3); // default to admin
+            $table->integer('user_type')->default(1); // default to student
         });
     }
 
