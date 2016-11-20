@@ -44,10 +44,21 @@
                         <span class="icon-bar"></span>
                     </button>
 
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
+                    @if (Auth::check())
+                        <!-- Branding Image -->
+                            <a class="navbar-brand" href="{{ url('/') }}">
+                                {{ config('app.name', 'Laravel') }}
+                            </a>
+
+                            <a class="navbar-brand" href="{{ url('/home') }}">
+                                控制台
+                            </a>
+                    @else
+                        <!-- Branding Image -->
+                        <a class="navbar-brand" href="{{ url('/') }}">
+                            {{ config('app.name', 'Laravel') }}
+                        </a>
+                    @endif
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">

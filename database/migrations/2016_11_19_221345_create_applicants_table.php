@@ -19,6 +19,8 @@ class CreateApplicantsTable extends Migration
             $table->unsignedInteger('id');
             $table->foreign('id')->references('id')->on('users');
 
+            $table->integer('student_id');
+
             $table->unsignedInteger('semester_id');
             $table->foreign('semester_id')->references('semester_id')->on('semesters');
 

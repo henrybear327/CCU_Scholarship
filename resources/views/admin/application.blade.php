@@ -1,33 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h2>收到的申請表</h2>
-                <table class="table table-condensed">
-                    <thead>
-                    <tr>
-                        <th>Student ID</th>
-                        <th>Chinese Name</th>
-                        <th>English Name</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($applications as $application)
-                        <tr>
-                            <td>{{$application->studentID}}</td>
-                            <td>{{$application->ChineseName}}</td>
-                            <td>{{$application->EnglishName}}</td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">

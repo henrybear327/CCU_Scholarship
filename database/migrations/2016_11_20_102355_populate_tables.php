@@ -89,6 +89,7 @@ class PopulateTables extends Migration
         DB::table('applicants')->insert(
             [
                 'id'    => 1,
+                'student_id'    => 403410001,
                 'semester_id' => 1,
                 'department_id' => 2,
                 'reduce_tuition_percentage' => 50,

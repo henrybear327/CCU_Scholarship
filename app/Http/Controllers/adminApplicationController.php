@@ -18,11 +18,6 @@ class adminApplicationController extends Controller
     
     public function showAllApplication()
     {
-        // get all users
-        $applications = DB::table('applicant')->get();
-
-        return view('admin.application', [
-            "applications" => $applications,
-        ]);
+        return view('admin.application');
     }
 }
