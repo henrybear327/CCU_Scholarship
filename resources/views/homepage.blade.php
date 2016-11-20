@@ -10,7 +10,22 @@
                     <div class="panel-heading">系統公告</div>
 
                     <div class="panel-body">
-                        目前開發中！
+                        <table class="table table-condensed">
+                            <thead>
+                            <tr>
+                                <th>公告時間</th>
+                                <th>標題</th>
+                                <th>內文</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>2016/1/1</td>
+                                <td>標題</td>
+                                <td>內文</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
