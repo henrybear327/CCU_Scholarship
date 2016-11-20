@@ -46,6 +46,8 @@ Here are some instructions that you can follow after cloning the repository loca
     * Set timezone to `Asia/Taipei`
 * 11/18/2016
     * Tweak `app/mail.php` to get data from `.env`
+* 11/20/2016
+    * Populate database tables with some data after migration
 
 # Laravel License
 

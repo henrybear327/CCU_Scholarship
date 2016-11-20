@@ -16,11 +16,25 @@ class CreateApplicantsTable extends Migration
         Schema::create('applicants', function (Blueprint $table) {
             $table->increments('applicant_id');
 
+            $table->unsignedInteger('id');
+            $table->foreign('id')->references('id')->on('users');
+
             $table->unsignedInteger('semester_id');
             $table->foreign('semester_id')->references('semester_id')->on('semesters');
 
             $table->unsignedInteger('department_id');
             $table->foreign('department_id')->references('department_id')->on('departments');
+
+            $table->integer('reduce_tuition_percentage');
+            $table->integer('reduce_tuition_amount')->default(-1); //預設先用百分比
+
+            $table->integer('reduce_miscellaneousFees_percentage');
+            $table->integer('reduce_miscellaneousFees_amount')->default(-1);
+
+            $table->integer('reduce_accommodation_percentage');
+            $table->integer('reduce_accommodation_amount')->default(-1);
+
+            $table->integer('livingExpense_amount')->default(0);
 
             $table->timestamps();
         });
