@@ -20,7 +20,8 @@ Here are some instructions that you can follow after cloning the repository loca
 2. make a `.env` file
     * update `APP_URL`
     * use `DB_CONNECTION=sqlite`
-    * setup mail server credentials, and add two new fields `MAIL_ADDRESS` and `MAIL_NAME`
+    * add `#` before `DB_DATABASE=homestead`
+    * setup mail server credentials, and add two new fields `MAIL_ADDRESS` and `MAIL_NAME`
 3. generate an app key (`php artisan key:generate`)
 4. run `composer install`
 5. run `php artisan migrate`
