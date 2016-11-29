@@ -15,7 +15,7 @@ The only way for adding features and code into the master branch is by pull requ
 
 Here are some instructions that you can follow after cloning the repository locally:
 
-1. `chmod -R 777 storage && chmod -R bootstrap/cache`
+1. `chmod -R 777 storage && chmod -R 777 bootstrap/cache`
     * We are currently using SQLite as DB backend. So run `touch database/database.sqlite` at project root , and make sure the folder that the database file is residing in [also has write permission](http://stackoverflow.com/questions/3319112/sqlite-read-only-database).
 2. make a `.env` file
     * update `APP_URL`
