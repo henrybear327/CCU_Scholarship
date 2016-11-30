@@ -19,11 +19,13 @@
                             </tr>
                             </thead>
                             <tbody>
+                            foreach($posts as $post){
                             <tr>
                                 <td>2016/1/1</td>
                                 <td>標題</td>
                                 <td>內文</td>
                             </tr>
+                            }
                             </tbody>
                         </table>
                     </div>
