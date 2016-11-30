@@ -17,13 +17,13 @@ Here are some instructions that you can follow after cloning the repository loca
 
 1. `chmod -R 777 storage && chmod -R 777 bootstrap/cache`
     * We are currently using SQLite as DB backend. So run `touch database/database.sqlite` at project root , and make sure the folder that the database file is residing in [also has write permission](http://stackoverflow.com/questions/3319112/sqlite-read-only-database).
-2. make a `.env` file
+2. run `composer install`
+3. make a `.env` file by copying `.env.example`
    * update `APP_URL`
-   * use `DB_CONNECTION=sqlite`
+   * use `DB_CONNECTION=sqlite` 
    * add `#` before `DB_DATABASE=homestead`
-   * setup mail server credentials, and add two new fields `MAIL_ADDRESS` and `MAIL_NAME`
-3. generate an app key (`php artisan key:generate`)
-4. run `composer install`
+   * setup mail server credentials, and add two new fields `MAIL_ADDRESS` and `MAIL_NAME` (optional for local tests)
+4. generate an app key (`php artisan key:generate`)
 5. run `php artisan migrate`
 6. setup [ide helper](https://github.com/barryvdh/laravel-ide-helper) if you are using phpstorm. [Reference](http://oomusou.io/phpstorm/phpstorm-ide-helper/)
     * `composer require --dev barryvdh/laravel-ide-helper`
