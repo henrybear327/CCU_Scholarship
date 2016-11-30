@@ -17,17 +17,17 @@
                     </tr>
                     </thead>
                     <tbody>
-                    foreach($posts as $post){
+                    @foreach($posts as $post)
                     <tr>
                         <td>2016/1/1</td>
-                        <td>標題</td>
-                        <td>內文</td>
+                        <td>{{$posts->title}}</td>
+                        <td>{{$posts->content}}</td>
                         <td>
                             <button type="button" class="btn btn-primary btn-sm">編輯</button>
                             <button type="button" class="btn btn-danger btn-sm">刪除</button>
                         </td>
                     </tr>
-                    }
+                    @endforeach
                     </tbody>
                 </table>
 
