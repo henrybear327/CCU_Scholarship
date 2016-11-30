@@ -25,6 +25,6 @@ class adminApplicationController extends Controller
     }
 
     public function updateAllApplication() {
-
+        return "GGG";
     }
 }

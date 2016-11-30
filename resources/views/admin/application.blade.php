@@ -18,6 +18,7 @@
                 @endforeach -->
 
                 <form class="form-horizontal" method="post">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <table class="table table-bordered">
                         <thead>
                         <tr>
