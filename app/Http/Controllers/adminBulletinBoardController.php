@@ -18,7 +18,12 @@ class adminBulletinBoardController extends Controller
 
     public function showAllPost()
     {
-        return view('admin.bulletinBoard');
+        // get all post
+        $posts = DB::table('bulletinBoard')->get();
+
+        return view('admin.bulletinBoard', [
+            "posts" => $posts,
+        ]);
     }
     
 }
