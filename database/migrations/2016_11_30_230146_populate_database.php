@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class PopulateTables extends Migration
+class PopulateDatabase extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,6 @@ class PopulateTables extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
-
         DB::table('bulletinBoard')->insert([
             [
                 'title' => "標題一",
@@ -27,6 +23,15 @@ class PopulateTables extends Migration
                 'content' => "內文二",
             ]
         ]);
+
+        DB::table('users')->insert([
+            'name' => 'Admin',
+            'email' => "admin@a.a",
+            'password' => '$2y$10$MTSHAJrzMQBAacruqaAMout2nQcS18.fFruEFzOEJxIkuA94zyrl.',
+            'created_at' => '2016-11-20 10:11:00',
+            'updated_at' => '2016-11-20 10:11:00',
+            'user_type' => '3',
+        ]);
     }
 
     /**
@@ -36,8 +41,6 @@ class PopulateTables extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        
     }
 }
