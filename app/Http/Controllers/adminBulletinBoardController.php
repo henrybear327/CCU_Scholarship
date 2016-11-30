@@ -23,7 +23,7 @@ class adminBulletinBoardController extends Controller
         $posts = DB::table('bulletinBoard')->get();
 
         return view('admin.bulletinBoard', [
-            'posts' => $posts,
+            "posts" => $posts,
         ]);
         
         return view('admin.bulletinBoard');
