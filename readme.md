@@ -72,3 +72,4 @@ mv composer.phar /usr/local/bin/composer
    2. Create `.bashrc` and add `export PATH=$PATH:$HOME/.composer/vendor/bin`
    3. `source ~/.bashrc`
    4. `valet install`
+   5. For more instructions, read [Serving Sites](https://laravel.com/docs/5.3/valet#serving-sites)
