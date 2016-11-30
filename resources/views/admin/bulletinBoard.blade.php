@@ -19,9 +19,9 @@
                     <tbody>
                     @foreach($posts as $post)
                     <tr>
-                        <td>{{$posts->timestamp()}}</td>
-                        <td>{{$posts->title}}</td>
-                        <td>{{$posts->content}}</td>
+                        <td>{{$post->timestamp()}}</td>
+                        <td>{{$post->title}}</td>
+                        <td>{{$post->content}}</td>
                         <td>
                             <button type="button" class="btn btn-primary btn-sm">編輯</button>
                             <button type="button" class="btn btn-danger btn-sm">刪除</button>
