@@ -15,9 +15,16 @@ class adminApplicationController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function showAllApplication()
     {
-        return view('admin.application');
+        $applicants = DB::table('applicants')
+                                ->join('users','users.id','=','applicants.id')
+                                ->get();
+        return view('admin.application',['applicants' => $applicants]);
+    }
+
+    public function updateAllApplication() {
+
     }
 }
