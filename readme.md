@@ -53,3 +53,22 @@ Here are some instructions that you can follow after cloning the repository loca
 # Laravel License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+
+
+# Install on Mac
+
+* Run in terminal to install composer
+   ```
+   php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+   php -r "if (hash_file('SHA384', 'composer-setup.php') === 'aa96f26c2b67226a324c27919f1eb05f21c248b987e6195cad9690d5c1ff713d53020a02ac8c217dbf90a7eacc9d141d') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+   php composer-setup.php
+   php -r "unlink('composer-setup.php');"
+   mv composer.phar /usr/local/bin/composer
+   ```
+* Use homebrew to install php7
+   `brew install homebrew/php/php70`
+* Install valet
+   1. `composer global require laravel/valet`
+   2. Create `.bashrc` and add `export PATH=$PATH:$HOME/.composer/vendor/bin`
+   3. `source ~/.bashrc`
+   4. `valet install`
