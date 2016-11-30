@@ -16,7 +16,7 @@
                     {{$applicant->reduce_accommodation_amount}}
                     {{$applicant->livingExpense_amount}}
                 @endforeach -->
-                
+
                 <form class="form-horizontal" method="post">
                     <table class="table table-bordered">
                         <thead>
@@ -42,8 +42,8 @@
                                 <td>
                                     <select class="form-control" id="fee1" name="assignmentDeadlineMinute"
                                             onChange='selectOnChange(this);'>
-                                        @for ($i = 10; $i <= 100; $i = $i + 10)
-                                            @if (50 == $i)
+                                        @for ($i = 1; $i <= 101; $i = $i + 1)
+                                            @if ($applicant->reduce_tuition_percentage == $i)
                                                 <option value="{{$i}}" selected="selected">{{$i}} %</option>";
                                             @else
                                                 <option value="{{$i}}">{{$i}} %</option>
@@ -58,8 +58,8 @@
                                 <td>
                                     <select class="form-control" id="fee2" name="assignmentDeadlineMinute"
                                             onChange='selectOnChange(this);'>
-                                        @for ($i = 10; $i <= 100; $i = $i + 10)
-                                            @if (50 == $i)
+                                        @for ($i = 1; $i <= 101; $i = $i + 1)
+                                            @if ($applicant->reduce_accommodation_percentage == $i)
                                                 <option value="{{$i}}" selected="selected">{{$i}} %</option>";
                                             @else
                                                 <option value="{{$i}}">{{$i}} %</option>
@@ -74,8 +74,8 @@
                                 <td>
                                     <select class="form-control" id="fee3" name="assignmentDeadlineMinute"
                                             onChange='selectOnChange(this);'>
-                                        @for ($i = 10; $i <= 100; $i = $i + 10)
-                                            @if (50 == $i)
+                                        @for ($i = 1; $i <= 101; $i = $i + 1)
+                                            @if ($applicant->reduce_accommodation_percentage == $i)
                                                 <option value="{{$i}}" selected="selected">{{$i}} %</option>";
                                             @else
                                                 <option value="{{$i}}">{{$i}} %</option>
@@ -141,7 +141,7 @@
         });
 
         function selectOnChange(sel) {
-            if (sel.selectedIndex == 10) {
+            if (sel.selectedIndex == 101) {
                 $('#' + sel.id).siblings('.optional_input').show();
             }
             else {
