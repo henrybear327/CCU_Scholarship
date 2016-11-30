@@ -5,7 +5,8 @@
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4">
-                <form class="form-horizontal" method="POST" action="">
+                <form class="form-horizontal" method="POST" action={{url('student/applicationForm')}}>
+                    {{ csrf_field() }}
                     <div class="form-group">
                         <label for="Identity">身份</label>
                         <div class="radio" id="Identity">

@@ -20,4 +20,9 @@ class studentApplicationController extends Controller
     {
         return view('student.applicationForm');
     }
+    public function addApplicationForm(Request $request)
+    {
+        dd($request);
+    }
+
 }
