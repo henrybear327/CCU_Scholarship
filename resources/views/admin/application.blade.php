@@ -42,7 +42,7 @@
                                 <td>
                                     <select class="form-control" id="fee1" name="assignmentDeadlineMinute"
                                             onChange='selectOnChange(this);'>
-                                        @for ($i = 1; $i <= 101; $i = $i + 1)
+                                        @for ($i = 1; $i <= 100; $i = $i + 1)
                                             @if ($applicant->reduce_tuition_percentage == $i)
                                                 <option value="{{$i}}" selected="selected">{{$i}} %</option>";
                                             @else
@@ -52,13 +52,13 @@
                                         <option value="{{$i}}">其他（請輸入欲減免金額(元）</option>
                                         ";
                                     </select>
-                                    <input type="number" class="form-control optional_input" placeholder="請輸入欲減免金額(元）">
+                                    <input type="number" class="form-control optional_input" id="fee1_optional_input" value='{{$applicant->reduce_tuition_amount}}'>
                                 </td>
 
                                 <td>
                                     <select class="form-control" id="fee2" name="assignmentDeadlineMinute"
                                             onChange='selectOnChange(this);'>
-                                        @for ($i = 1; $i <= 101; $i = $i + 1)
+                                        @for ($i = 1; $i <= 100; $i = $i + 1)
                                             @if ($applicant->reduce_accommodation_percentage == $i)
                                                 <option value="{{$i}}" selected="selected">{{$i}} %</option>";
                                             @else
@@ -68,13 +68,13 @@
                                         <option value="{{$i}}">其他（請輸入欲減免金額(元）</option>
                                         ";
                                     </select>
-                                    <input type="number" class="form-control optional_input" placeholder="請輸入欲減免金額(元）">
+                                    <input type="number" class="form-control optional_input" id="fee2_optional_input" value='{{$applicant->reduce_miscellaneousFees_amount}}'>
                                 </td>
 
                                 <td>
                                     <select class="form-control" id="fee3" name="assignmentDeadlineMinute"
                                             onChange='selectOnChange(this);'>
-                                        @for ($i = 1; $i <= 101; $i = $i + 1)
+                                        @for ($i = 1; $i <= 100; $i = $i + 1)
                                             @if ($applicant->reduce_accommodation_percentage == $i)
                                                 <option value="{{$i}}" selected="selected">{{$i}} %</option>";
                                             @else
@@ -84,11 +84,11 @@
                                         <option value="{{$i}}">其他（請輸入欲減免金額(元）</option>
                                         ";
                                     </select>
-                                    <input type="number" class="form-control optional_input" placeholder="請輸入欲減免金額(元）">
+                                    <input type="number" class="form-control optional_input" id="fee3_optional_input" value='{{$applicant->reduce_accommodation_amount}}'>
                                 </td>
 
                                 <td>
-                                    <input type="number" class="form-control" placeholder="請輸入欲補助金額(元）">
+                                    <input type="number" class="form-control" id="fee4" value='{{$applicant->livingExpense_amount}}'>
                                 </td>
 
                                 <td>
@@ -141,7 +141,7 @@
         });
 
         function selectOnChange(sel) {
-            if (sel.selectedIndex == 101) {
+            if (sel.selectedIndex == 100) {
                 $('#' + sel.id).siblings('.optional_input').show();
             }
             else {
