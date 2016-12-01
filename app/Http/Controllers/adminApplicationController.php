@@ -15,9 +15,49 @@ class adminApplicationController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function showAllApplication()
     {
-        return view('admin.application');
+        $applicants = DB::table('applicants')
+                                ->join('users','users.id','=','applicants.id')
+                                ->get();
+        return view('admin.application',['applicants' => $applicants]);
+    }
+
+    public function updateAllApplication(Request $request) {
+        $input = $request->input();
+
+        $id = $input['id'];
+
+        $fee1 = $input["fee1"];
+        $fee2 = $input["fee2"];
+        $fee3 = $input["fee3"];
+        $fee4 = $input["fee4"];
+
+
+        $fee1_optional_input = $input["fee1_optional_input"];
+        $fee2_optional_input = $input["fee2_optional_input"];
+        $fee3_optional_input = $input["fee3_optional_input"];
+
+
+        DB::table('applicants')
+                    ->where('id', $id)
+                    ->update([
+                        'reduce_tuition_percentage' => $fee1,
+                        'reduce_miscellaneousFees_percentage' => $fee2,
+                        'reduce_accommodation_percentage' => $fee3,
+                        'livingExpense_amount' => $fee4,
+                        'reduce_tuition_amount' => $fee1_optional_input,
+                        'reduce_miscellaneousFees_amount' => $fee2_optional_input,
+                        'reduce_accommodation_amount' => $fee3_optional_input
+                    ]);
+
+        // $applicants = DB::table('applicants')
+        //                         ->join('users','users.id','=','applicants.id')
+        //                         ->get();
+        // return view('admin.application',['applicants' => $applicants]);
+
+        return redirect('administrator/application');
+
     }
 }

@@ -31,6 +31,8 @@ Route::group(['prefix' => 'administrator', 'middleware' => 'CheckAdmin'], functi
     // 申請案管理
     Route::get('/application', 'adminApplicationController@showAllApplication');
 
+    Route::post('/application', 'adminApplicationController@updateAllApplication');
+
 
     // 基數與學費設定
     Route::get('/capSetting', 'adminCapSettingController@showCurrentSetting');
@@ -84,4 +86,3 @@ Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm'
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
-
