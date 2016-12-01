@@ -11,15 +11,15 @@
                         <label for="Identity">身份</label>
                         <div class="radio" id="Identity">
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                <input type="radio" name="Identity" id="optionsRadios1" value="option1" checked>
                                 學士班
                             </label>
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+                                <input type="radio" name="Identity" id="optionsRadios2" value="option1">
                                 碩士班
                             </label>
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+                                <input type="radio" name="Identity" id="optionsRadios3" value="option1">
                                 博士班
                             </label>
                         </div>
@@ -27,20 +27,20 @@
 
                     <div class="form-group">
                         <label for="Input Chinese Name">中文名字</label>
-                        <input type="text" class="form-control" id="Input Chinese Name" placeholder="Chinese Name">
+                        <input type="text" class="form-control" name="Chinese_name" id="Input Chinese Name" placeholder="Chinese Name">
                     </div>
                     <div class="form-group">
                         <label for="Input English Name">英文名字</label>
-                        <input type="text" class="form-control" id="Input English Name " placeholder="English Name">
+                        <input type="text" class="form-control" name="English_name" id="Input English Name " placeholder="English Name">
                     </div>
                     <div class="form-group">
                         <label for="Input Student ID No">學號</label>
-                        <input type="number" class="form-control" id="Input Student ID No" placeholder="Student ID No">
+                        <input type="number" class="form-control" name="student_ID" id="Input Student ID No" placeholder="Student ID No">
                     </div>
 
                     <div class="form-group">
                         <label for="Department">系所</label>
-                        <select id="Department" class="form-control">
+                        <select id="Department" class="form-control" name="Department">
                             <option value="1">文學院</option>
                             <option value="2">理學院</option>
                             <option value="3">社會科學院</option>
@@ -82,22 +82,22 @@
 
                     <div class="form-group">
                         <label for="Input Nationality">國籍</label>
-                        <input type="text" class="form-control" id="Input Nationality" placeholder="Nationality">
+                        <input type="text" class="form-control" id="Input Nationality" name="Nationality" placeholder="Nationality">
                     </div>
 
                     <div class="form-group">
                         <label for="Sex">性別</label>
                         <div class="radio" id="Sex">
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                <input type="radio" name="sex" id="optionsRadios1" value="option1" checked>
                                 男生
                             </label>
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+                                <input type="radio" name="sex" id="optionsRadios1" value="option1">
                                 女生
                             </label>
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+                                <input type="radio" name="sex" id="optionsRadios1" value="option1">
                                 其他
                             </label>
                         </div>
@@ -105,46 +105,46 @@
 
                     <div class="form-group">
                         <label for="Input Passport No">護照號碼</label>
-                        <input type="number" class="form-control" id="Input Passport No" placeholder="Passport No">
+                        <input type="number" class="form-control" id="Input Passport No" name="Passport_num" placeholder="Passport No">
                     </div>
 
 
                     <div class="form-group">
                         <label for="Input ARC No">居留證號碼</label>
-                        <input type="number" class="form-control" id="Input  ARC No" placeholder=" ARC No">
+                        <input type="number" class="form-control" id="Input  ARC No" name="ARC_num" placeholder=" ARC No">
                     </div>
 
                     <div class="form-group">
                         <label for="Input Phone No">聯絡電話</label>
-                        <input type="number" class="form-control" id="Input Phone No" placeholder="Phone No">
+                        <input type="number" class="form-control" id="Input Phone No" name="phone_num" placeholder="Phone No">
                     </div>
 
                     <div class="form-group">
                         <label for="Input Date of Birth">生日</label>
-                        <input type="date" class="form-control" id="Date of Birth" placeholder="Date of Birth">
+                        <input type="date" class="form-control" id="Date of Birth" name="birthday" placeholder="Date of Birth">
                     </div>
 
                     <div class="form-group">
                         <label for="Input Current Address">通訊地址</label>
-                        <input type="text" class="form-control" id="Input Current Address"
+                        <input type="text" class="form-control" name="address" id="Input Current Address"
                                placeholder="Current Address">
                     </div>
 
 
                     <div class="form-group">
                         <label for="Input E-mail">E-mail</label>
-                        <input type="text" class="form-control" id="Input E-mail" placeholder="E-mail">
+                        <input type="text" class="form-control" id="Input E-mail" name="email" placeholder="E-mail">
                     </div>
 
                     <div class="form-group">
                         <label for="PastScholarship">是否接受過其他獎學金? (Have you ever received other scholarship(s)</label>
                         <div class="radio" id="PastScholarship">
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                <input type="radio" name="PastScholarship" id="optionsRadios1" value="option1" checked>
                                 否
                             </label>
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+                                <input type="radio" name="PastScholarship" id="optionsRadios1" value="option1">
                                 是
                             </label>
                         </div>
