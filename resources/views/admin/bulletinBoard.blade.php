@@ -19,7 +19,7 @@
                     <tbody>
                     @foreach($posts as $post)
                     <tr>
-                        <td>{{$post->timestamp()}}</td>
+                        <td>N/A</td>
                         <td>{{$post->title}}</td>
                         <td>{{$post->content}}</td>
                         <td>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use DB;
+
 class adminBulletinBoardController extends Controller
 {
     /**
@@ -25,8 +27,6 @@ class adminBulletinBoardController extends Controller
         return view('admin.bulletinBoard', [
             "posts" => $posts,
         ]);
-        
-        return view('admin.bulletinBoard');
     }
     
 }

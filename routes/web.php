@@ -12,7 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('homepage');
+    // get all post
+    $posts = DB::table('bulletinBoard')->get();
+
+    return view('homepage', [
+        "posts" => $posts,
+    ]);
 });
 
 Route::get('/home', 'HomeController@index');
