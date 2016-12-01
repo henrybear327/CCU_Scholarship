@@ -26,7 +26,48 @@ class adminApplicationController extends Controller
 
     public function updateAllApplication(Request $request) {
         // dd($request);
+        $input = $request->input();
 
-        return $request->input();
+        $id = $input['id'];
+
+        $fee1 = $input["fee1"];
+        $fee2 = $input["fee2"];
+        $fee3 = $input["fee3"];
+        $fee4 = $input["fee4"];
+
+        DB::table('applicants')
+                    ->where('id', $id)
+                    ->update(['reduce_tuition_percentage' => $fee1]);
+        DB::table('applicants')
+                    ->where('id', $id)
+                    ->update(['reduce_miscellaneousFees_percentage' => $fee2]);
+        DB::table('applicants')
+                    ->where('id', $id)
+                    ->update(['reduce_accommodation_percentage' => $fee3]);
+        DB::table('applicants')
+                    ->where('id', $id)
+                    ->update(['livingExpense_amount' => $fee4]);
+
+
+
+        $fee1_optional_input = $input["fee1_optional_input"];
+        $fee2_optional_input = $input["fee2_optional_input"];
+        $fee3_optional_input = $input["fee3_optional_input"];
+
+        DB::table('applicants')
+                    ->where('id', $id)
+                    ->update(['reduce_tuition_amount' => $fee1_optional_input]);
+        DB::table('applicants')
+                    ->where('id', $id)
+                    ->update(['reduce_miscellaneousFees_amount' => $fee2_optional_input]);
+        DB::table('applicants')
+                    ->where('id', $id)
+                    ->update(['reduce_accommodation_amount' => $fee3_optional_input]);
+
+        $applicants = DB::table('applicants')
+                                ->join('users','users.id','=','applicants.id')
+                                ->get();
+        return view('admin.application',['applicants' => $applicants]);
+
     }
 }
