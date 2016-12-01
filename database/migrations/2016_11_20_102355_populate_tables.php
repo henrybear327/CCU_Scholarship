@@ -13,8 +13,6 @@ class PopulateTables extends Migration
      */
     public function up()
     {
-        
-
         DB::table('semesters')->insert([
             [
                 'year' => 2016,
@@ -73,20 +71,6 @@ class PopulateTables extends Migration
                 'updated_at' => '2016-11-20 10:11:00',
             ]
         ]);
-
-        DB::table('applicants')->insert(
-            [
-                'id'    => 1,
-                'student_id'    => 403410001,
-                'semester_id' => 1,
-                'department_id' => 2,
-                'reduce_tuition_percentage' => 50,
-                'reduce_miscellaneousFees_percentage' => 50,
-                'reduce_accommodation_percentage' => 50,
-                'created_at' => '2016-11-20 10:11:00',
-                'updated_at' => '2016-11-20 10:11:00',
-            ]
-        );
 
         DB::table('fees')->insert(
             [

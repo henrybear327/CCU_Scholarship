@@ -38,6 +38,18 @@ class CreateApplicantsTable extends Migration
 
             $table->integer('livingExpense_amount')->default(0);
 
+            $table->string('chinese_name');
+            $table->string('english_name');
+            $table->integer('nationality');
+            $table->integer('sex');
+            $table->string('passport_number');
+            $table->string('ARC_number');
+            $table->string('phone_number');
+            $table->date('birthday');
+            $table->string('address');
+            $table->integer('pastScholarship');
+            $table->integer('how_long');
+
             $table->timestamps();
         });
     }
