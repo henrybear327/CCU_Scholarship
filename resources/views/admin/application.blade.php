@@ -61,7 +61,7 @@
                                     <select class="form-control" id="fee2" name="fee2"
                                             onChange='selectOnChange(this);'>
                                         @for ($i = 1; $i <= 100; $i = $i + 1)
-                                            @if ($applicant->reduce_accommodation_percentage == $i)
+                                            @if ($applicant->reduce_miscellaneousFees_percentage == $i)
                                                 <option value="{{$i}}" selected="selected">{{$i}} %</option>";
                                             @else
                                                 <option value="{{$i}}">{{$i}} %</option>
