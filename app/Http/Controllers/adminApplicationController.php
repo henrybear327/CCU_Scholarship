@@ -63,11 +63,13 @@ class adminApplicationController extends Controller
         DB::table('applicants')
                     ->where('id', $id)
                     ->update(['reduce_accommodation_amount' => $fee3_optional_input]);
+        //
+        // $applicants = DB::table('applicants')
+        //                         ->join('users','users.id','=','applicants.id')
+        //                         ->get();
+        // return view('admin.application',['applicants' => $applicants]);
 
-        $applicants = DB::table('applicants')
-                                ->join('users','users.id','=','applicants.id')
-                                ->get();
-        return view('admin.application',['applicants' => $applicants]);
+        return redirect('administrator/application');
 
     }
 }
