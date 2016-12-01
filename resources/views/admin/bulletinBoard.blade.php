@@ -24,7 +24,7 @@
                         <td>{{$post->content}}</td>
                         <td>
                             <a href="{{ url('administrator/bulletinBoard/edit/') }}/{{$post->post_id}}" class="btn btn-primary">編輯</a>
-                            <button type="button" class="btn btn-danger btn-sm">刪除</button>
+                            <a href="{{ url('administrator/bulletinBoard/delete/') }}/{{$post->post_id}}" class="btn btn-danger">刪除</a>
                         </td>
                     </tr>
                     @endforeach

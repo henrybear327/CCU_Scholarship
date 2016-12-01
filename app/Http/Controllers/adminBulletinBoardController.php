@@ -81,4 +81,11 @@ class adminBulletinBoardController extends Controller
             "posts" => $posts,
         ]);
     }
+
+    public function deletePost($id)
+    {
+        DB::table('bulletinBoard')->where('post_id', '=', $id)->delete();
+
+        return redirect('administrator/bulletinBoard');
+    }
 }
