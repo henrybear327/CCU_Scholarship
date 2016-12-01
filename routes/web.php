@@ -42,6 +42,7 @@ Route::group(['prefix' => 'administrator', 'middleware' => 'CheckAdmin'], functi
 
     // 公布欄
     Route::get('/bulletinBoard', 'adminBulletinBoardController@showAllPost');
+    Route::post('/bulletinBoard', 'adminBulletinBoardController@addPost');
 
 
     // 系統申請狀態設定

@@ -35,18 +35,28 @@
 
                 <h1 class="text-center">新增公告</h1>
 
+                @if (count($errors) > 0)
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
                 <form class="form-horizontal" method="POST" action="">
+                    {{ csrf_field() }}
                     <div class="form-group">
                         <label for="postTitle">請輸入公告標題</label>
-                        <input type="text" id="postTitle" class="form-control" placeholder="Text input">
+                        <input type="text" id="postTitle" class="form-control" name="title" placeholder="請輸入標題">
                     </div>
                     <div class="form-group">
                         <label for="postContent">請輸入公告內文</label>
-                        <textarea class="form-control" id="postContent" rows="3"></textarea>
+                        <textarea class="form-control" id="postContent" name="content" rows="3" placeholder="請輸入公告內文"></textarea>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-success">送出</button>
+                        <button type="submit" class="btn btn-success" name="submitType" value="1">送出</button>
                     </div>
                 </form>
             </div>
