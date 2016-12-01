@@ -44,8 +44,10 @@ Route::group(['prefix' => 'administrator', 'middleware' => 'CheckAdmin'], functi
 
     // 公布欄
     Route::get('/bulletinBoard', 'adminBulletinBoardController@showAllPost');
-
-
+    Route::post('/bulletinBoard', 'adminBulletinBoardController@addPost');
+    Route::get('/bulletinBoard/edit/{id}', 'adminBulletinBoardController@editPost');
+    Route::get('/bulletinBoard/delete/{id}', 'adminBulletinBoardController@deletePost');
+    
     // 系統申請狀態設定
     // Route::get('/statusSetting', 'HomeController@statusSetting');
 });
