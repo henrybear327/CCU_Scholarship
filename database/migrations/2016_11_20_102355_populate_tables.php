@@ -13,9 +13,7 @@ class PopulateTables extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        
 
         DB::table('semesters')->insert([
             [
@@ -43,16 +41,6 @@ class PopulateTables extends Migration
             ]
         ); // 暫定event_type 1 = 開放申請
 
-        DB::table('users')->insert(
-            [
-                'name' => 'Admin',
-                'email' => 'admin@a.a',
-                'password' => '$2y$10$MTSHAJrzMQBAacruqaAMout2nQcS18.fFruEFzOEJxIkuA94zyrl.',
-                'created_at' => '2016-11-20 10:11:00',
-                'updated_at' => '2016-11-20 10:11:00',
-                'user_type' => '3',
-            ]
-        );
 
         DB::table('colleges')->insert([
             [
@@ -123,8 +111,5 @@ class PopulateTables extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
     }
 }

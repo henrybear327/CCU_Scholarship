@@ -12,7 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('homepage');
+    // get all post
+    $posts = DB::table('bulletinBoard')->get();
+
+    return view('homepage', [
+        "posts" => $posts,
+    ]);
 });
 
 Route::get('/home', 'HomeController@index');
@@ -26,6 +31,8 @@ Route::group(['prefix' => 'administrator', 'middleware' => 'CheckAdmin'], functi
     // 申請案管理
     Route::get('/application', 'adminApplicationController@showAllApplication');
 
+    Route::post('/application', 'adminApplicationController@updateAllApplication');
+
 
     // 基數與學費設定
     Route::get('/capSetting', 'adminCapSettingController@showCurrentSetting');
@@ -37,8 +44,10 @@ Route::group(['prefix' => 'administrator', 'middleware' => 'CheckAdmin'], functi
 
     // 公布欄
     Route::get('/bulletinBoard', 'adminBulletinBoardController@showAllPost');
-
-
+    Route::post('/bulletinBoard', 'adminBulletinBoardController@addPost');
+    Route::get('/bulletinBoard/edit/{id}', 'adminBulletinBoardController@editPost');
+    Route::get('/bulletinBoard/delete/{id}', 'adminBulletinBoardController@deletePost');
+    
     // 系統申請狀態設定
     // Route::get('/statusSetting', 'HomeController@statusSetting');
 });
@@ -80,4 +89,3 @@ Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm'
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
-

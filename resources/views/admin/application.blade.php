@@ -6,7 +6,20 @@
             <div class="col-md-8 col-md-offset-2">
                 <h2>管理員審查介面</h2>
 
+                <!-- @foreach($applicants as $applicant)
+                    {{$applicant->name}}
+                    {{$applicant->reduce_tuition_percentage}}
+                    {{$applicant->reduce_tuition_amount}}
+                    {{$applicant->reduce_miscellaneousFees_percentage}}
+                    {{$applicant->reduce_miscellaneousFees_amount}}
+                    {{$applicant->reduce_accommodation_percentage}}
+                    {{$applicant->reduce_accommodation_amount}}
+                    {{$applicant->livingExpense_amount}}
+                @endforeach -->
+
                 <form class="form-horizontal" method="post">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="id" value="{{$applicant->id}}">
                     <table class="table table-bordered">
                         <thead>
                         <tr>
@@ -20,75 +33,77 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td><!-- Trigger the modal with a button -->
-                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal"
-                                        data-target="#myModal">學生 1
-                                </button>
-                            </td>
+                        @foreach($applicants as $applicant)
+                            <tr>
+                                <td><!-- Trigger the modal with a button -->
+                                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal"
+                                            data-target="#myModal"> {{$applicant->name}}
+                                    </button>
+                                </td>
 
-                            <td>
-                                <select class="form-control" id="fee1" name="assignmentDeadlineMinute"
-                                        onChange='selectOnChange(this);'>
-                                    @for ($i = 10; $i <= 100; $i = $i + 10)
-                                        @if (50 == $i)
-                                            <option value="{{$i}}" selected="selected">{{$i}} %</option>";
-                                        @else
-                                            <option value="{{$i}}">{{$i}} %</option>
-                                        @endif
-                                    @endfor
-                                    <option value="{{$i}}">其他（請輸入欲減免金額(元）</option>
-                                    ";
-                                </select>
-                                <input type="number" class="form-control optional_input" placeholder="請輸入欲減免金額(元）">
-                            </td>
+                                <td>
+                                    <select class="form-control" id="fee1" name="fee1"
+                                            onChange='selectOnChange(this);'>
+                                        @for ($i = 1; $i <= 100; $i = $i + 1)
+                                            @if ($applicant->reduce_tuition_percentage == $i)
+                                                <option value="{{$i}}" selected="selected">{{$i}} %</option>";
+                                            @else
+                                                <option value="{{$i}}">{{$i}} %</option>
+                                            @endif
+                                        @endfor
+                                        <option value="{{$i}}">其他（請輸入欲減免金額(元）</option>
+                                        ";
+                                    </select>
+                                    <input type="number" class="form-control optional_input" name="fee1_optional_input" value='{{$applicant->reduce_tuition_amount}}'>
+                                </td>
 
-                            <td>
-                                <select class="form-control" id="fee2" name="assignmentDeadlineMinute"
-                                        onChange='selectOnChange(this);'>
-                                    @for ($i = 10; $i <= 100; $i = $i + 10)
-                                        @if (50 == $i)
-                                            <option value="{{$i}}" selected="selected">{{$i}} %</option>";
-                                        @else
-                                            <option value="{{$i}}">{{$i}} %</option>
-                                        @endif
-                                    @endfor
-                                    <option value="{{$i}}">其他（請輸入欲減免金額(元）</option>
-                                    ";
-                                </select>
-                                <input type="number" class="form-control optional_input" placeholder="請輸入欲減免金額(元）">
-                            </td>
+                                <td>
+                                    <select class="form-control" id="fee2" name="fee2"
+                                            onChange='selectOnChange(this);'>
+                                        @for ($i = 1; $i <= 100; $i = $i + 1)
+                                            @if ($applicant->reduce_miscellaneousFees_percentage == $i)
+                                                <option value="{{$i}}" selected="selected">{{$i}} %</option>";
+                                            @else
+                                                <option value="{{$i}}">{{$i}} %</option>
+                                            @endif
+                                        @endfor
+                                        <option value="{{$i}}">其他（請輸入欲減免金額(元）</option>
+                                        ";
+                                    </select>
+                                    <input type="number" class="form-control optional_input" name="fee2_optional_input" value='{{$applicant->reduce_miscellaneousFees_amount}}'>
+                                </td>
 
-                            <td>
-                                <select class="form-control" id="fee3" name="assignmentDeadlineMinute"
-                                        onChange='selectOnChange(this);'>
-                                    @for ($i = 10; $i <= 100; $i = $i + 10)
-                                        @if (50 == $i)
-                                            <option value="{{$i}}" selected="selected">{{$i}} %</option>";
-                                        @else
-                                            <option value="{{$i}}">{{$i}} %</option>
-                                        @endif
-                                    @endfor
-                                    <option value="{{$i}}">其他（請輸入欲減免金額(元）</option>
-                                    ";
-                                </select>
-                                <input type="number" class="form-control optional_input" placeholder="請輸入欲減免金額(元）">
-                            </td>
+                                <td>
+                                    <select class="form-control" id="fee3" name="fee3"
+                                            onChange='selectOnChange(this);'>
+                                        @for ($i = 1; $i <= 100; $i = $i + 1)
+                                            @if ($applicant->reduce_accommodation_percentage == $i)
+                                                <option value="{{$i}}" selected="selected">{{$i}} %</option>";
+                                            @else
+                                                <option value="{{$i}}">{{$i}} %</option>
+                                            @endif
+                                        @endfor
+                                        <option value="{{$i}}">其他（請輸入欲減免金額(元）</option>
+                                        ";
+                                    </select>
+                                    <input type="number" class="form-control optional_input" name="fee3_optional_input" value='{{$applicant->reduce_accommodation_amount}}'>
+                                </td>
 
-                            <td>
-                                <input type="number" class="form-control" placeholder="請輸入欲補助金額(元）">
-                            </td>
+                                <td>
+                                    <input type="number" class="form-control" name="fee4" value='{{$applicant->livingExpense_amount}}'>
+                                </td>
 
-                            <td>
-                                1000元
-                            </td>
+                                <td>
+                                    1000元
+                                </td>
 
-                            <td>
-                                <button type="submit" class="btn btn-success" value="1" name="assignmentSubmission">
-                                    確認
-                                </button>
-                            </td>
-                        </tr>
+                                <td>
+                                    <button type="submit" class="btn btn-success" value="1" name="assignmentSubmission">
+                                        確認
+                                    </button>
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </form>
@@ -128,7 +143,7 @@
         });
 
         function selectOnChange(sel) {
-            if (sel.selectedIndex == 10) {
+            if (sel.selectedIndex == 100) {
                 $('#' + sel.id).siblings('.optional_input').show();
             }
             else {
@@ -139,4 +154,3 @@
     </script>
 
 @endsection
-

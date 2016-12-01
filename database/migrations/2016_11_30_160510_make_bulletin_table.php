@@ -31,8 +31,6 @@ class MakeBulletinTable extends Migration
      */
     public function down()
     {
-        Schema::table('bulletinBoard', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('bulletinBoard');
     }
 }

@@ -13,17 +13,19 @@
                         <table class="table table-condensed">
                             <thead>
                             <tr>
-                                <th>公告時間</th>
-                                <th>標題</th>
-                                <th>內文</th>
+                                <th class="col-md-2">公告時間</th>
+                                <th class="col-md-5">標題</th>
+                                <th class="col-md-5">內文</th>
                             </tr>
                             </thead>
                             <tbody>
+                            @foreach($posts as $post)
                             <tr>
-                                <td>2016/1/1</td>
-                                <td>標題</td>
-                                <td>內文</td>
+                                <td>{{$post->created_at}}</td>
+                                <td>{{$post->title}}</td>
+                                <td>{{$post->content}}</td>
                             </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
