@@ -24,7 +24,9 @@ class adminApplicationController extends Controller
         return view('admin.application',['applicants' => $applicants]);
     }
 
-    public function updateAllApplication() {
-        return "GGG";
+    public function updateAllApplication(Request $request) {
+        // dd($request);
+
+        return $request->input();
     }
 }

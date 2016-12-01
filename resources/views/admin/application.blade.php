@@ -41,7 +41,7 @@
                                 </td>
 
                                 <td>
-                                    <select class="form-control" id="fee1" name="assignmentDeadlineMinute"
+                                    <select class="form-control" id="fee1" name="fee1"
                                             onChange='selectOnChange(this);'>
                                         @for ($i = 1; $i <= 100; $i = $i + 1)
                                             @if ($applicant->reduce_tuition_percentage == $i)
@@ -53,11 +53,11 @@
                                         <option value="{{$i}}">其他（請輸入欲減免金額(元）</option>
                                         ";
                                     </select>
-                                    <input type="number" class="form-control optional_input" id="fee1_optional_input" value='{{$applicant->reduce_tuition_amount}}'>
+                                    <input type="number" class="form-control optional_input" name="fee1_optional_input" value='{{$applicant->reduce_tuition_amount}}'>
                                 </td>
 
                                 <td>
-                                    <select class="form-control" id="fee2" name="assignmentDeadlineMinute"
+                                    <select class="form-control" id="fee2" name="fee2"
                                             onChange='selectOnChange(this);'>
                                         @for ($i = 1; $i <= 100; $i = $i + 1)
                                             @if ($applicant->reduce_accommodation_percentage == $i)
@@ -69,11 +69,11 @@
                                         <option value="{{$i}}">其他（請輸入欲減免金額(元）</option>
                                         ";
                                     </select>
-                                    <input type="number" class="form-control optional_input" id="fee2_optional_input" value='{{$applicant->reduce_miscellaneousFees_amount}}'>
+                                    <input type="number" class="form-control optional_input" name="fee2_optional_input" value='{{$applicant->reduce_miscellaneousFees_amount}}'>
                                 </td>
 
                                 <td>
-                                    <select class="form-control" id="fee3" name="assignmentDeadlineMinute"
+                                    <select class="form-control" id="fee3" name="fee3"
                                             onChange='selectOnChange(this);'>
                                         @for ($i = 1; $i <= 100; $i = $i + 1)
                                             @if ($applicant->reduce_accommodation_percentage == $i)
@@ -85,11 +85,11 @@
                                         <option value="{{$i}}">其他（請輸入欲減免金額(元）</option>
                                         ";
                                     </select>
-                                    <input type="number" class="form-control optional_input" id="fee3_optional_input" value='{{$applicant->reduce_accommodation_amount}}'>
+                                    <input type="number" class="form-control optional_input" name="fee3_optional_input" value='{{$applicant->reduce_accommodation_amount}}'>
                                 </td>
 
                                 <td>
-                                    <input type="number" class="form-control" id="fee4" value='{{$applicant->livingExpense_amount}}'>
+                                    <input type="number" class="form-control" name="fee4" value='{{$applicant->livingExpense_amount}}'>
                                 </td>
 
                                 <td>
