@@ -10,20 +10,20 @@
                 <table class="table table-condensed">
                     <thead>
                     <tr>
-                        <th>公告時間</th>
-                        <th>標題</th>
-                        <th>內文</th>
-                        <th>操作</th>
+                        <th class="col-md-2">公告時間</th>
+                        <th class="col-md-4">標題</th>
+                        <th class="col-md-4">內文</th>
+                        <th class="col-md-2">操作</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($posts as $post)
                     <tr>
-                        <td>N/A</td>
+                        <td>{{$post->created_at}}</td>
                         <td>{{$post->title}}</td>
                         <td>{{$post->content}}</td>
                         <td>
-                            <button type="button" class="btn btn-primary btn-sm">編輯</button>
+                            <a href="{{ url('administrator/bulletinBoard/edit/') }}/{{$post->post_id}}" class="btn btn-primary">編輯</a>
                             <button type="button" class="btn btn-danger btn-sm">刪除</button>
                         </td>
                     </tr>
@@ -45,18 +45,22 @@
                     </div>
                 @endif
 
-                <form class="form-horizontal" method="POST" action="">
+                <form class="form-horizontal" method="POST" action="{{ url('administrator/bulletinBoard') }} ">
                     {{ csrf_field() }}
+                    <input type="hidden" name="post_id" value="{{$toEditPost->post_id or "-1"}}">
                     <div class="form-group">
                         <label for="postTitle">請輸入公告標題</label>
-                        <input type="text" id="postTitle" class="form-control" name="title" placeholder="請輸入標題">
+                        <input type="text" id="postTitle" class="form-control" name="title" placeholder="請輸入標題"
+                        value="{{ $toEditPost->title or "" }}">
                     </div>
                     <div class="form-group">
                         <label for="postContent">請輸入公告內文</label>
-                        <textarea class="form-control" id="postContent" name="content" rows="3" placeholder="請輸入公告內文"></textarea>
+                        <textarea class="form-control" id="postContent" name="content" rows="3"
+                                  placeholder="請輸入公告內文">{{ $toEditPost->content or "" }}</textarea>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-success" name="submitType" value="1">送出</button>
+                        <button type="submit" class="btn btn-success" name="submitType"
+                                value="{{ isset($toEditPost) ? 2 : 1 }}">送出</button>
                     </div>
                 </form>
             </div>

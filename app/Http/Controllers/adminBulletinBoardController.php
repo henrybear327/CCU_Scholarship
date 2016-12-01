@@ -32,21 +32,53 @@ class adminBulletinBoardController extends Controller
     public function addPost(Request $request)
     {
         $this->validate($request, [
+            'post_id' => 'required',
             'title' => 'required',
             'content' => 'required',
+            'submitType' => 'required',
         ]);
 
         // dd($request);
 
-        DB::table('bulletinBoard')->insert(
-            [
-                'title'         => $request->input('title'),
-                'content'       => $request->input('content'),
-                'created_at'    => Carbon::now(),
-            ]
-        );
+        if($request->input('submitType') == 1) {
+            // 1 -> create
+            DB::table('bulletinBoard')->insert(
+                [
+                    'title'         => $request->input('title'),
+                    'content'       => $request->input('content'),
+                    'created_at'    => Carbon::now(),
+                ]
+            );
+        } else {
+            // 2 -> edit
+            DB::table('bulletinBoard')
+                ->where('post_id', $request->input('post_id'))
+                ->update(
+                [
+                    'title'         => $request->input('title'),
+                    'content'       => $request->input('content'),
+                    'updated_at'    => Carbon::now(),
+                ]
+            );
+        }
+
+        // dd($request);
 
         return redirect('administrator/bulletinBoard');
     }
-    
+
+    public function editPost($id)
+    {
+        // get all post
+        $posts = DB::table('bulletinBoard')->get();
+
+        // post to edit
+        $toEditPost = DB::table('bulletinBoard')->where('post_id', '=', $id)->get();
+        $toEditPost = $toEditPost->first();
+
+        return view('admin.bulletinBoard', [
+            "toEditPost" => $toEditPost,
+            "posts" => $posts,
+        ]);
+    }
 }
