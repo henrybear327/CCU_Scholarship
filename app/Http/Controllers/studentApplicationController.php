@@ -40,7 +40,13 @@ class studentApplicationController extends Controller
 
         ]);
         dd($request);
-
+        /*DB::table('bulletinBoard')->insert(
+            [
+                'title'         => $request->input('title'),
+                'content'       => $request->input('content'),
+                'created_at'    => Carbon::now(),
+            ]
+        );*/
     }
 
 }
