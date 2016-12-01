@@ -19,11 +19,13 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @foreach($posts as $post)
                             <tr>
-                                <td>2016/1/1</td>
-                                <td>標題</td>
-                                <td>內文</td>
+                                <td>{{$post->timestamps()}}</td>
+                                <td>{{$post->title}}</td>
+                                <td>{{$post->content}}</td>
                             </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
