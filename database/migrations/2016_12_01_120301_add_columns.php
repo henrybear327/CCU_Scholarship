@@ -29,7 +29,6 @@ class AddColumns extends Migration
             $table->integer('PastScholarship')->default(-1);
             $table->integer('How_long')->default(-1);
             $table->integer('status')->default(-1);
-            $table->string('hash')->default('No hash');
         });
     }
 
