@@ -11,15 +11,15 @@
                         <label for="Identity">身份</label>
                         <div class="radio" id="Identity">
                             <label>
-                                <input type="radio" name="Identity" id="optionsRadios1" value="option1" checked>
+                                <input type="radio" name="Identity" id="optionsRadios1" value="0" checked>
                                 學士班
                             </label>
                             <label>
-                                <input type="radio" name="Identity" id="optionsRadios2" value="option1">
+                                <input type="radio" name="Identity" id="optionsRadios2" value="1">
                                 碩士班
                             </label>
                             <label>
-                                <input type="radio" name="Identity" id="optionsRadios3" value="option1">
+                                <input type="radio" name="Identity" id="optionsRadios3" value="2">
                                 博士班
                             </label>
                         </div>
@@ -89,15 +89,15 @@
                         <label for="Sex">性別</label>
                         <div class="radio" id="Sex">
                             <label>
-                                <input type="radio" name="sex" id="optionsRadios1" value="option1" checked>
+                                <input type="radio" name="sex" id="optionsRadios1" value="0" checked>
                                 男生
                             </label>
                             <label>
-                                <input type="radio" name="sex" id="optionsRadios1" value="option1">
+                                <input type="radio" name="sex" id="optionsRadios1" value="1">
                                 女生
                             </label>
                             <label>
-                                <input type="radio" name="sex" id="optionsRadios1" value="option1">
+                                <input type="radio" name="sex" id="optionsRadios1" value="2">
                                 其他
                             </label>
                         </div>
@@ -140,11 +140,11 @@
                         <label for="PastScholarship">是否接受過其他獎學金? (Have you ever received other scholarship(s)</label>
                         <div class="radio" id="PastScholarship">
                             <label>
-                                <input type="radio" name="PastScholarship" id="optionsRadios1" value="option1" checked>
+                                <input type="radio" name="PastScholarship" id="optionsRadios1" value="0" checked>
                                 否
                             </label>
                             <label>
-                                <input type="radio" name="PastScholarship" id="optionsRadios1" value="option1">
+                                <input type="radio" name="PastScholarship" id="optionsRadios1" value="1">
                                 是
                             </label>
                         </div>
@@ -152,7 +152,7 @@
 
                     <div class="form-group">
                         <label for="Input How long">如果有，請問有多久？</label>
-                        <input type="text" class="form-control" id="Input How long" placeholder="How long">
+                        <input type="text" class="form-control" name='how_long' id="Input How long" placeholder="How long">
                     </div>
 
                     <div class="form-group">
@@ -167,9 +167,13 @@
                         <p class="help-block">僅接受pdf檔案</p>
                     </div>
 
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-success">確定送出（截止前您都可以更改）</button>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-warning" name="status" value="0">暫存</button>
+                        <button type="submit" class="btn btn-success" name="status" value="1">送出</button>
+                        <br><br>
+                        <div class="alert alert-success"><strong>截止前您都可以更改</strong></div>
                     </div>
+
                 </form>
             </div>
             <div class="col-md-4"></div>

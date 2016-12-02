@@ -15,17 +15,21 @@ class AddColumns extends Migration
     {
         Schema::table('applicants', function (Blueprint $table) {
             //
-            $table->string('Chinese_name');
-            $table->string('English_name');
-            $table->string('Nationality');
-            $table->integer('Sex');
-            $table->string('Passport_number');
-            $table->string('ARC_number');
-            $table->string('Phone_number');
-            $table->date('Birthday');
-            $table->string('Address');
-            $table->integer('PastScholarship');
-            $table->integer('How_long');
+            $table->integer('Identity')->default(-1);
+            $table->string('Chinese_name')->default("No Chinese Name");
+            $table->string('English_name')->default("No English Name");
+            $table->string('Nationality')->default("No Nationality");
+            $table->integer('Sex')->default(-1);
+            $table->string('Passport_number')->default('No Passport Number');
+            $table->string('ARC_number')->default('No ARC Number');
+            $table->string('Phone_number')->default('No Phone Number');
+            $table->date('Birthday')->default('0000-00-00');
+            $table->string('Address')->default('Homeless');
+            $table->string('Email')->default('No Email');
+            $table->integer('PastScholarship')->default(-1);
+            $table->integer('How_long')->default(-1);
+            $table->integer('status')->default(-1);
+            $table->string('hash')->default('No hash');
         });
     }
 
@@ -36,8 +40,6 @@ class AddColumns extends Migration
      */
     public function down()
     {
-        Schema::table('applicants', function (Blueprint $table) {
-            //
-        });
+
     }
 }
