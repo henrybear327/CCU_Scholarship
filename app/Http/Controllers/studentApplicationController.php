@@ -32,23 +32,26 @@ class studentApplicationController extends Controller
     }
     public function addApplicationForm(Request $request)
     {
-        /*$this->validate($request, [
-            'Identity' => 'required',
-            'Chinese_name' => 'required',
-            'English_name' => 'required',
-            'student_ID' => 'required',
-            'Department' => 'required',
-            'Nationality' => 'required',
-            'Passport_num' => 'required',
-            'sex' => 'required',
-            'ARC_num' => 'required',
-            'phone_num' => 'required',
-            'birthday' => 'required',
-            'address' => 'required',
-            'email' => 'required',
-            'PastScholarship' => 'required',
+        if($request->input('status') == 1)
+        {
+            $this->validate($request, [
+                'Identity' => 'required',
+                'Chinese_name' => 'required',
+                'English_name' => 'required',
+                'student_ID' => 'required',
+                'Department' => 'required',
+                'Nationality' => 'required',
+                'Passport_num' => 'required',
+                'sex' => 'required',
+                'ARC_num' => 'required',
+                'phone_num' => 'required',
+                'birthday' => 'required',
+                'address' => 'required',
+                'email' => 'required',
+                'PastScholarship' => 'required',
 
-        ]);*/
+            ]);
+        }
         //dd($request);
         $currentSemester = DB::table('semesters')->
         select('semester_id')->

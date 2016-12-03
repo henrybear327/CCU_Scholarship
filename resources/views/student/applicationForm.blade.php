@@ -20,7 +20,7 @@
                         <label for="Identity">身份</label>
                         <div class="radio" id="Identity">
                             <label>
-                                <input type="radio" name="Identity" id="optionsRadios1" value="0" @if(isset($show) && $show->Identity == 0)checked @endif>
+                                <input type="radio" name="Identity" id="optionsRadios1" value="0" @if((isset($show->Identity) && $show->Identity == 0)||!isset($show))checked @endif>
                                 學士班
                             </label>
                             <label>
@@ -55,7 +55,7 @@
                             <option value="2" @if(isset($show) && $show->department_id == 2)selected="selected" @endif>理學院</option>
                             <option value="3" @if(isset($show) && $show->department_id == 3)selected="selected" @endif>社會科學院</option>
                             <option value="4" @if(isset($show) && $show->department_id == 4)selected="selected" @endif>工學院</option>
-                            <option value="5" @if(isset($show) && $show->department_id == 5)selected="selected" @endif>管理學院</option>
+                            <option value="5" @if((isset($show) && $show->department_id == 5)||!isset($show))selected="selected" @endif>管理學院</option>
                             <option value="6" @if(isset($show) && $show->department_id == 6)selected="selected" @endif>法學院</option>
                             <option value="7" @if(isset($show) && $show->department_id == 7)selected="selected" @endif>教育學院</option>
                             <option value="8" @if(isset($show) && $show->department_id == 8)selected="selected" @endif>中國文學系</option>
@@ -99,7 +99,7 @@
                         <label for="Sex">性別</label>
                         <div class="radio" id="Sex">
                             <label>
-                                <input type="radio" name="sex" id="optionsRadios1" value="0" @if(isset($show) && $show->Sex == 0)checked @endif>
+                                <input type="radio" name="sex" id="optionsRadios1" value="0" @if((isset($show) && $show->Sex == 0)||!isset($show))checked @endif>
                                 男生
                             </label>
                             <label>
@@ -150,7 +150,7 @@
                         <label for="PastScholarship">是否接受過其他獎學金? (Have you ever received other scholarship(s)</label>
                         <div class="radio" id="PastScholarship">
                             <label>
-                                <input type="radio" name="PastScholarship" id="optionsRadios1" value="0" @if(isset($show) && $show->PastScholarship == 0)checked @endif>
+                                <input type="radio" name="PastScholarship" id="optionsRadios1" value="0" @if((isset($show) && $show->PastScholarship == 0)||!isset($show))checked @endif>
                                 否
                             </label>
                             <label>
