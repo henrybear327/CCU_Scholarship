@@ -29,11 +29,9 @@ class CreateFeesTable extends Migration
             $table->integer('tuition_base');
             $table->integer('miscellaneousFees_base');
             $table->integer('accommodation_base');
+            $table->integer('cost_of_living_base');
 
-            // 上限
-            $table->integer('tuition_cap');
-            $table->integer('miscellaneousFees_cap');
-            $table->integer('accommodation_cap');
+
 
             $table->timestamps();
         });
