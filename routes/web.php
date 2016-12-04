@@ -41,13 +41,25 @@ Route::group(['prefix' => 'administrator', 'middleware' => 'CheckAdmin'], functi
     // 帳號管理
     Route::get('/accountManagement', 'adminAccountController@showAllAccount');
 
+    Route::get('/accountManagement/edit/{id}', 'adminAccountController@editAccount');
+    Route::post('/accountManagement/edit/success', 'adminAccountController@updateAccount');
+
+    Route::get('/accountManagement/delete/{id}', 'adminAccountController@deleteAccount');
+
+    Route::get('/accountManagement/createAccount','adminAccountController@createAccount');
+    Route::post('/accountManagement/create/success', 'adminAccountController@Creating');
+    // Route::post('/accountManagement/create/success', function(){
+    //     return 'HI';
+    // });
+
+
 
     // 公布欄
     Route::get('/bulletinBoard', 'adminBulletinBoardController@showAllPost');
     Route::post('/bulletinBoard', 'adminBulletinBoardController@addPost');
     Route::get('/bulletinBoard/edit/{id}', 'adminBulletinBoardController@editPost');
     Route::get('/bulletinBoard/delete/{id}', 'adminBulletinBoardController@deletePost');
-    
+
     // 系統申請狀態設定
     // Route::get('/statusSetting', 'HomeController@statusSetting');
 });

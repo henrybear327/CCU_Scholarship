@@ -30,4 +30,76 @@ class adminAccountController extends Controller
             "users" => $users,
         ]);
     }
+
+    public function createAccount()
+    {
+        return view('admin.accountcreate');
+    }
+
+    public function Creating(Request $request)
+    {
+        //dd($request);
+        if ($request->input('password') != $request->input('password_confirmation'))
+            return view('admin.accountEditError');
+        //dd($request);
+        $this->validate($request, [
+            // 'id' => 'required',
+            'name' => 'required|max:255',
+            'user_type' => 'required',
+            'email' => 'required',
+            'password' => 'required|min:6',
+        ]);
+        //dd($request);
+        DB::table('users')->insert([
+            'name'       => $request->input('name'),
+            'password'   => bcrypt($request->input('password')),
+            'user_type'  => $request->input('user_type'),
+            'email'       => $request->input('email'),
+        ]);
+
+        // dd($request);
+        return redirect('administrator/accountManagement');
+    }
+    public function updateAccount(Request $request)
+    {
+        //dd($request);
+        if ($request->input('password') != $request->input('password_confirmation'))
+            return view('admin.accountEditError');
+
+        $this->validate($request, [
+            'id' => 'required',
+            'name' => 'required|max:255',
+            'password' => 'required|min:6',
+        ]);
+
+        DB::table('users')
+            ->where('id', $request->input('id'))
+            ->update(
+            [
+                'name'       => $request->input('name'),
+                'password'   => bcrypt($request->input('password')),
+            ]
+        );
+
+        // dd($request);
+        return redirect('administrator/accountManagement');
+    }
+
+    public function editAccount($id)
+    {
+        // user to edit
+        $toEditUser = DB::table('users')->where('id', '=', $id)->get();
+        $toEditUser = $toEditUser->first();
+
+        return view('admin.accountEdit', [
+            "toEditUser" => $toEditUser,
+        ]);
+    }
+
+    public function deleteAccount($id)
+    {
+        DB::table('users')->where('id', '=', $id)->delete();
+
+        return redirect('administrator/accountManagement');
+    }
 }
