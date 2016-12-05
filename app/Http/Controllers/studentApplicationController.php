@@ -20,20 +20,23 @@ class studentApplicationController extends Controller
 
     public function showApplicationForm()
     {
+        // get current semester
         $currentSemester = DB::table('semesters')->
         select('semester_id')->
         orderBy('year', 'DESC')->
         orderBy('term', 'DESC')->first();
 
-        $show = DB::table('applicants')->where([['id',Auth::user()->id],['semester_id',$currentSemester->semester_id]])
+        // get the current application
+        $show = DB::table('applicants')->where([['id', Auth::user()->id], ['semester_id', $currentSemester->semester_id]])
             ->first();
 
-        return view('student.applicationForm',["show" => $show]);
+        return view('student.applicationForm', ["show" => $show]);
     }
+
     public function addApplicationForm(Request $request)
     {
-        if($request->input('status') == 1)
-        {
+        if ($request->input('status') == 1) {
+            // upon submission, validate all fields
             $this->validate($request, [
                 'Identity' => 'required',
                 'Chinese_name' => 'required',
@@ -52,14 +55,15 @@ class studentApplicationController extends Controller
 
             ]);
         }
-        //dd($request);
+
+        // if validation succeeded, or this is just a draft -> save it to the database
         $currentSemester = DB::table('semesters')->
         select('semester_id')->
         orderBy('year', 'DESC')->
         orderBy('term', 'DESC')->first();
 
-        if(DB::table('applicants')->where([['id',Auth::user()->id],['semester_id',$currentSemester->semester_id]])->count() == 0)
-        {
+        if (DB::table('applicants')->where([['id', Auth::user()->id], ['semester_id', $currentSemester->semester_id]])->count() == 0) {
+            // no record yet, create a new one
 
             DB::table('applicants')->insert(
                 [
@@ -81,17 +85,17 @@ class studentApplicationController extends Controller
                     'PastScholarship' => $request->input('PastScholarship'),
                     'How_long' => $request->input('how_long'),
                     'status' => $request->input('status'),
-                    'hash' => bcrypt($currentSemester->semester_id.$request->input('Identity').$request->input('Chinese_name').
-                                     $request->input('English_name').$request->input('student_ID').$request->input('Department').
-                                     $request->input('sex').$request->input('Passport_num').$request->input('ARC_num').
-                                     $request->input('birthday').$request->input('email').$request->input('PastScholarship').
-                                     $request->input('how_long')),
+                    'hash' => bcrypt($currentSemester->semester_id . $request->input('Identity') . $request->input('Chinese_name') .
+                        $request->input('English_name') . $request->input('student_ID') . $request->input('Department') .
+                        $request->input('sex') . $request->input('Passport_num') . $request->input('ARC_num') .
+                        $request->input('birthday') . $request->input('email') . $request->input('PastScholarship') .
+                        $request->input('how_long')),
                 ]
             );
-        }
-        else
-        {
-            DB::table('applicants')->where([['id',Auth::user()->id],['semester_id',$currentSemester->semester_id]])->
+        } else {
+            // record exists, update it
+
+            DB::table('applicants')->where([['id', Auth::user()->id], ['semester_id', $currentSemester->semester_id]])->
             update(
                 [
                     'id' => Auth::user()->id,
@@ -112,14 +116,15 @@ class studentApplicationController extends Controller
                     'PastScholarship' => $request->input('PastScholarship'),
                     'How_long' => $request->input('how_long'),
                     'status' => $request->input('status'),
-                    'hash' => bcrypt($currentSemester->semester_id.$request->input('Identity').$request->input('Chinese_name').
-                        $request->input('English_name').$request->input('student_ID').$request->input('Department').
-                        $request->input('sex').$request->input('Passport_num').$request->input('ARC_num').
-                        $request->input('birthday').$request->input('email').$request->input('PastScholarship').
+                    'hash' => bcrypt($currentSemester->semester_id . $request->input('Identity') . $request->input('Chinese_name') .
+                        $request->input('English_name') . $request->input('student_ID') . $request->input('Department') .
+                        $request->input('sex') . $request->input('Passport_num') . $request->input('ARC_num') .
+                        $request->input('birthday') . $request->input('email') . $request->input('PastScholarship') .
                         $request->input('how_long')),
                 ]
             );
         }
+        
         //return view('student.applicationForm');
         return $this->showApplicationForm();
     }
