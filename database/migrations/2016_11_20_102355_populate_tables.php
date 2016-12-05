@@ -95,9 +95,7 @@ class PopulateTables extends Migration
                 'tuition_base' => 10000,
                 'miscellaneousFees_base' => 15000,
                 'accommodation_base' => 20000,
-                'tuition_cap' => 1000000,
-                'miscellaneousFees_cap' => 2000000,
-                'accommodation_cap' => 3000000,
+                'cost_of_living_base' => 20000,
                 'created_at' => '2016-11-20 10:11:00',
                 'updated_at' => '2016-11-20 10:11:00',
             ]

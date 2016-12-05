@@ -23,7 +23,6 @@ Route::get('/', function () {
 Route::get('/home', 'HomeController@index');
 
 
-
 /*
  * administrator dashboard
  */
@@ -36,7 +35,9 @@ Route::group(['prefix' => 'administrator', 'middleware' => 'CheckAdmin'], functi
 
     // 基數與學費設定
     Route::get('/capSetting', 'adminCapSettingController@showCurrentSetting');
-
+    Route::post('/capSetting', 'adminCapSettingController@updateCurrentSetting');
+    //  Route::get('/capSetting', 'adminCapSettingController@showCurrentSetting_cap');
+    //Route::post('/capSetting', 'adminCapSettingController@updateCurrentSetting_cap');
 
     // 帳號管理
     Route::get('/accountManagement', 'adminAccountController@showAllAccount');
@@ -47,7 +48,7 @@ Route::group(['prefix' => 'administrator', 'middleware' => 'CheckAdmin'], functi
     Route::post('/bulletinBoard', 'adminBulletinBoardController@addPost');
     Route::get('/bulletinBoard/edit/{id}', 'adminBulletinBoardController@editPost');
     Route::get('/bulletinBoard/delete/{id}', 'adminBulletinBoardController@deletePost');
-    
+
     // 系統申請狀態設定
     // Route::get('/statusSetting', 'HomeController@statusSetting');
 });
@@ -67,7 +68,6 @@ Route::group(['prefix' => 'student', 'middleware' => 'CheckStudent'], function (
     Route::get('/applicationForm', 'studentApplicationController@showApplicationForm');
     Route::post('/applicationForm', 'studentApplicationController@addApplicationForm');
 });
-
 
 
 /*
