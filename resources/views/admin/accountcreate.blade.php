@@ -5,9 +5,9 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
+                <div class="panel-heading">新增帳戶</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('administrator/accountManagement/create/success') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -21,6 +21,14 @@
                                         <strong>{{ $errors->first('name') }}</strong>
                                     </span>
                                 @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="user_type" class="col-md-4 control-label">Usertype</label>
+
+                            <div class="col-md-6">
+                                <input id="user_type" type="number" class="form-control" name="user_type">
                             </div>
                         </div>
 
@@ -68,8 +76,8 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-success">
-                                    Register
+                                <button type="submit" class="btn btn-primary">
+                                    Create
                                 </button>
                             </div>
                         </div>
