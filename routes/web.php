@@ -65,6 +65,7 @@ Route::group(['prefix' => 'reviewer', 'middleware' => 'CheckReviewer'], function
 Route::group(['prefix' => 'student', 'middleware' => 'CheckStudent'], function () {
     // 學生申請表
     Route::get('/applicationForm', 'studentApplicationController@showApplicationForm');
+    Route::post('/applicationForm', 'studentApplicationController@addApplicationForm');
 });
 
 

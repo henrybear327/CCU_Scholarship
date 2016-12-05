@@ -27,13 +27,13 @@ class CreateApplicantsTable extends Migration
             $table->unsignedInteger('department_id');
             $table->foreign('department_id')->references('department_id')->on('departments');
 
-            $table->integer('reduce_tuition_percentage');
+            $table->integer('reduce_tuition_percentage')->default(0);
             $table->integer('reduce_tuition_amount')->default(-1); //預設先用百分比
 
-            $table->integer('reduce_miscellaneousFees_percentage');
+            $table->integer('reduce_miscellaneousFees_percentage')->default(0);
             $table->integer('reduce_miscellaneousFees_amount')->default(-1);
 
-            $table->integer('reduce_accommodation_percentage');
+            $table->integer('reduce_accommodation_percentage')->default(0);
             $table->integer('reduce_accommodation_amount')->default(-1);
 
             $table->integer('livingExpense_amount')->default(0);
