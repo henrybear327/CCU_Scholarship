@@ -7,6 +7,16 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">修改帳號</div>
                     <div class="panel-body">
+                        @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        
                         <form class="form-horizontal" role="form" method="POST" action="{{ url('administrator/accountManagement/edit/success') }}">
                             {{ csrf_field() }}
                             <input type="hidden" name="id" value="{{$toEditUser->id}}">

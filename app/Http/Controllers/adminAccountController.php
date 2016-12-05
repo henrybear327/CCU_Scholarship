@@ -39,15 +39,12 @@ class adminAccountController extends Controller
     public function Creating(Request $request)
     {
         //dd($request);
-        if ($request->input('password') != $request->input('password_confirmation'))
-            return view('admin.accountEditError');
-        //dd($request);
         $this->validate($request, [
             // 'id' => 'required',
             'name' => 'required|max:255',
             'user_type' => 'required',
             'email' => 'required',
-            'password' => 'required|min:6',
+            'password' => 'required|min:6|confirmed',
         ]);
         //dd($request);
         DB::table('users')->insert([
@@ -60,16 +57,15 @@ class adminAccountController extends Controller
         // dd($request);
         return redirect('administrator/accountManagement');
     }
+
     public function updateAccount(Request $request)
     {
         //dd($request);
-        if ($request->input('password') != $request->input('password_confirmation'))
-            return view('admin.accountEditError');
 
         $this->validate($request, [
             'id' => 'required',
             'name' => 'required|max:255',
-            'password' => 'required|min:6',
+            'password' => 'required|min:6|confirmed',
         ]);
 
         DB::table('users')
