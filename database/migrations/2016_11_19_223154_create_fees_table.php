@@ -31,8 +31,6 @@ class CreateFeesTable extends Migration
             $table->integer('accommodation_base');
             $table->integer('cost_of_living_base');
 
-
-
             $table->timestamps();
         });
     }
