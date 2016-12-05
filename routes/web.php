@@ -41,6 +41,9 @@ Route::group(['prefix' => 'administrator', 'middleware' => 'CheckAdmin'], functi
 
     // 帳號管理
     Route::get('/accountManagement', 'adminAccountController@showAllAccount');
+    Route::post('/accountManagement', 'adminAccountController@addAccount');
+    Route::get('/accountManagement/edit/{id}', 'adminAccountController@editAccount');
+    Route::get('/accountManagement/delete/{id}', 'adminAccountController@deleteAccount');
 
 
     // 公布欄
