@@ -5,8 +5,9 @@
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4">
-                <form class="form-horizontal" method="POST" action={{url('student/applicationForm')}}>
+                <form class="form-horizontal" method="POST" enctype="multipart/form-data" action={{url('student/applicationForm')}}>
                     {{ csrf_field() }}
+
                     <div class="form-group">
                         @if(isset($show) && $show->status == 1)
                         <div class="alert alert-success"><strong>您已送出本申請案</strong></div>
@@ -167,14 +168,26 @@
 
                     <div class="form-group">
                         <label for="exampleInputFile">成績單</label>
-                        <input type="file" id="exampleInputFile">
+                        <input type="file" id="transcript" name="transcript">
                         <p class="help-block">僅接受pdf檔案</p>
+
+                        @if(isset($fileUrl['transcript_url']))
+                            <a href="{{$fileUrl['transcript_url']}}">上次上傳的檔案</a>
+                        @else
+                            您還未上傳檔案
+                        @endif
                     </div>
 
                     <div class="form-group">
                         <label for="exampleInputFile">其他輔助文件</label>
-                        <input type="file" id="exampleInputFile">
+                        <input type="file" id="supportDocument" name="supportDocument">
                         <p class="help-block">僅接受pdf檔案</p>
+
+                        @if(isset($fileUrl['supportDocument_url']))
+                            <a href="{{$fileUrl['supportDocument_url']}}">上次上傳的檔案</a>
+                        @else
+                            您還未上傳檔案
+                        @endif
                     </div>
 
                     <div class="form-group text-center">

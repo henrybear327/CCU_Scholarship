@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
+use Storage;
+use Illuminate\Support\Collection;
 
 class studentApplicationController extends Controller
 {
@@ -20,7 +22,7 @@ class studentApplicationController extends Controller
 
     public function showApplicationForm()
     {
-        // get current semester
+        // get current semester application data
         $currentSemester = DB::table('semesters')->
         select('semester_id')->
         orderBy('year', 'DESC')->
@@ -30,7 +32,22 @@ class studentApplicationController extends Controller
         $show = DB::table('applicants')->where([['id', Auth::user()->id], ['semester_id', $currentSemester->semester_id]])
             ->first();
 
-        return view('student.applicationForm', ["show" => $show]);
+        $fileUrl = [];
+        if($show !== null) { // has draft in system
+            // prepare the file url
+
+            if ($show->transcript_filename !== null) {
+                $url = Storage::url("studentApplication/" . $show->transcript_filename);
+                $fileUrl['transcript_url'] = $url;
+            }
+
+            if ($show->supportDocument_filename !== null) {
+                $url = Storage::url("studentApplication/" . $show->supportDocument_filename);
+                $fileUrl['supportDocument_url'] = $url;
+            }
+        }
+
+        return view('student.applicationForm', ["show" => $show, "fileUrl" => $fileUrl]);
     }
 
     public function addApplicationForm(Request $request)
@@ -52,7 +69,6 @@ class studentApplicationController extends Controller
                 'address' => 'required',
                 'email' => 'required',
                 'PastScholarship' => 'required',
-
             ]);
         }
 
@@ -82,6 +98,24 @@ class studentApplicationController extends Controller
             'How_long' => $request->input('how_long'),
             'status' => $request->input('status'),
         ];
+
+        // dd($request);
+
+        // check for file
+        if($request->hasFile('transcript')) {
+            $path = $request->file('transcript')->store('public/studentApplication'); // in studentApplication folder
+            $hashName = $request->file('transcript')->hashName();
+
+            $dataForDB['transcript_filename'] = $hashName;
+        }
+
+        if($request->hasFile('supportDocument')) {
+            $path = $request->file('supportDocument')->store('public/studentApplication'); // in studentApplication folder
+            $hashName = $request->file('supportDocument')->hashName();
+
+            $dataForDB['supportDocument_filename'] = $hashName;
+        }
+
 
         if (DB::table('applicants')->where([['id', Auth::user()->id], ['semester_id', $currentSemester->semester_id]])->count() == 0) {
             // no record yet, create a new one

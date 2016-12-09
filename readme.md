@@ -29,6 +29,7 @@ Here are some instructions that you can follow after cloning the repository loca
     * `composer require --dev barryvdh/laravel-ide-helper`
     * After updating composer, add the service provider to the providers array in `config/app.php`, `Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class`
 7. run `php artisan ide-helper:generate` and `php artisan ide-helper:meta`
+8. run `php artisan storage:link`
 
 # System notes
 
