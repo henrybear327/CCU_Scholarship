@@ -10,13 +10,26 @@
 
                     <div class="form-group">
                         @if(isset($show) && $show->status == 1)
-                        <div class="alert alert-success"><strong>您已送出本申請案</strong></div>
+                            <div class="alert alert-success"><strong>您已送出本申請案</strong></div>
                         @elseif(isset($show) && $show->status == 0)
-                        <div class="alert alert-warning"><strong>目前為暫存狀態，點按送出才是正式提交</strong>
-                            <button type="submit" class="btn btn-xs btn-success pull-right" name="status" value="1">送出</button>
-                        </div>
+                            <div class="alert alert-warning"><strong>目前為暫存狀態，點按送出才是正式提交</strong>
+                                <button type="submit" class="btn btn-xs btn-success pull-right" name="status" value="1">送出</button>
+                            </div>
                         @endif
                     </div>
+
+                    <div class="form-group">
+                        @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                    </div>
+
                     <div class="form-group">
                         <label for="Identity">身份</label>
                         <div class="radio" id="Identity">

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use DB;
 use Storage;
-use Illuminate\Support\Collection;
+use Validator;
 
 class studentApplicationController extends Controller
 {
@@ -20,6 +20,11 @@ class studentApplicationController extends Controller
         $this->middleware('auth');
     }
 
+    /**
+     * Loads current semester's application form of the specific student.
+     *
+     * @return mixed view
+     */
     public function showApplicationForm()
     {
         // get current semester application data
@@ -34,8 +39,7 @@ class studentApplicationController extends Controller
 
         $fileUrl = [];
         if($show !== null) { // has draft in system
-            // prepare the file url
-
+            // prepare the uploaded file url if exist
             if ($show->transcript_filename !== null) {
                 $url = Storage::url("studentApplication/" . $show->transcript_filename);
                 $fileUrl['transcript_url'] = $url;
@@ -50,11 +54,27 @@ class studentApplicationController extends Controller
         return view('student.applicationForm', ["show" => $show, "fileUrl" => $fileUrl]);
     }
 
+    private function isFileTypeCorrect($request, $filename)
+    {
+        $extension = $request->file($filename)->extension();
+        if($extension !== "pdf") {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     *  Checks the application form submission
+     *
+     * @param Request $request
+     * @return mixed view
+     */
     public function addApplicationForm(Request $request)
     {
-        if ($request->input('status') == 1) {
+        // TODO: limit file uplod size
+        if ($request->input('status') == 1) { // submission request
             // upon submission, validate all fields
-            $this->validate($request, [
+            $validator = Validator::make($request->all(), [
                 'Identity' => 'required',
                 'Chinese_name' => 'required',
                 'English_name' => 'required',
@@ -70,14 +90,85 @@ class studentApplicationController extends Controller
                 'email' => 'required',
                 'PastScholarship' => 'required',
             ]);
+
+            // check if the file is uploaded
+            $validator->after(function ($validator) use ($request) {
+                // get the current application
+                $currentSemester = DB::table('semesters')->
+                select('semester_id')->
+                orderBy('year', 'DESC')->
+                orderBy('term', 'DESC')->first();
+
+                $data = DB::table('applicants')->where([['id', Auth::user()->id], ['semester_id', $currentSemester->semester_id]])
+                    ->first();
+
+                $noError = true;
+                if($data !== null) {
+                    // has draft
+
+                    // no file in database and file check failed...
+                    if ($data->transcript_filename === null
+                        && ($request->hasFile('transcript') == false || $this->isFileTypeCorrect($request, "transcript") == false)) {
+                        $validator->errors()->add('transcript_error', 'Please upload transcript as PDF');
+                        $noError = false;
+                    }
+                    if ($data->supportDocument_filename === null
+                        && ($request->hasFile('supportDocument') == false || $this->isFileTypeCorrect($request, "supportDocument") == false)) {
+                        $validator->errors()->add('supportDocument_error', 'Please upload supporting document as PDF');
+                        $noError = false;
+                    }
+                } else {
+                    // no draft yet!
+
+                    // if file is not uploaded this time or file type incorrect
+                    if($request->hasFile('transcript') == false || $this->isFileTypeCorrect($request, "transcript") == false) {
+                        $validator->errors()->add('transcript_error', 'Please upload transcript as PDF');
+                        $noError = false;
+                    }
+
+                    if($request->hasFile('supportDocument') == false || $this->isFileTypeCorrect($request, "supportDocument") == false) {
+                        $validator->errors()->add('supportDocument_error', 'Please upload supporting document as PDF');
+                        $noError = false;
+                    }
+                }
+
+                return $noError;
+            });
+
+            if ($validator->fails()) {
+                return redirect('student/applicationForm')
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+        } else {
+            // TODO: Show error message after the type check failed
+            $this->validate($request, [
+                'Identity' => 'integer',
+                'Chinese_name' => 'string',
+                'English_name' => 'string',
+                'student_ID' => 'integer',
+                'Department' => 'integer',
+                'Nationality' => 'string',
+                'Passport_num' => 'string',
+                'sex' => 'integer',
+                'ARC_num' => 'string',
+                'phone_num' => 'string',
+                'birthday' => 'date',
+                'address' => 'string',
+                'email' => 'email',
+                'PastScholarship' => 'integer',
+                'transcript' => 'mimetypes:application/pdf',
+                'supportDocument' => 'mimetypes:application/pdf',
+            ]);
         }
 
-        // if validation succeeded, or this is just a draft -> save it to the database
+        // passed validation -> save it to the database
         $currentSemester = DB::table('semesters')->
         select('semester_id')->
         orderBy('year', 'DESC')->
         orderBy('term', 'DESC')->first();
 
+        // prepare data for DB query
         $dataForDB = [
             'id' => Auth::user()->id,
             'semester_id' => $currentSemester->semester_id,
@@ -99,17 +190,20 @@ class studentApplicationController extends Controller
             'status' => $request->input('status'),
         ];
 
-        // dd($request);
+        // prepare file name for DB query
+        if($request->hasFile('transcript') && $request->file('transcript')->isValid()) {
+            // TODO: delete old file if exist
 
-        // check for file
-        if($request->hasFile('transcript')) {
+            // prepare query
             $path = $request->file('transcript')->store('public/studentApplication'); // in studentApplication folder
             $hashName = $request->file('transcript')->hashName();
 
             $dataForDB['transcript_filename'] = $hashName;
         }
 
-        if($request->hasFile('supportDocument')) {
+        if($request->hasFile('supportDocument') && $request->file('supportDocument')->isValid()) {
+            // TODO: delete old file if exist
+            
             $path = $request->file('supportDocument')->store('public/studentApplication'); // in studentApplication folder
             $hashName = $request->file('supportDocument')->hashName();
 
