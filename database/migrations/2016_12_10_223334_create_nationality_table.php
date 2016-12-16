@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSystemStatusTable extends Migration
+class CreateNationalityTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateSystemStatusTable extends Migration
      */
     public function up()
     {
-        Schema::create('systemStatus', function (Blueprint $table) {
-            $table->increments('system_status_id');
+        Schema::create('nationalities', function (Blueprint $table) {
+            $table->increments('nationality_id');
 
-            $table->integer('semester_id');
-            $table->foreign('semester_id')->references('semester_id')->on('semesters');
-
-            $table->integer('current_stage');
+            $table->string('chinese_name');
+            $table->string('english_name');
 
             $table->timestamps();
         });
@@ -32,6 +30,6 @@ class CreateSystemStatusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('systemStatus');
+        Schema::dropIfExists('nationalities');
     }
 }

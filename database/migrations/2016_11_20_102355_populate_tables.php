@@ -35,7 +35,7 @@ class PopulateTables extends Migration
         DB::table('systemStatus')->insert(
             [
                 'semester_id' => 1,
-                'event_type' => 1,
+                'current_stage' => 1,
                 'created_at' => '2016-11-20 10:11:00',
                 'updated_at' => '2016-11-20 10:11:00',
             ]
