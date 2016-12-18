@@ -78,8 +78,6 @@ class studentApplicationController extends Controller
                 'Identity' => 'required',
                 'Chinese_name' => 'required',
                 'English_name' => 'required',
-                'student_ID' => 'required',
-                'Department' => 'required',
                 'Nationality' => 'required',
                 'Passport_num' => 'required',
                 'sex' => 'required',
@@ -141,13 +139,11 @@ class studentApplicationController extends Controller
                     ->withInput();
             }
         } else {
-            // TODO: Show error message after the type check failed
+            // TODO: Show error message after the file type check failed
             $this->validate($request, [
                 'Identity' => 'integer',
                 'Chinese_name' => 'string',
                 'English_name' => 'string',
-                'student_ID' => 'integer',
-                'Department' => 'integer',
                 'Nationality' => 'string',
                 'Passport_num' => 'string',
                 'sex' => 'integer',
@@ -175,10 +171,8 @@ class studentApplicationController extends Controller
             'Identity' => $request->input('Identity'),
             'Chinese_name' => $request->input('Chinese_name'),
             'English_name' => $request->input('English_name'),
-            'Nationality' => $request->input('Nationality'),
-            'student_id' => $request->input('student_ID'),
-            'department_id' => $request->input('Department'),
             'Sex' => $request->input('sex'),
+            'Nationality' => $request->input('Nationality'),
             'Passport_number' => $request->input('Passport_num'),
             'ARC_number' => $request->input('ARC_num'),
             'Phone_number' => $request->input('phone_num'),
@@ -220,7 +214,6 @@ class studentApplicationController extends Controller
 
             DB::table('applicants')->where([['id', Auth::user()->id], ['semester_id', $currentSemester->semester_id]])->update($dataForDB);
         }
-        
         //return view('student.applicationForm');
         return $this->showApplicationForm();
     }

@@ -18,7 +18,7 @@ class AddColumns extends Migration
             $table->integer('identity')->nullable();
             $table->string('chinese_name')->nullable();
             $table->string('english_name')->nullable();
-            $table->integer('nationality')->nullable();
+            $table->string('nationality')->nullable();
             $table->integer('sex')->nullable();
             $table->string('passport_number')->nullable();
             $table->string('arc_number')->nullable();

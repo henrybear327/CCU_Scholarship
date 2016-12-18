@@ -18,14 +18,9 @@ class CreateApplicantsTable extends Migration
 
             $table->unsignedInteger('id');
             $table->foreign('id')->references('id')->on('users');
-
-            $table->integer('student_id');
-
+            
             $table->unsignedInteger('semester_id');
             $table->foreign('semester_id')->references('semester_id')->on('semesters');
-
-            $table->unsignedInteger('department_id');
-            $table->foreign('department_id')->references('department_id')->on('departments');
 
             $table->integer('reduce_tuition_percentage')->default(0);
             $table->integer('reduce_tuition_amount')->default(-1); //預設先用百分比

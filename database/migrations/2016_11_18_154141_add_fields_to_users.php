@@ -15,6 +15,7 @@ class AddFieldsToUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->integer('user_type')->default(1); // default to student
+            $table->integer('student_id')->nullable();
         });
     }
 
