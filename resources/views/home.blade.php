@@ -18,6 +18,45 @@
                 </div>
 
                 <div class="panel panel-info">
+                    <div class="panel-heading">申請時程</div>
+
+                    <div class="panel-body">
+                        <p>最後更新時間：{{$in_use->updated_at or ""}}</p>
+                        <table class="table table-condensed">
+                            <thead>
+                            <tr>
+                                <th class="col-md-6">項目</th>
+                                <th class="col-md-6">日期</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>開放申請</td>
+                                <td>{{$in_use->start_apply_date or ""}}</td>
+                            </tr>
+                            <tr>
+                                <td>結束申請</td>
+                                <td>{{$in_use->end_apply_date or ""}}</td>
+                            </tr>
+                            <tr>
+                                <td>開始審查</td>
+                                <td>{{$in_use->start_review_date or ""}}</td>
+                            </tr>
+                            <tr>
+                                <td>結束審查</td>
+                                <td>{{$in_use->end_review_date or ""}}</td>
+                            </tr>
+                            <tr>
+                                <td>開放查詢結果</td>
+                                <td>{{$in_use->start_show_result_date or ""}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                @if(Auth::user()->user_type != 1)
+                <div class="panel panel-info">
                     <div class="panel-heading">
                         <h3 class="panel-title">進度</h3>
                     </div>
@@ -25,6 +64,7 @@
                         請使用Chrome!
                     </div>
                 </div>
+                @endif
 
                 <div class="panel panel-info">
                     <div class="panel-heading">

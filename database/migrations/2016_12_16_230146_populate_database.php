@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Carbon\Carbon;
 
 class PopulateDatabase extends Migration
 {
@@ -62,10 +63,14 @@ class PopulateDatabase extends Migration
             [
                 'title' => "標題一",
                 'content' => "內文一",
+                'created_at'    => Carbon::now(),
+                'updated_at'    => Carbon::now(),
             ],
             [
                 'title' => "標題二",
                 'content' => "內文二",
+                'created_at'    => Carbon::now(),
+                'updated_at'    => Carbon::now(),
             ]
         ]);
 
