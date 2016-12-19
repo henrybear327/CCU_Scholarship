@@ -40,7 +40,7 @@
                             <tr>
                                 <td><!-- Trigger the modal with a button -->
                                     <button type="button" class="btn btn-info btn-lg" data-toggle="modal"
-                                            data-target="#myModal"> {{$applicant->name}}
+                                            data-target="#myModal-{{$applicant->id}}"> {{$applicant->name}}
                                     </button>
                                 </td>
 
@@ -119,7 +119,8 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
+    @foreach($applicants as $applicant)
+    <div class="modal fade" id="myModal-{{$applicant->id}}" role="dialog">
         <div class="modal-dialog">
 
             <!-- Modal content-->
@@ -129,10 +130,18 @@
                     <h4 class="modal-title">學生資料</h4>
                 </div>
                 <div class="modal-body">
-                    <p>WOW!</p>
-                    學號<br>
-                    系級<br>
-                    ...
+                    <p>中文姓名: {{$applicant->chinese_name or ""}}</p>
+                    <p>英文姓名: {{$applicant->english_name or ""}}</p>
+                    <p>國籍: {{$applicant->nationality or ""}}</p>
+                    <p>性別: {{$applicant->sex == 0 ? "男生" : "女生"}}</p>
+                    <p>護照號碼: {{$applicant->passport_number or ""}}</p>
+                    <p>Arc號碼: {{$applicant->arc_number or ""}}</p>
+                    <p>電話號碼: {{$applicant->phone_number or ""}}</p>
+                    <p>生日: {{$applicant->birthday or ""}}</p>
+                    <p>地址: {{$applicant->address or ""}}</p>
+                    <p>Email: {{$applicant->email or ""}}</p>
+                    <p>領過獎學金: {{$applicant->pastScholarship == 0 ? "否" : "是"}}</p>
+                    <p>領了多久: {{$applicant->how_long or ""}}</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
@@ -141,6 +150,7 @@
 
         </div>
     </div>
+    @endforeach
 
 
     <script>
