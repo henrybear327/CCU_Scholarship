@@ -68,6 +68,10 @@ Route::group(['prefix' => 'administrator', 'middleware' => 'CheckAdmin'], functi
 
     // 系統申請狀態設定
     Route::get('/statusSetting', 'adminStatusController@showStatusSettings');
+
+    
+
+    // 學期設定等等相關操作
     Route::get('/statusSetting/editSemester/{id}', 'adminStatusController@editSemester');
     Route::post('/systemStatus/semester', 'adminStatusController@addSemester');
 });
