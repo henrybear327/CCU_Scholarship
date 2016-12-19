@@ -60,6 +60,7 @@ class adminStatusController extends Controller
                     'term'       => $request->input('term'),
                     'name'       => $request->input('name'),
                     'created_at'    => Carbon::now(),
+                    'updated_at'    => Carbon::now(),
                 ]
             );
         } else {
@@ -72,6 +73,7 @@ class adminStatusController extends Controller
                         'term'       => $request->input('term'),
                         'name'       => $request->input('name'),
                         'created_at'    => Carbon::now(),
+                        'updated_at'    => Carbon::now(),
                     ]
                 );
         }
@@ -113,6 +115,7 @@ class adminStatusController extends Controller
                     ->update(
                         [
                             'in_use' => 0,
+                            'updated_at'    => Carbon::now(),
                         ]
                     );
 
@@ -121,6 +124,7 @@ class adminStatusController extends Controller
                         'semester_id' => $request->input('semester_id'),
                         'created_at' => Carbon::now(),
                         'in_use' => 1,
+                        'updated_at'    => Carbon::now(),
                     ]
                 );
             } else {
@@ -130,6 +134,7 @@ class adminStatusController extends Controller
                     ->update(
                         [
                             'in_use' => 0,
+                            'updated_at'    => Carbon::now(),
                         ]
                     );
 
@@ -139,6 +144,7 @@ class adminStatusController extends Controller
                     ->update(
                         [
                             'in_use' => 1,
+                            'updated_at'    => Carbon::now(),
                         ]
                     );
             }
@@ -168,6 +174,7 @@ class adminStatusController extends Controller
                     'start_review_date' => $request->start_review_date,
                     'end_review_date' => $request->end_review_date,
                     'start_show_result_date' => $request->start_show_result_date,
+                    'updated_at'    => Carbon::now(),
                 ]
             );
 
@@ -182,6 +189,7 @@ class adminStatusController extends Controller
             ->update(
                 [
                     'reviewByCollege' => $request->reviewByCollege,
+                    'updated_at'    => Carbon::now(),
                 ]
             );
 

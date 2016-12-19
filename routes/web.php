@@ -15,8 +15,12 @@ Route::get('/', function () {
     // get all post
     $posts = DB::table('bulletinBoard')->get();
 
+    // get semester in use
+    $in_use = DB::table('systemStatus')->where('in_use', '=', '1')->get()->first();
+
     return view('homepage', [
         "posts" => $posts,
+        "in_use" => $in_use,
     ]);
 });
 
