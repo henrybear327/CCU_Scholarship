@@ -77,6 +77,26 @@
                                         </button>
                                     </div>
                                 </form>
+
+                                <form class="form-horizontal" method="POST"
+                                      action="{{ url('administrator/systemStatus/setReviewer') }} ">
+                                    <h1 class="text-center">審查人員設定</h1>
+
+                                    {{ csrf_field() }}
+
+                                    <div class="form-group">
+                                        <label for="reviewByCollege">開放申請</label>
+                                        <select class="form-control" id="reviewByCollege" name="reviewByCollege">
+                                            <option value="1" {{isset($in_use->reviewByCollege) && $in_use->reviewByCollege == 1 ? "selected" : ""}}>院所審查</option>
+                                            <option value="0" {{isset($in_use->reviewByCollege) && $in_use->reviewByCollege == 0 ? "selected" : ""}}>系所審查</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-success" name="submitType" value="1"> 儲存設定
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                             <div class="col-md-2"></div>
                         </div>

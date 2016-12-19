@@ -173,4 +173,18 @@ class adminStatusController extends Controller
 
         return redirect('administrator/statusSetting');
     }
+
+    public function setReviewer(Request $request)
+    {
+        // update date to database
+        DB::table('systemStatus')
+            ->where('in_use', "=", 1)
+            ->update(
+                [
+                    'reviewByCollege' => $request->reviewByCollege,
+                ]
+            );
+
+        return redirect('administrator/statusSetting');
+    }
 }
