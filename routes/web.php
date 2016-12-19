@@ -67,7 +67,7 @@ Route::group(['prefix' => 'administrator', 'middleware' => 'CheckAdmin'], functi
     Route::get('/bulletinBoard/delete/{id}', 'adminBulletinBoardController@deletePost');
 
     // 系統申請狀態設定
-    // Route::get('/statusSetting', 'HomeController@statusSetting');
+    Route::get('/statusSetting', 'adminStatusController@showStatusSettings');
 });
 
 /*
