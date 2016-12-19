@@ -24,8 +24,12 @@ class adminStatusController extends Controller
         // get all semester
         $semesters = DB::table('semesters')->orderBy('year', 'desc')->orderBy('term', 'desc')->get();
 
+        // get semester in use
+        $in_use = DB::table('systemStatus')->where('in_use', '=', '1')->get()->first();
+
         return view('admin.systemStatus', [
             "semesters" => $semesters,
+            "in_use"    => $in_use,
         ]);
     }
 
@@ -94,5 +98,52 @@ class adminStatusController extends Controller
             "toEditSemester" => $toEditSemester,
             "semesters" => $semesters,
         ]);
+    }
+
+    public function setSemester(Request $request)
+    {
+        if(isset($request->semester_id) && $request->semester_id != -1) {
+            // check if the semester have previous record
+            $count = DB::table('systemStatus')->where('semester_id', '=', $request->semester_id)->count();
+
+            // if no, insert
+            if($count == 0) {
+                // unset other in_use
+                DB::table('systemStatus')
+                    ->update(
+                        [
+                            'in_use' => 0,
+                        ]
+                    );
+
+                DB::table('systemStatus')->insert(
+                    [
+                        'semester_id' => $request->input('semester_id'),
+                        'created_at' => Carbon::now(),
+                        'in_use' => 1,
+                    ]
+                );
+            } else {
+                // if yes, set in_use field!
+                // unset other in_use
+                DB::table('systemStatus')
+                    ->update(
+                        [
+                            'in_use' => 0,
+                        ]
+                    );
+
+                // set current id to in_use
+                DB::table('systemStatus')
+                    ->where('semester_id', "=", $request->input('semester_id'))
+                    ->update(
+                        [
+                            'in_use' => 1,
+                        ]
+                    );
+            }
+        }
+
+        return redirect('administrator/statusSetting');
     }
 }

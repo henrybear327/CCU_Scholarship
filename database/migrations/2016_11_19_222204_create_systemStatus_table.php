@@ -18,9 +18,7 @@ class CreateSystemStatusTable extends Migration
 
             $table->integer('semester_id');
             $table->foreign('semester_id')->references('semester_id')->on('semesters');
-
-            $table->integer('current_stage');
-
+            
             $table->timestamps();
         });
     }

@@ -7,6 +7,44 @@
             <div class="col-md-8">
                 <div class="panel panel-default">
                     <div class="panel-heading">
+                        <h3 class="panel-title">申請時間設定</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <form class="form-horizontal" method="POST"
+                                      action="{{ url('administrator/systemStatus/setSemester') }} ">
+                                    {{ csrf_field() }}
+                                    <div class="form-group">
+                                        <label for="currentSemester">目前學期</label>
+                                        <select id="currentSemester" class="form-control" name="semester_id">
+                                            @if(isset($in_use) == false)
+                                                <option value="-1" selected>請選一個學期</option>
+                                            @endif
+                                            @foreach($semesters as $semester)
+                                                <option value="{{$semester->semester_id}}" {{isset($in_use) && $semester->semester_id == $in_use->semester_id ? "selected" : ""}}>{{$semester->name}}
+                                                    ({{$semester->year}} {{$semester->term == 1 ? "上學期" : "下學期"}})
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-success" name="submitType"
+                                                value="1">使用此學期
+                                        </button>
+                                    </div>
+                                </form>
+
+                                <h1 class="text-center">目前時程</h1>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
                         <h3 class="panel-title">學期操作</h3>
                     </div>
                     <div class="panel-body">

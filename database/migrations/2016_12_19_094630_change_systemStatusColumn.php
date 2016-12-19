@@ -14,13 +14,14 @@ class ChangeSystemStatusColumn extends Migration
     public function up()
     {
         Schema::table('systemStatus', function (Blueprint $table) {
-            $table->dropColumn('current_stage');
+            $table->date('start_apply_date')->nullable();
+            $table->date('end_apply_date')->nullable();
+            $table->date('start_review_date')->nullable();
+            $table->date('end_review_date')->nullable();
+            $table->date('start_show_result_date')->nullable();
 
-            $table->dateTime('start_apply_datetime')->nullable();
-            $table->dateTime('end_apply_datetime')->nullable();
-            $table->dateTime('start_review_datetime')->nullable();
-            $table->dateTime('end_review_datetime')->nullable();
-            $table->dateTime('start_show_result_datetime')->nullable();
+            $table->integer('in_use')->default(0); // 1 in use, 0, not in use
+            $table->integer('reviewByCollege')->default(1); // 1 true 0 false
         });
     }
 

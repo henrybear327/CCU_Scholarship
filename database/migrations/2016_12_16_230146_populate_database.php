@@ -13,33 +13,6 @@ class PopulateDatabase extends Migration
      */
     public function up()
     {
-        DB::table('semesters')->insert([
-            [
-                'year' => 2016,
-                'term' => 1,
-                'name' => '2016秋季班',
-                'created_at' => '2016-11-20 10:11:00',
-                'updated_at' => '2016-11-20 10:11:00',
-            ],
-            [
-                'year' => 2016,
-                'term' => 2,
-                'name' => '2016春季班',
-                'created_at' => '2016-11-20 10:11:00',
-                'updated_at' => '2016-11-20 10:11:00',
-            ]
-        ]);
-
-        DB::table('systemStatus')->insert(
-            [
-                'semester_id' => 1,
-                'current_stage' => 1,
-                'created_at' => '2016-11-20 10:11:00',
-                'updated_at' => '2016-11-20 10:11:00',
-            ]
-        ); // 暫定event_type 1 = 開放申請
-
-
         DB::table('colleges')->insert([
             [
                 'chinese_name' => '文學院',
