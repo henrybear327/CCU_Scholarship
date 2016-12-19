@@ -69,6 +69,7 @@ Route::group(['prefix' => 'administrator', 'middleware' => 'CheckAdmin'], functi
     // 系統申請狀態設定
     Route::get('/statusSetting', 'adminStatusController@showStatusSettings');
     Route::post('/systemStatus/setSemester', 'adminStatusController@setSemester');
+    Route::post('/systemStatus/setTimeline', 'adminStatusController@setTimeline');
 
 
     // 學期設定等等相關操作

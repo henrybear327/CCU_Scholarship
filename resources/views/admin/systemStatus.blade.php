@@ -36,7 +36,47 @@
                                     </div>
                                 </form>
 
-                                <h1 class="text-center">目前時程</h1>
+                                @if (count($errors) > 0)
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+
+                                <form class="form-horizontal" method="POST"
+                                      action="{{ url('administrator/systemStatus/setTimeline') }} ">
+                                    <h1 class="text-center">目前時程</h1>
+
+                                    {{ csrf_field() }}
+
+                                    <div class="form-group">
+                                        <label for="start_apply_date">開放申請</label>
+                                        <input type="date" id="start_apply_date" name="start_apply_date" value="{{$in_use->start_apply_date or ""}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="end_apply_date">結束申請</label>
+                                        <input type="date" id="end_apply_date" name="end_apply_date" value="{{$in_use->end_apply_date or ""}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="start_review_date">開放審查</label>
+                                        <input type="date" id="start_review_date" name="start_review_date" value="{{$in_use->start_review_date or ""}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="end_review_date">結束審查</label>
+                                        <input type="date" id="end_review_date" name="end_review_date" value="{{$in_use->end_review_date or ""}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="start_show_result_date">開放結果</label>
+                                        <input type="date" id="start_show_result_date" name="start_show_result_date" value="{{$in_use->start_show_result_date or ""}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-success" name="submitType" value="1"> 儲存設定
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                             <div class="col-md-2"></div>
                         </div>

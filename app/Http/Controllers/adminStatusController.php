@@ -146,4 +146,31 @@ class adminStatusController extends Controller
 
         return redirect('administrator/statusSetting');
     }
+
+    public function setTimeline(Request $request)
+    {
+        // date_format:Y-m-d
+        $this->validate($request, [
+            'start_apply_date' => 'date_format:Y-m-d',
+            'end_apply_date' => 'date_format:Y-m-d',
+            'start_review_date' => 'date_format:Y-m-d',
+            'end_review_date' => 'date_format:Y-m-d',
+            'start_show_result_date' => 'date_format:Y-m-d',
+        ]);
+
+        // update date to database
+        DB::table('systemStatus')
+            ->where('in_use', "=", 1)
+            ->update(
+                [
+                    'start_apply_date' => $request->start_apply_date,
+                    'end_apply_date' => $request->end_apply_date,
+                    'start_review_date' => $request->start_review_date,
+                    'end_review_date' => $request->end_review_date,
+                    'start_show_result_date' => $request->start_show_result_date,
+                ]
+            );
+
+        return redirect('administrator/statusSetting');
+    }
 }
