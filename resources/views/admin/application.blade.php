@@ -6,34 +6,37 @@
             <div class="col-md-8 col-md-offset-2">
                 <h2>管理員審查介面</h2>
 
-                <!-- @foreach($applicants as $applicant)
-                    {{$applicant->name}}
-                    {{$applicant->reduce_tuition_percentage}}
-                    {{$applicant->reduce_tuition_amount}}
-                    {{$applicant->reduce_miscellaneousFees_percentage}}
-                    {{$applicant->reduce_miscellaneousFees_amount}}
-                    {{$applicant->reduce_accommodation_percentage}}
-                    {{$applicant->reduce_accommodation_amount}}
-                    {{$applicant->livingExpense_amount}}
-                @endforeach -->
+            <!--
+                @foreach($applicants as $applicant)
+                {{$applicant->name}}
+                {{$applicant->reduce_tuition_percentage}}
+                {{$applicant->reduce_tuition_amount}}
+                {{$applicant->reduce_miscellaneousFees_percentage}}
+                {{$applicant->reduce_miscellaneousFees_amount}}
+                {{$applicant->reduce_accommodation_percentage}}
+                {{$applicant->reduce_accommodation_amount}}
+                {{$applicant->livingExpense_amount}}
+            @endforeach
+                    -->
 
-                <form class="form-horizontal" method="post">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <input type="hidden" name="id" value="{{$applicant->id}}">
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th>學生資料</th>
-                            <th>學費減免</th>
-                            <th>雜費減免</th>
-                            <th>住宿減免</th>
-                            <th>生活費補助</th>
-                            <th>應繳金額</th>
-                            <th>操作</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($applicants as $applicant)
+
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>學生資料</th>
+                        <th>學費減免</th>
+                        <th>雜費減免</th>
+                        <th>住宿減免</th>
+                        <th>生活費補助</th>
+                        <th>應繳金額</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($applicants as $applicant)
+                        <form class="form-horizontal" method="post">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <input type="hidden" name="id" value="{{$applicant->id or ""}}">
                             <tr>
                                 <td><!-- Trigger the modal with a button -->
                                     <button type="button" class="btn btn-info btn-lg" data-toggle="modal"
@@ -54,7 +57,8 @@
                                         <option value="{{$i}}">其他（請輸入欲減免金額(元）</option>
                                         ";
                                     </select>
-                                    <input type="number" class="form-control optional_input" name="fee1_optional_input" value='{{$applicant->reduce_tuition_amount}}'>
+                                    <input type="number" class="form-control optional_input" name="fee1_optional_input"
+                                           value='{{$applicant->reduce_tuition_amount}}'>
                                 </td>
 
                                 <td>
@@ -70,7 +74,8 @@
                                         <option value="{{$i}}">其他（請輸入欲減免金額(元）</option>
                                         ";
                                     </select>
-                                    <input type="number" class="form-control optional_input" name="fee2_optional_input" value='{{$applicant->reduce_miscellaneousFees_amount}}'>
+                                    <input type="number" class="form-control optional_input" name="fee2_optional_input"
+                                           value='{{$applicant->reduce_miscellaneousFees_amount}}'>
                                 </td>
 
                                 <td>
@@ -86,11 +91,13 @@
                                         <option value="{{$i}}">其他（請輸入欲減免金額(元）</option>
                                         ";
                                     </select>
-                                    <input type="number" class="form-control optional_input" name="fee3_optional_input" value='{{$applicant->reduce_accommodation_amount}}'>
+                                    <input type="number" class="form-control optional_input" name="fee3_optional_input"
+                                           value='{{$applicant->reduce_accommodation_amount}}'>
                                 </td>
 
                                 <td>
-                                    <input type="number" class="form-control" name="fee4" value='{{$applicant->livingExpense_amount}}'>
+                                    <input type="number" class="form-control" name="fee4"
+                                           value='{{$applicant->livingExpense_amount}}'>
                                 </td>
 
                                 <td>
@@ -103,10 +110,10 @@
                                     </button>
                                 </td>
                             </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </form>
+                        </form>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

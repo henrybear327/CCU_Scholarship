@@ -80,7 +80,6 @@
                             <a href="{{ url('/administrator/statusSetting') }}">系統狀態設定</a><br>
                         @elseif(Auth::user()->user_type == 2) reviewer
                         @else
-                            TODO: 做申請文件下載區<br>
                             <a href="{{ url('/student/applicationForm') }}">學生申請表</a><br>
                         @endif
                     </div>
