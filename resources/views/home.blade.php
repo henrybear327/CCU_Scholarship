@@ -31,20 +31,12 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td>開放申請</td>
-                                <td>{{$in_use->start_apply_date or ""}}</td>
+                                <td>申請期間</td>
+                                <td>{{$in_use->start_apply_date or ""}} ~ {{$in_use->end_apply_date or ""}}</td>
                             </tr>
                             <tr>
-                                <td>結束申請</td>
-                                <td>{{$in_use->end_apply_date or ""}}</td>
-                            </tr>
-                            <tr>
-                                <td>開始審查</td>
-                                <td>{{$in_use->start_review_date or ""}}</td>
-                            </tr>
-                            <tr>
-                                <td>結束審查</td>
-                                <td>{{$in_use->end_review_date or ""}}</td>
+                                <td>審查期間</td>
+                                <td>{{$in_use->start_review_date or ""}} ~ {{$in_use->end_review_date or ""}}</td>
                             </tr>
                             <tr>
                                 <td>開放查詢結果</td>

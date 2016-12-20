@@ -168,12 +168,12 @@
                                                 <input type="radio" name="term" id="term" value="1"
                                                        @if((isset($toEditSemester->term) && $toEditSemester->term == 1)
                                                        || !isset($toEditSemester)) checked @endif>
-                                                上學期
+                                                第一學期
                                             </label>
                                             <label>
                                                 <input type="radio" name="term" id="term" value="2"
                                                        @if(isset($toEditSemester->term) && $toEditSemester->term == 2)checked @endif>
-                                                下學期
+                                                第二學期
                                             </label>
                                         </div>
                                     </div>
