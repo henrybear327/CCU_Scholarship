@@ -24,7 +24,6 @@
                                             @endif
                                             @foreach($semesters as $semester)
                                                 <option value="{{$semester->semester_id}}" {{isset($in_use) && $semester->semester_id == $in_use->semester_id ? "selected" : ""}}>{{$semester->name}}
-                                                    ({{$semester->year}} {{$semester->term == 1 ? "上學期" : "下學期"}})
                                                 </option>
                                             @endforeach
                                         </select>

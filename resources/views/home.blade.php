@@ -5,19 +5,6 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">系統訊息</h3>
-                    </div>
-                    <div class="panel-body">
-                        您的目前的身份是
-                        @if(Auth::user()->user_type == 3) 管理員
-                        @elseif(Auth::user()->user_type == 2) 審查人員
-                        @else 學生
-                        @endif !
-                    </div>
-                </div>
-
-                <div class="panel panel-info">
                     <div class="panel-heading">申請時程</div>
 
                     <div class="panel-body">
@@ -46,17 +33,6 @@
                         </table>
                     </div>
                 </div>
-
-                @if(Auth::user()->user_type != 1)
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">進度</h3>
-                    </div>
-                    <div class="panel-body">
-                        請使用Chrome!
-                    </div>
-                </div>
-                @endif
 
                 <div class="panel panel-info">
                     <div class="panel-heading">
