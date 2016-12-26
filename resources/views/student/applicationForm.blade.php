@@ -5,6 +5,43 @@
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8">
+                @if(isset($needToReadRule) == true)
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Policy</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-10">
+                                    <p>Please read the following document, <a href="{{$needToReadRule}}">National Chung Cheng University
+                                            Implementation Policy of the Scholarship Award for International Students</a>, carefully!</p>
+
+                                    <hr>
+
+                                    <form class="form-horizontal" method="POST" action={{url('student/applicationForm/readRule')}}>
+                                        {{ csrf_field() }}
+
+                                        <div class="form-group">
+                                            <label for="readRule">Declaration</label>
+                                            <p>
+                                                I have read and understand the "National Chung Cheng University
+                                                Implementation Policy of the Scholarship Award for International Students", and I accept and agree
+                                                to all of its terms and conditions.
+                                            </p>
+                                            <input id="readRule" type="checkbox" name="readRule" value="1"> Agree
+                                        </div>
+
+                                        <div class="form-group text-center">
+                                            <button type="submit" class="btn btn-success" name="status" value="1">送出 Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-md-1"></div>
+                            </div>
+                        </div>
+                    </div>
+                @else
                 <form class="form-horizontal" method="POST" enctype="multipart/form-data"
                       action={{url('student/applicationForm')}}>
                     {{ csrf_field() }}
@@ -280,8 +317,8 @@
                         <button type="submit" class="btn btn-warning" name="status" value="0">暫存 Save draft</button>
                         <button type="submit" class="btn btn-success" name="status" value="1">送出 Submit application</button>
                     </div>
-
                 </form>
+                @endif
             </div>
             <div class="col-md-2"></div>
         </div>

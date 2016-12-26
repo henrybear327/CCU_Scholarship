@@ -21,6 +21,29 @@ class studentApplicationController extends Controller
         $this->middleware('auth');
     }
 
+    public function readRule(Request $request)
+    {
+        if($request->readRule == 1) {
+            // get semester in use
+            $currentSemester = DB::table('systemStatus')
+                ->join('semesters', 'semesters.semester_id', '=', 'systemStatus.semester_id')
+                ->where('in_use', '=', '1')
+                ->get()
+                ->first();
+
+            // prepare data for DB query
+            $dataForDB = [
+                'id' => Auth::user()->id,
+                'semester_id' => $currentSemester->semester_id,
+                'has_read_rule' =>1,
+            ];
+
+            DB::table('applicants')->insert($dataForDB);
+        }
+
+        return $this->showApplicationForm();
+    }
+
     /**
      * Loads current semester's application form of the specific student.
      *
@@ -39,8 +62,15 @@ class studentApplicationController extends Controller
         $show = DB::table('applicants')->where([['id', Auth::user()->id], ['semester_id', $currentSemester->semester_id]])
             ->first();
 
+        // check if the rules have been read
+        $ruleURL = "http://oia.ccu.edu.tw/ciaeenglish/upload/aboutDoc6/20161020155517sd1H.pdf";
+
         $fileUrl = [];
         if ($show !== null) { // has draft in system
+            if($show->has_read_rule == 0) {
+                return view('student.applicationForm', ["show" => $show, "fileUrl" => $fileUrl, "needToReadRule" => $ruleURL]);
+            }
+
             // prepare the uploaded file url if exist
             if ($show->transcript_filename !== null) {
                 $url = Storage::url("studentApplication/" . $show->transcript_filename);
@@ -51,6 +81,9 @@ class studentApplicationController extends Controller
                 $url = Storage::url("studentApplication/" . $show->supportDocument_filename);
                 $fileUrl['supportDocument_url'] = $url;
             }
+        } else {
+            // no draft -> rules not read yet
+            return view('student.applicationForm', ["show" => $show, "fileUrl" => $fileUrl, "needToReadRule" => $ruleURL]);
         }
 
         return view('student.applicationForm', ["show" => $show, "fileUrl" => $fileUrl]);
