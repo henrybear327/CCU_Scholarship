@@ -27,11 +27,12 @@ class studentApplicationController extends Controller
      */
     public function showApplicationForm()
     {
-        // get current semester application data
-        $currentSemester = DB::table('semesters')->
-        select('semester_id')->
-        orderBy('year', 'DESC')->
-        orderBy('term', 'DESC')->first();
+        // get semester in use
+        $currentSemester = DB::table('systemStatus')
+            ->join('semesters', 'semesters.semester_id', '=', 'systemStatus.semester_id')
+            -> where('in_use', '=', '1')
+            ->get()
+            ->first();
 
         // get the current application
         $show = DB::table('applicants')->where([['id', Auth::user()->id], ['semester_id', $currentSemester->semester_id]])
@@ -71,7 +72,7 @@ class studentApplicationController extends Controller
      */
     public function addApplicationForm(Request $request)
     {
-        // TODO: limit file uplod size
+        // TODO: limit file upload size
         if ($request->input('status') == 1) { // submission request
             // upon submission, validate all fields
             $validator = Validator::make($request->all(), [
@@ -91,11 +92,12 @@ class studentApplicationController extends Controller
 
             // check if the file is uploaded
             $validator->after(function ($validator) use ($request) {
-                // get the current application
-                $currentSemester = DB::table('semesters')->
-                select('semester_id')->
-                orderBy('year', 'DESC')->
-                orderBy('term', 'DESC')->first();
+                // get semester in use
+                $currentSemester = DB::table('systemStatus')
+                    -> join('semesters', 'semesters.semester_id', '=', 'systemStatus.semester_id')
+                    -> where('in_use', '=', '1')
+                    -> get()
+                    -> first();
 
                 $data = DB::table('applicants')->where([['id', Auth::user()->id], ['semester_id', $currentSemester->semester_id]])
                     ->first();
@@ -159,10 +161,12 @@ class studentApplicationController extends Controller
         }
 
         // passed validation -> save it to the database
-        $currentSemester = DB::table('semesters')->
-        select('semester_id')->
-        orderBy('year', 'DESC')->
-        orderBy('term', 'DESC')->first();
+        // get semester in use
+        $currentSemester = DB::table('systemStatus')
+            -> join('semesters', 'semesters.semester_id', '=', 'systemStatus.semester_id')
+            -> where('in_use', '=', '1')
+            -> get()
+            -> first();
 
         // prepare data for DB query
         $dataForDB = [
