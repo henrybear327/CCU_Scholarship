@@ -18,14 +18,20 @@
                                 <div class="col-md-1"></div>
                                 <div class="col-md-10">
                                     <div class="form-group">
-                                        @if(isset($show) && $show->status == 1)
-                                            <div class="alert alert-success"><strong>您已送出本申請案<br>The application has been
-                                                    submitted</strong></div>
-                                        @elseif(isset($show) && $show->status == 0)
-                                            <div class="alert alert-warning"><strong>目前為暫存狀態，點按送出才是正式提交<br> The draft has been saved.
-                                                    Please remember to click the submit button to officially submit the
-                                                    application.</strong>
+                                        @if(Session::has('resubmission'))
+                                            <div class="alert alert-danger">
+                                                {{Session::get('resubmission')}}
                                             </div>
+                                        @else
+                                            @if(isset($show) && $show->status == 1)
+                                                <div class="alert alert-success"><strong>您已送出本申請案<br>The application has been
+                                                        submitted</strong></div>
+                                            @elseif(isset($show) && $show->status == 0)
+                                                <div class="alert alert-warning"><strong>目前為暫存狀態，點按送出才是正式提交<br> The draft has been saved.
+                                                        Please remember to click the submit button to officially submit the
+                                                        application.</strong>
+                                                </div>
+                                            @endif
                                         @endif
                                     </div>
 
@@ -266,11 +272,7 @@
 
                     <div class="form-group text-center">
                         <button type="submit" class="btn btn-warning" name="status" value="0">暫存 Save draft</button>
-                        <button type="submit" class="btn btn-success" name="status" value="1">送出 Submit application
-                        </button>
-                        <br><br>
-                        <div class="alert alert-success"><strong>截止前您都可以更改申請資料<br>You can edit the application before
-                                deadline or submission</strong></div>
+                        <button type="submit" class="btn btn-success" name="status" value="1">送出 Submit application</button>
                     </div>
 
                 </form>

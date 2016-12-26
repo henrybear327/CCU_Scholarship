@@ -73,6 +73,13 @@ class studentApplicationController extends Controller
      */
     public function addApplicationForm(Request $request)
     {
+        // get semester in use
+        $currentSemester = DB::table('systemStatus')
+            ->join('semesters', 'semesters.semester_id', '=', 'systemStatus.semester_id')
+            ->where('in_use', '=', '1')
+            ->get()
+            ->first();
+
         // TODO: limit file upload size
         if ($request->input('status') == 1) { // submission request
             // upon submission, validate all fields
@@ -95,14 +102,7 @@ class studentApplicationController extends Controller
 
             // for identity = 0 (bachlor student), the transcript is required
             // for identity != 0 (master, PhD), the either transcript or supporting document is required
-            $validator->after(function ($validator) use ($request) {
-                // get semester in use
-                $currentSemester = DB::table('systemStatus')
-                    ->join('semesters', 'semesters.semester_id', '=', 'systemStatus.semester_id')
-                    ->where('in_use', '=', '1')
-                    ->get()
-                    ->first();
-
+            $validator->after(function ($validator) use ($request, $currentSemester) {
                 $data = DB::table('applicants')->where([['id', Auth::user()->id], ['semester_id', $currentSemester->semester_id]])
                     ->first();
 
@@ -212,12 +212,6 @@ class studentApplicationController extends Controller
         }
 
         // passed validation -> save it to the database
-        // get semester in use
-        $currentSemester = DB::table('systemStatus')
-            ->join('semesters', 'semesters.semester_id', '=', 'systemStatus.semester_id')
-            ->where('in_use', '=', '1')
-            ->get()
-            ->first();
 
         // prepare data for DB query
         $dataForDB = [
@@ -265,8 +259,13 @@ class studentApplicationController extends Controller
 
             DB::table('applicants')->insert($dataForDB);
         } else {
-            // record exists, update it
+            // block resubmission
+            if(DB::table('applicants')->where([['id', Auth::user()->id], ['semester_id', $currentSemester->semester_id]])->first()->status == 1) {
+                $request->session()->flash('resubmission', "你已經遞出申請了！申請表已經無法更改。 You have already submitted! The application can't be changed.");
+                return $this->showApplicationForm();
+            }
 
+            // record exists, update it
             DB::table('applicants')->where([['id', Auth::user()->id], ['semester_id', $currentSemester->semester_id]])->update($dataForDB);
         }
         //return view('student.applicationForm');
