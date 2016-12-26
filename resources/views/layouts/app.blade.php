@@ -29,6 +29,8 @@
         ga('create', 'UA-86084750-1', 'auto');
         ga('send', 'pageview');
     </script>
+
+    <script src="//cdn.ckeditor.com/4.6.1/basic/ckeditor.js"></script>
 </head>
 <body>
     <div id="app">

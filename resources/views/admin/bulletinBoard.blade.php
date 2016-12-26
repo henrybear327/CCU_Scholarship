@@ -21,7 +21,7 @@
                     <tr>
                         <td>{{$post->created_at}}</td>
                         <td>{{$post->title}}</td>
-                        <td>{{$post->content}}</td>
+                        <td>{!! $post->content !!}</td>
                         <td>
                             <a href="{{ url('administrator/bulletinBoard/edit/') }}/{{$post->post_id}}" class="btn btn-primary">編輯</a>
                             <a href="{{ url('administrator/bulletinBoard/delete/') }}/{{$post->post_id}}" class="btn btn-danger">刪除</a>
@@ -57,6 +57,9 @@
                         <label for="postContent">請輸入公告內文</label>
                         <textarea class="form-control" id="postContent" name="content" rows="3"
                                   placeholder="請輸入公告內文">{{ $toEditPost->content or "" }}</textarea>
+                        <script>
+                            CKEDITOR.replace( 'content' );
+                        </script>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-success" name="submitType"

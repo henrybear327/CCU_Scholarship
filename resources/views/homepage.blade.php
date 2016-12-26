@@ -53,7 +53,7 @@
                             <tr>
                                 <td>{{$post->created_at}}</td>
                                 <td>{{$post->title}}</td>
-                                <td>{{$post->content}}</td>
+                                <td>{!! $post->content !!}</td>
                             </tr>
                             @endforeach
                             </tbody>
