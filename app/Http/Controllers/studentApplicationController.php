@@ -58,7 +58,7 @@ class studentApplicationController extends Controller
     private function isFileTypeCorrect($request, $filename)
     {
         $extension = $request->file($filename)->extension();
-        if ($extension !== "pdf") {
+        if ($extension === "pdf") {
             return true;
         }
         return false;
@@ -66,6 +66,7 @@ class studentApplicationController extends Controller
 
     /**
      *  Checks the application form submission
+     *
      *
      * @param Request $request
      * @return mixed view
@@ -91,6 +92,9 @@ class studentApplicationController extends Controller
             ]);
 
             // check if the file is uploaded
+
+            // for identity = 0 (bachlor student), the transcript is required
+            // for identity != 0 (master, PhD), the either transcript or supporting document is required
             $validator->after(function ($validator) use ($request) {
                 // get semester in use
                 $currentSemester = DB::table('systemStatus')
@@ -103,34 +107,79 @@ class studentApplicationController extends Controller
                     ->first();
 
                 $noError = true;
+
                 if ($data !== null) {
                     // has draft
 
-                    // no file in database and file check failed...
-                    if ($data->transcript_filename === null
-                        && ($request->hasFile('transcript') == false || $this->isFileTypeCorrect($request, "transcript") == false)
-                    ) {
-                        $validator->errors()->add('transcript_error', 'Please upload transcript as PDF');
-                        $noError = false;
-                    }
-                    if ($data->supportDocument_filename === null
-                        && ($request->hasFile('supportDocument') == false || $this->isFileTypeCorrect($request, "supportDocument") == false)
-                    ) {
-                        $validator->errors()->add('supportDocument_error', 'Please upload supporting document as PDF');
-                        $noError = false;
+                    if($request->input('Identity') == 0) {
+                        // must have transcript
+                        if ($data->transcript_filename === null
+                            && ($request->hasFile('transcript') == false || $this->isFileTypeCorrect($request, "transcript") == false)
+                        ) {
+                            $validator->errors()->add('transcript_error', 'Here Please upload transcript as PDF');
+                            $noError = false;
+                        }
+                    } else {
+                        // check for wrong file type
+                        if($request->hasFile('transcript') == true && $this->isFileTypeCorrect($request, "transcript") == false) {
+                            $validator->errors()->add('transcript_error', 'Please upload transcript as PDF');
+                            $noError = false;
+                        }
+
+                        if($request->hasFile('supportDocument') == true && $this->isFileTypeCorrect($request, "supportDocument") == false) {
+                            $validator->errors()->add('supportDocument_error', 'Please upload supporting document as PDF');
+                            $noError = false;
+                        }
+
+                        if($noError == true) {
+                            // no error so far, check we have at least one document
+                            $count_attachment = 0;
+
+                            if ($request->hasFile('transcript') == true || $data->transcript_filename !== null)
+                                $count_attachment++;
+                            if ($request->hasFile('supportDocument') == true || $data->supportDocument_filename !== null)
+                                $count_attachment++;
+
+                            if($count_attachment == 0) {
+                                $validator->errors()->add('noDocument_error', 'Please upload either transcript or supporting document as PDF');
+                                $noError = false;
+                            }
+                        }
                     }
                 } else {
                     // no draft yet!
+                    if($request->input('Identity') == 0) {
+                        // must have transcript
+                        if ($request->hasFile('transcript') == false || $this->isFileTypeCorrect($request, "transcript") == false) {
+                            $validator->errors()->add('transcript_error', 'Please upload transcript as PDF');
+                            $noError = false;
+                        }
+                    } else {
+                        $count_attachment = 0;
 
-                    // if file is not uploaded this time or file type incorrect
-                    if ($request->hasFile('transcript') == false || $this->isFileTypeCorrect($request, "transcript") == false) {
-                        $validator->errors()->add('transcript_error', 'Please upload transcript as PDF');
-                        $noError = false;
-                    }
+                        // check for wrong file type
+                        if($request->hasFile('transcript') == true) {
+                            if($this->isFileTypeCorrect($request, "transcript") == false) {
+                                $validator->errors()->add('transcript_error', 'Please upload transcript as PDF');
+                                $noError = false;
+                            } else {
+                                $count_attachment++;
+                            }
+                        }
 
-                    if ($request->hasFile('supportDocument') == false || $this->isFileTypeCorrect($request, "supportDocument") == false) {
-                        $validator->errors()->add('supportDocument_error', 'Please upload supporting document as PDF');
-                        $noError = false;
+                        if($request->hasFile('supportDocument') == true) {
+                            if($this->isFileTypeCorrect($request, "supportDocument") == false) {
+                                $validator->errors()->add('supportDocument_error', 'Please upload supporting document as PDF');
+                                $noError = false;
+                            } else {
+                                $count_attachment++;
+                            }
+                        }
+
+                        if($count_attachment == 0) {
+                            $validator->errors()->add('noDocument_error', 'Please upload either transcript or supporting document as PDF');
+                            $noError = false;
+                        }
                     }
                 }
 
