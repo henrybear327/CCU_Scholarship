@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
@@ -73,6 +74,28 @@ class studentApplicationController extends Controller
      */
     public function addApplicationForm(Request $request)
     {
+        // block submission before start
+        $in_use = DB::table('systemStatus')->where('in_use', '=', '1')->get()->first();
+        $parsedData = Carbon::parse($in_use->start_apply_date);
+        if($in_use === null || $in_use->start_apply_date === null || Carbon::today()->lt($parsedData)) {
+            $request->session()->flash('dateError', "申請尚未開放！ The application can't be submitted yet!");
+            return $this->showApplicationForm();
+        }
+
+        // block submission after deadline
+        // http://carbon.nesbot.com/docs/
+        // get semester in use
+        $in_use = DB::table('systemStatus')->where('in_use', '=', '1')->get()->first();
+        $parsedData = Carbon::parse($in_use->end_apply_date);
+        //dd($parsedData);
+        //dd(Carbon::now());
+
+        // use today() to compare with the parsed data (resulting in comparing only the date!)
+        if(Carbon::today()->gt($parsedData)) {
+            $request->session()->flash('dateError', "申請期限已過！ The application submission deadline has passed!");
+            return $this->showApplicationForm();
+        }
+
         // get semester in use
         $currentSemester = DB::table('systemStatus')
             ->join('semesters', 'semesters.semester_id', '=', 'systemStatus.semester_id')
@@ -252,7 +275,6 @@ class studentApplicationController extends Controller
 
             $dataForDB['supportDocument_filename'] = $hashName;
         }
-
 
         if (DB::table('applicants')->where([['id', Auth::user()->id], ['semester_id', $currentSemester->semester_id]])->count() == 0) {
             // no record yet, create a new one

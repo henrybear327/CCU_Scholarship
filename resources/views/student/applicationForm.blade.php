@@ -18,6 +18,12 @@
                                 <div class="col-md-1"></div>
                                 <div class="col-md-10">
                                     <div class="form-group">
+                                        @if(Session::has('dateError'))
+                                            <div class="alert alert-danger">
+                                                {{Session::get('dateError')}}
+                                            </div>
+                                        @endif
+
                                         @if(Session::has('resubmission'))
                                             <div class="alert alert-danger">
                                                 {{Session::get('resubmission')}}
