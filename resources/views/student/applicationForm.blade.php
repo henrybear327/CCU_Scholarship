@@ -62,67 +62,88 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="Input Chinese Name">中文名字 Chinese Name</label>
-                                        <input type="text" class="form-control" name="Chinese_name" id="Input Chinese Name"
-                                               placeholder="Chinese Name" value="@if(isset($show)){{($show->chinese_name)}}@endif">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="Input English Name">英文名字 English Name</label>
-                                        <input type="text" class="form-control" name="English_name" id="Input English Name "
-                                               placeholder="English Name" value="@if(isset($show)){{($show->english_name)}}@endif">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="Input Nationality">國籍 Nationality</label>
-                                        <input type="text" class="form-control" id="Input Nationality" name="Nationality"
-                                               value="@if(isset($show)){{($show->nationality)}}@endif" placeholder="Nationality">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="Sex">性別 Sex</label>
-                                        <div class="radio" id="Sex">
-                                            <label>
-                                                <input type="radio" name="sex" id="optionsRadios1" value="0"
-                                                       @if((isset($show) && $show->sex == 0)||!isset($show))checked @endif>
-                                                男生 Male
-                                            </label>
-                                            <label>
-                                                <input type="radio" name="sex" id="optionsRadios1" value="1"
-                                                       @if(isset($show) && $show->sex == 1)checked @endif>
-                                                女生 Female
-                                            </label>
-                                            <label>
-                                                <input type="radio" name="sex" id="optionsRadios1" value="2"
-                                                       @if(isset($show) && $show->sex == 2)checked @endif>
-                                                其他 Other
-                                            </label>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="Input Chinese Name">中文名字 Chinese Name</label>
+                                                <input type="text" class="form-control" name="Chinese_name" id="Input Chinese Name"
+                                                       placeholder="Chinese Name" value="@if(isset($show)){{($show->chinese_name)}}@endif">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="Input English Name">英文名字 English Name</label>
+                                                <input type="text" class="form-control" name="English_name" id="Input English Name "
+                                                       placeholder="English Name" value="@if(isset($show)){{($show->english_name)}}@endif">
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="Input Passport No">護照號碼 Passport No.</label>
-                                        <input type="number" class="form-control" id="Input Passport No" name="Passport_num"
-                                               value="@if(isset($show)){{($show->passport_number)}}@endif" placeholder="Passport No">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="Input Nationality">國籍 Nationality</label>
+                                                <input type="text" class="form-control" id="Input Nationality" name="Nationality"
+                                                       value="@if(isset($show)){{($show->nationality)}}@endif" placeholder="Nationality">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="Sex">性別 Sex</label>
+                                                <div class="radio" id="Sex">
+                                                    <label>
+                                                        <input type="radio" name="sex" id="optionsRadios1" value="0"
+                                                               @if((isset($show) && $show->sex == 0)||!isset($show))checked @endif>
+                                                        男生 Male
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" name="sex" id="optionsRadios1" value="1"
+                                                               @if(isset($show) && $show->sex == 1)checked @endif>
+                                                        女生 Female
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" name="sex" id="optionsRadios1" value="2"
+                                                               @if(isset($show) && $show->sex == 2)checked @endif>
+                                                        其他 Other
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="Input Passport No">護照號碼 Passport No.</label>
+                                                <input type="number" class="form-control" id="Input Passport No" name="Passport_num"
+                                                       value="@if(isset($show)){{($show->passport_number)}}@endif" placeholder="Passport No">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="Input ARC No">居留證號碼 ARC No.</label>
+                                                <input type="number" class="form-control" id="Input  ARC No" name="ARC_num"
+                                                       value="@if(isset($show)){{($show->arc_number)}}@endif" placeholder=" ARC No">
+                                            </div>
+                                        </div>
                                     </div>
 
 
-                                    <div class="form-group">
-                                        <label for="Input ARC No">居留證號碼 ARC No.</label>
-                                        <input type="number" class="form-control" id="Input  ARC No" name="ARC_num"
-                                               value="@if(isset($show)){{($show->arc_number)}}@endif" placeholder=" ARC No">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="Input Phone No">聯絡電話 Phone No.</label>
-                                        <input type="number" class="form-control" id="Input Phone No" name="phone_num"
-                                               value="@if(isset($show)){{($show->phone_number)}}@endif" placeholder="Phone No">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="Input Date of Birth">生日 Date of Birth</label>
-                                        <input type="date" class="form-control" id="Date of Birth" name="birthday"
-                                               value="@if(isset($show)){{($show->birthday)}}@endif" placeholder="Date of Birth">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="Input Phone No">聯絡電話 Phone No.</label>
+                                                <input type="number" class="form-control" id="Input Phone No" name="phone_num"
+                                                       value="@if(isset($show)){{($show->phone_number)}}@endif" placeholder="Phone No">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="Input Date of Birth">生日 Date of Birth</label>
+                                                <input type="date" class="form-control" id="Date of Birth" name="birthday"
+                                                       value="@if(isset($show)){{($show->birthday)}}@endif" placeholder="Date of Birth">
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="form-group">
