@@ -5,7 +5,37 @@
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8">
-                @if(isset($needToReadRule) == true)
+                @if(Session::has('invalidStudentID'))
+                    <div class="alert alert-danger" role="alert">{{Session::get('invalidStudentID')}}</div>
+                @endif
+
+                @if(isset($noStudentID) == true && $noStudentID == 1)
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Student ID</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-10">
+                                    <form class="form-horizontal" method="POST" action={{url('student/applicationForm/addStudentID')}}>
+                                        {{ csrf_field() }}
+
+                                        <div class="form-group">
+                                            <label for="student_id">Student ID: </label>
+                                            <input id="student_id" type="number" name="student_id">
+                                        </div>
+
+                                        <div class="form-group text-center">
+                                            <button type="submit" class="btn btn-success" name="status" value="1">送出 Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-md-1"></div>
+                            </div>
+                        </div>
+                    </div>
+                @elseif(isset($needToReadRule) == true)
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Policy</h3>

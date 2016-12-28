@@ -8,6 +8,7 @@ use Auth;
 use DB;
 use Storage;
 use Validator;
+use Session;
 
 class studentApplicationController extends Controller
 {
@@ -44,6 +45,20 @@ class studentApplicationController extends Controller
         return $this->showApplicationForm();
     }
 
+    public function addStudentID(Request $request)
+    {
+        if($request->has('student_id')) {
+            if(DB::connection('student_data')->table('students_inf')->where('student_id', '=', $request->student_id)->count() > 0) {
+                DB::table('users')->where('id', '=', Auth::user()->id)->update(['student_id' => $request->student_id]);
+                // Auth::user()->update(['student_id'=>$request->student_id]);
+            } else {
+                Session::flash('invalidStudentID', "The student ID entered is not found");
+            }
+        }
+
+        return $this->showApplicationForm();
+    }
+
     /**
      * Loads current semester's application form of the specific student.
      *
@@ -51,6 +66,14 @@ class studentApplicationController extends Controller
      */
     public function showApplicationForm()
     {
+        // check for student ID
+        Auth::user()->fresh();
+
+        $user = DB::table('users')->where('id', '=', Auth::user()->id)->get()->first();
+        if($user->student_id === null) {
+            return view('student.applicationForm', ["noStudentID" => 1]);
+        }
+
         // get semester in use
         $currentSemester = DB::table('systemStatus')
             ->join('semesters', 'semesters.semester_id', '=', 'systemStatus.semester_id')

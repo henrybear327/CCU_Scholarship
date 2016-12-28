@@ -99,6 +99,7 @@ Route::group(['prefix' => 'student', 'middleware' => 'CheckStudent'], function (
     Route::get('/applicationForm', 'studentApplicationController@showApplicationForm');
     Route::post('/applicationForm', 'studentApplicationController@addApplicationForm');
     Route::post('/applicationForm/readRule', 'studentApplicationController@readRule');
+    Route::post('/applicationForm/addStudentID', 'studentApplicationController@addStudentID');
 });
 
 
