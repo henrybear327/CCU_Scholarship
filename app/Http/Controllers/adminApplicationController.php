@@ -21,7 +21,7 @@ class adminApplicationController extends Controller
         // get semester in use
         $in_use = DB::table('systemStatus')->where('in_use', '=', '1')->get()->first();
         if($in_use === null) // semester not set
-            return view('admin.application',['applicants' => null]);
+            return redirect()->action('adminStatusController@showStatusSettings');
 
         // get all applications of current semester
         $applicants = DB::table('applicants')

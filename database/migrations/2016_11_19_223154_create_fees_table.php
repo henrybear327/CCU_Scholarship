@@ -20,10 +20,8 @@ class CreateFeesTable extends Migration
             $table->foreign('semester_id')->references('semester_id')->on('semesters');
 
             $table->unsignedInteger('college_id')->nullable();
-            $table->foreign('college_id')->references('college_id')->on('colleges');
 
             $table->unsignedInteger('department_id')->nullable();
-            $table->foreign('department_id')->references('department_id')->on('departments');
 
             // 基數
             $table->integer('tuition_base');

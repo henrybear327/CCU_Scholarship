@@ -40,8 +40,6 @@ Route::group(['prefix' => 'administrator', 'middleware' => 'CheckAdmin'], functi
     // 基數與學費設定
     Route::get('/capSetting', 'adminCapSettingController@showCurrentSetting');
     Route::post('/capSetting', 'adminCapSettingController@updateCurrentSetting');
-    //  Route::get('/capSetting', 'adminCapSettingController@showCurrentSetting_cap');
-    //Route::post('/capSetting', 'adminCapSettingController@updateCurrentSetting_cap');
 
     // 帳號管理
 
