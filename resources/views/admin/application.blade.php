@@ -16,8 +16,8 @@
                 {{$applicant->reduce_accommodation_percentage}}
                 {{$applicant->reduce_accommodation_amount}}
                 {{$applicant->livingExpense_amount}}
-            @endforeach
-                    -->
+                @endforeach
+            -->
 
 
                 <table class="table table-bordered">

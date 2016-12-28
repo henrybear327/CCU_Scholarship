@@ -18,8 +18,15 @@ class adminApplicationController extends Controller
 
     public function showAllApplication()
     {
+        // get semester in use
+        $in_use = DB::table('systemStatus')->where('in_use', '=', '1')->get()->first();
+        if($in_use === null)
+            return view('admin.application',['applicants' => null]);
+
+        // get all applications of current semester
         $applicants = DB::table('applicants')
                                 ->join('users','users.id','=','applicants.id')
+                                ->where('semester_id', '=', $in_use->semester_id)
                                 ->get();
         return view('admin.application',['applicants' => $applicants]);
     }
