@@ -54,12 +54,12 @@
                             </a>
 
                             <a class="navbar-brand" href="{{ url('/home') }}">
-                                控制台
+                                控制台 Dashboard
                             </a>
                     @else
                         <!-- Branding Image -->
                         <a class="navbar-brand" href="{{ url('/') }}">
-                            {{ config('app.name', 'Laravel') }}
+                            {{ config('app.name', '中正獎學金系統') }}
                         </a>
                     @endif
                 </div>
