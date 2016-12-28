@@ -27,6 +27,7 @@ class adminApplicationController extends Controller
         $applicants = DB::table('applicants')
                                 ->join('users','users.id','=','applicants.id')
                                 ->where('semester_id', '=', $in_use->semester_id)
+                                ->where('status', '=', '1')
                                 ->get();
         return view('admin.application',['applicants' => $applicants]);
     }

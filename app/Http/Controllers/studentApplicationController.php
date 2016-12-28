@@ -172,7 +172,7 @@ class studentApplicationController extends Controller
                         if ($data->transcript_filename === null
                             && ($request->hasFile('transcript') == false || $this->isFileTypeCorrect($request, "transcript") == false)
                         ) {
-                            $validator->errors()->add('transcript_error', 'Here Please upload transcript as PDF');
+                            $validator->errors()->add('transcript_error', 'Please upload transcript as PDF');
                             $noError = false;
                         }
                     } else {
