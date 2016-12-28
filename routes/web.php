@@ -76,7 +76,9 @@ Route::group(['prefix' => 'administrator', 'middleware' => 'CheckAdmin'], functi
     Route::post('/systemStatus/setTimeline', 'adminStatusController@setTimeline');
     Route::post('/systemStatus/setReviewer', 'adminStatusController@setReviewer');
 
-    // 
+    // 系所設定
+    Route::get('/facultyManagement', 'adminFacultyController@showAllFaculty');
+    Route::post('/facultyManagement/setCollege', 'adminFacultyController@setDepartmentCollege');
 
 
     // 學期設定等等相關操作

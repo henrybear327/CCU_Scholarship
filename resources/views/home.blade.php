@@ -44,8 +44,8 @@
                             <a href="{{ url('/administrator/accountManagement') }}">帳號管理</a><br>
                             <a href="{{ url('/administrator/capSetting') }}">金額上限設定</a><br>
                             <a href="{{ url('/administrator/bulletinBoard') }}">公布欄</a><br>
-
-                            <a href="{{ url('/administrator/statusSetting') }}">系統狀態設定</a><br>
+                            <a href="{{ url('/administrator/facultyManagement') }}">系所設定</a><br>
+                            <a href="{{ url('/administrator/statusSetting') }}">系統設定</a><br>
                         @elseif(Auth::user()->user_type == 2) reviewer
                         @else
                             <a href="{{ url('/student/applicationForm') }}">學生申請表 Application</a><br>

@@ -20,7 +20,7 @@ class adminApplicationController extends Controller
     {
         // get semester in use
         $in_use = DB::table('systemStatus')->where('in_use', '=', '1')->get()->first();
-        if($in_use === null)
+        if($in_use === null) // semester not set
             return view('admin.application',['applicants' => null]);
 
         // get all applications of current semester
@@ -30,7 +30,6 @@ class adminApplicationController extends Controller
                                 ->where('status', '=', '1')
                                 ->get();
 
-        // dd(DB::connection('student_data')->table('students_inf')->get());
         return view('admin.application',['applicants' => $applicants]);
     }
 
