@@ -63,6 +63,7 @@ class adminCapSettingController extends Controller
         if($in_use === null)
             return $this->showCurrentSetting();
 
+        // update base
         if($request->input('submitType') == 1) {
             if($in_use->reviewByCollege == 1) {
                 if(DB::table('fees')->where('college_id', $request->input('faculty_id'))->count() == 0) {
@@ -107,27 +108,49 @@ class adminCapSettingController extends Controller
             }
         }
 
-        if (DB::table('caps')->where('college_id', $request->input('college_id'))->count() == 0 && $request->input('submitType') == 3) {
-            //dd($request);
-            DB::table('caps')->insert([
-                    'semester_id' => 0,
-                    'college_id' => ($request->input('college_id') <= 7) ? $request->input('college_id') : 0,
-                    'department_id' => ($request->input('college_id') > 7) ? $request->input('college_id') : 0,
-                    'tuition_cap' => $request->input('tuition_cap'),
-                    'miscellaneousFees_cap' => $request->input('miscellaneousFees_cap'),
-                    'accommodation_cap' => $request->input('accommodation_cap'),
-                    'cost_of_living_cap' => $request->input('cost_of_living_cap'),
-                ]
-            );
-        } else if (DB::table('caps')->where('college_id', $request->input('college_id'))->count() > 0 && $request->input('submitType') == 3) {
-            DB::table('caps')->where('college_id', $request->input('college_id'))->
-            update([
-                'semester_id' => 0,
-                'tuition_cap' => $request->input('tuition_cap'),
-                'miscellaneousFees_cap' => $request->input('miscellaneousFees_cap'),
-                'accommodation_cap' => $request->input('accommodation_cap'),
-                'cost_of_living_cap' => $request->input('cost_of_living_cap'),
-            ]);
+        // update cap
+        if($request->input('submitType') == 3) {
+            if($in_use->reviewByCollege == 1) {
+                if(DB::table('caps')->where('college_id', $request->input('faculty_id'))->count() == 0) {
+                    DB::table('caps')->insert([
+                            'semester_id' => $in_use->semester_id,
+                            'college_id' => $request->faculty_id,
+                            'tuition_cap' => $request->input('tuition_cap'),
+                            'miscellaneousFees_cap' => $request->input('miscellaneousFees_cap'),
+                            'accommodation_cap' => $request->input('accommodation_cap'),
+                            'cost_of_living_cap' => $request->input('cost_of_living_cap'),
+                        ]
+                    );
+                } else {
+                    DB::table('caps')->where('college_id', $request->input('faculty_id'))->update([
+                        'semester_id' => $in_use->semester_id,
+                        'tuition_cap' => $request->input('tuition_cap'),
+                        'miscellaneousFees_cap' => $request->input('miscellaneousFees_cap'),
+                        'accommodation_cap' => $request->input('accommodation_cap'),
+                        'cost_of_living_cap' => $request->input('cost_of_living_cap'),
+                    ]);
+                }
+            } else {
+                if(DB::table('caps')->where('department_id', $request->input('faculty_id'))->count() == 0) {
+                    DB::table('caps')->insert([
+                            'semester_id' => $in_use->semester_id,
+                            'department_id' => $request->faculty_id,
+                            'tuition_cap' => $request->input('tuition_cap'),
+                            'miscellaneousFees_cap' => $request->input('miscellaneousFees_cap'),
+                            'accommodation_cap' => $request->input('accommodation_cap'),
+                            'cost_of_living_cap' => $request->input('cost_of_living_cap'),
+                        ]
+                    );
+                } else {
+                    DB::table('caps')->where('department_id', $request->input('faculty_id'))->update([
+                        'department_id' => $in_use->semester_id,
+                        'tuition_cap' => $request->input('tuition_cap'),
+                        'miscellaneousFees_cap' => $request->input('miscellaneousFees_cap'),
+                        'accommodation_cap' => $request->input('accommodation_cap'),
+                        'cost_of_living_cap' => $request->input('cost_of_living_cap'),
+                    ]);
+                }
+            }
         }
 
         return $this->showCurrentSetting();
