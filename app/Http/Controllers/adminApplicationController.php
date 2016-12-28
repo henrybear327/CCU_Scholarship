@@ -29,6 +29,8 @@ class adminApplicationController extends Controller
                                 ->where('semester_id', '=', $in_use->semester_id)
                                 ->where('status', '=', '1')
                                 ->get();
+
+        // dd(DB::connection('student_data')->table('students_inf')->get());
         return view('admin.application',['applicants' => $applicants]);
     }
 
