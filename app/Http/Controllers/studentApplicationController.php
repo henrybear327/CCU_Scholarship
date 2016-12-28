@@ -48,11 +48,14 @@ class studentApplicationController extends Controller
     public function addStudentID(Request $request)
     {
         if($request->has('student_id')) {
-            if(DB::connection('student_data')->table('students_inf')->where('student_id', '=', $request->student_id)->count() > 0) {
+            // if the student id exists in the student data and the student id isn't taken yet
+            if(DB::connection('student_data')->table('students_inf')->where('student_id', '=', $request->student_id)->count() > 0 &&
+                DB::table('users')->where('student_id', '=', $request->student_id)->count() == 0) {
+
                 DB::table('users')->where('id', '=', Auth::user()->id)->update(['student_id' => $request->student_id]);
                 // Auth::user()->update(['student_id'=>$request->student_id]);
             } else {
-                Session::flash('invalidStudentID', "The student ID entered is not found");
+                Session::flash('invalidStudentID', "The student ID entered is not found or is used already");
             }
         }
 
