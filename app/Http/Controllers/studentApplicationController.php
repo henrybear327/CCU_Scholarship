@@ -203,6 +203,7 @@ class studentApplicationController extends Controller
                 'address' => 'required',
                 'email' => 'required|email',
                 'PastScholarship' => 'required',
+                'declaration' => 'required',
             ]);
 
             // check if the file is uploaded and of the right type (PDF)
@@ -291,7 +292,7 @@ class studentApplicationController extends Controller
                 }
 
                 // check attachment1
-                if ($request->hasFile('attachment1') == true && $this->isFileTypeCorrect($request, "attachment1") == false) {
+                if ($request->hasFile('attachment1') == false || $this->isFileTypeCorrect($request, "attachment1") == false) {
                     $validator->errors()->add('attachment1_error', 'Please upload attachment 1 as PDF');
                     $noError = false;
                 }
