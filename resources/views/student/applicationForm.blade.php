@@ -9,7 +9,9 @@
                     <div class="alert alert-danger" role="alert">{{Session::get('invalidStudentID')}}</div>
                 @endif
 
-                @if(isset($noStudentID) == true && $noStudentID == 1)
+                @if(isset($blockForm) == true)
+                        <div class="alert alert-danger" role="alert">{{$blockForm}}</div>
+                @elseif(isset($noStudentID) == true && $noStudentID == 1)
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Student ID</h3>
