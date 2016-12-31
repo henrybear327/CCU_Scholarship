@@ -182,11 +182,6 @@
                                                                @if(isset($show) && $show->sex == 1)checked @endif>
                                                         女生 Female
                                                     </label>
-                                                    <label>
-                                                        <input type="radio" name="sex" id="optionsRadios1" value="2"
-                                                               @if(isset($show) && $show->sex == 2)checked @endif>
-                                                        其他 Other
-                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
