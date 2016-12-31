@@ -267,7 +267,7 @@
                                     <hr>
 
                                     <div class="form-group">
-                                        <label for="exampleInputFile">成績單 Transcript</label>
+                                        <label for="transcript">成績單 Transcript</label>
                                         <input type="file" id="transcript" name="transcript">
                                         <p class="help-block">僅接受pdf檔案 <br> PDF is the only accepted file type</p>
 
@@ -281,7 +281,7 @@
                                     <hr>
 
                                     <div class="form-group">
-                                        <label for="exampleInputFile">其他輔助文件，例如推薦書、研究成果等等<br>Supporting documents, such as supervisors'
+                                        <label for="supportDocument">其他輔助文件，例如推薦書、研究成果等等<br>Supporting documents, such as supervisors'
                                             recommendations, research accomplishments, etc.</label>
                                         <input type="file" id="supportDocument" name="supportDocument">
                                         <p class="help-block">僅接受pdf檔案 <br> PDF is the only accepted file type</p>

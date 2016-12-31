@@ -89,8 +89,6 @@ class studentApplicationController extends Controller
 
         // block submission after deadline
         // http://carbon.nesbot.com/docs/
-        // get semester in use
-        $in_use = DB::table('systemStatus')->where('in_use', '=', '1')->get()->first();
         $parsedData = Carbon::parse($in_use->end_apply_date);
         //dd($parsedData);
         //dd(Carbon::now());
@@ -114,7 +112,7 @@ class studentApplicationController extends Controller
             ->first();
 
         // check if the rules have been read
-        $ruleURL = "http://oia.ccu.edu.tw/ciaeenglish/upload/aboutDoc6/20161020155517sd1H.pdf";
+        $ruleURL = $in_use->ruleURL;
 
         $fileUrl = [];
         if ($show !== null) { // has draft in system

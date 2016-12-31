@@ -7,6 +7,8 @@ use DB;
 use Carbon\Carbon;
 use Session;
 
+use Storage;
+
 class adminStatusController extends Controller
 {
     /**
@@ -27,9 +29,16 @@ class adminStatusController extends Controller
         // get semester in use
         $in_use = DB::table('systemStatus')->where('in_use', '=', '1')->get()->first();
 
+        // show attachment1 if exist
+        $attachment1_url = null;
+        if ($in_use->attachment1 !== null) {
+            $attachment1_url = Storage::url("systemStatus/" . $in_use->attachment1);
+        }
+
         return view('admin.systemStatus', [
             "semesters" => $semesters,
             "in_use"    => $in_use,
+            "attachment1_url" => $attachment1_url,
         ]);
     }
 
@@ -164,29 +173,30 @@ class adminStatusController extends Controller
             'start_show_result_date' => 'date_format:Y-m-d',
         ]);
 
-        // update date settings to database
-        DB::table('systemStatus')
-            ->where('in_use', "=", 1)
-            ->update(
-                [
-                    'start_apply_date' => $request->start_apply_date,
-                    'end_apply_date' => $request->end_apply_date,
-                    'start_review_date' => $request->start_review_date,
-                    'end_review_date' => $request->end_review_date,
-                    'start_show_result_date' => $request->start_show_result_date,
-                    'updated_at'    => Carbon::now(),
-                ]
-            );
+        $dataForDB = [
+            'start_apply_date' => $request->start_apply_date,
+            'end_apply_date' => $request->end_apply_date,
+            'start_review_date' => $request->start_review_date,
+            'end_review_date' => $request->end_review_date,
+            'start_show_result_date' => $request->start_show_result_date,
+            'reviewByCollege' => $request->reviewByCollege,
+            'ruleURL' => $request->ruleURL,
+            'updated_at'    => Carbon::now(),
+        ];
 
-        // update reviewer setting to database
-        DB::table('systemStatus')
-            ->where('in_use', "=", 1)
-            ->update(
-                [
-                    'reviewByCollege' => $request->reviewByCollege,
-                    'updated_at'    => Carbon::now(),
-                ]
-            );
+        // update attachment1
+        if ($request->hasFile('attachment1') && $request->file('attachment1')->isValid()) {
+            // TODO: delete old file if exist
+
+            // prepare query
+            $path = $request->file('attachment1')->store('public/systemStatus'); // in systemStatus folder
+            $hashName = $request->file('attachment1')->hashName();
+
+            $dataForDB['attachment1'] = $hashName;
+        }
+
+        // update to database
+        DB::table('systemStatus')->where('in_use', "=", 1)->update($dataForDB);
 
         return redirect('administrator/statusSetting');
     }
