@@ -88,7 +88,7 @@
 
                                     <div class="form-group">
                                         <label for="ruleURL">申請規章連結</label>
-                                        <input class="form-control" id="ruleURL" type="text" name="ruleURL" value="{{$in_use->ruleURL}}">
+                                        <input class="form-control" id="ruleURL" type="text" name="ruleURL" value="{{$in_use->ruleURL or ""}}">
                                         <p class="help-block">請使用 http:// 或 https:// 開頭</p>
                                     </div>
 
@@ -96,7 +96,7 @@
                                         <label for="attachment1">附件一</label>
                                         <input class="form-control" id="attachment1" type="file" name="attachment1">
 
-                                        @if(isset($attachment1_url))
+                                        @if(isset($attachment1_url) == true)
                                             <div class="alert alert-success" role="alert"><a href="{{$attachment1_url}}">附件一</a></div>
                                         @else
                                             <div class="alert alert-danger" role="alert">您還未上傳附件一！</div>

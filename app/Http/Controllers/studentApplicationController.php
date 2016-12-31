@@ -22,6 +22,12 @@ class studentApplicationController extends Controller
         $this->middleware('auth');
     }
 
+    /**
+     * Process the form for scholarship rule
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function readRule(Request $request)
     {
         if($request->readRule == 1) {
@@ -45,6 +51,12 @@ class studentApplicationController extends Controller
         return $this->showApplicationForm();
     }
 
+    /**
+     * Associate a student ID with an account
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function addStudentID(Request $request)
     {
         if($request->has('student_id')) {
@@ -76,22 +88,19 @@ class studentApplicationController extends Controller
             ->get()
             ->first();
 
-        if($currentSemester === null) {
+        if($currentSemester === null) { // no current semester -> system status not set properly by admin yet -> don't show the form
             return view('student.applicationForm', ["blockForm" => "The system is not configured properly! Please try again later."]);
         }
 
         // block submission before start
         $in_use = DB::table('systemStatus')->where('in_use', '=', '1')->get()->first();
-        $parsedData = Carbon::parse($in_use->start_apply_date);
+        $parsedData = Carbon::parse($in_use->start_apply_date); // http://carbon.nesbot.com/docs/
         if($in_use === null || $in_use->start_apply_date === null || Carbon::today()->lt($parsedData)) {
             return view('student.applicationForm', ["blockForm" => "申請尚未開放！ The application can't be submitted yet!"]);
         }
 
         // block submission after deadline
-        // http://carbon.nesbot.com/docs/
         $parsedData = Carbon::parse($in_use->end_apply_date);
-        //dd($parsedData);
-        //dd(Carbon::now());
 
         // use today() to compare with the parsed data (resulting in comparing only the date!)
         if(Carbon::today()->gt($parsedData)) {
@@ -101,10 +110,9 @@ class studentApplicationController extends Controller
 
         // check for student ID
         Auth::user()->fresh();
-
         $user = DB::table('users')->where('id', '=', Auth::user()->id)->get()->first();
         if($user->student_id === null) {
-            return view('student.applicationForm', ["noStudentID" => 1]);
+            return view('student.applicationForm', ["noStudentID" => 1]); // need to associate the account with the student ID before proceeding
         }
 
         // get the current application
@@ -116,7 +124,7 @@ class studentApplicationController extends Controller
 
         $fileUrl = [];
         if ($show !== null) { // has draft in system
-            if($show->has_read_rule == 0) {
+            if($show->has_read_rule == 0) { // if rules not read, show the form for reading the rules
                 return view('student.applicationForm', ["show" => $show, "fileUrl" => $fileUrl, "needToReadRule" => $ruleURL]);
             }
 
@@ -130,14 +138,31 @@ class studentApplicationController extends Controller
                 $url = Storage::url("studentApplication/" . $show->supportDocument_filename);
                 $fileUrl['supportDocument_url'] = $url;
             }
+
+            if ($show->attachment1_filename !== null) {
+                $url = Storage::url("studentApplication/" . $show->attachment1_filename);
+                $fileUrl['attachment1_url'] = $url;
+            }
         } else {
-            // no draft -> rules not read yet
+            // no draft -> rules not read yet -> show the form for reading the rules
             return view('student.applicationForm', ["show" => $show, "fileUrl" => $fileUrl, "needToReadRule" => $ruleURL]);
+        }
+
+        // show attachment1 form download link
+        if ($in_use->attachment1 !== null) {
+            $fileUrl['attachment1'] = Storage::url("systemStatus/" . $in_use->attachment1);
         }
 
         return view('student.applicationForm', ["show" => $show, "fileUrl" => $fileUrl]);
     }
 
+    /**
+     * Check if the uploaded attachment is in PDF format
+     *
+     * @param $request
+     * @param $filename
+     * @return bool
+     */
     private function isFileTypeCorrect($request, $filename)
     {
         $extension = $request->file($filename)->extension();
@@ -148,8 +173,7 @@ class studentApplicationController extends Controller
     }
 
     /**
-     *  Checks the application form submission
-     *
+     *  Check the application form submission
      *
      * @param Request $request
      * @return mixed view
@@ -177,13 +201,13 @@ class studentApplicationController extends Controller
                 'phone_num' => 'required',
                 'birthday' => 'required',
                 'address' => 'required',
-                'email' => 'required',
+                'email' => 'required|email',
                 'PastScholarship' => 'required',
             ]);
 
-            // check if the file is uploaded
+            // check if the file is uploaded and of the right type (PDF)
 
-            // for identity = 0 (bachlor student), the transcript is required
+            // for identity = 0 (bachelor student), the transcript is required
             // for identity != 0 (master, PhD), the either transcript or supporting document is required
             $validator->after(function ($validator) use ($request, $currentSemester) {
                 $data = DB::table('applicants')->where([['id', Auth::user()->id], ['semester_id', $currentSemester->semester_id]])
@@ -266,6 +290,12 @@ class studentApplicationController extends Controller
                     }
                 }
 
+                // check attachment1
+                if ($request->hasFile('attachment1') == true && $this->isFileTypeCorrect($request, "attachment1") == false) {
+                    $validator->errors()->add('attachment1_error', 'Please upload attachment 1 as PDF');
+                    $noError = false;
+                }
+
                 return $noError;
             });
 
@@ -289,6 +319,7 @@ class studentApplicationController extends Controller
                 'address' => 'string',
                 'email' => 'email',
                 'PastScholarship' => 'integer',
+                'attachment1' => 'mimetypes:application/pdf',
                 'transcript' => 'mimetypes:application/pdf',
                 'supportDocument' => 'mimetypes:application/pdf',
             ]);
@@ -297,6 +328,12 @@ class studentApplicationController extends Controller
         // passed validation -> save it to the database
 
         // prepare data for DB query
+        $need_attachment2 = $request->has('need_attachment2') ? 1 : 0;
+        if($request->has('Identity') && $request->input('Identity') == 0) {
+            // bachelor student MUST submit attachment 2
+            $need_attachment2 = 1;
+        }
+
         $dataForDB = [
             'id' => Auth::user()->id,
             'semester_id' => $currentSemester->semester_id,
@@ -313,6 +350,7 @@ class studentApplicationController extends Controller
             'Email' => $request->input('email'),
             'PastScholarship' => $request->input('PastScholarship'),
             'How_long' => $request->input('how_long'),
+            'need_attachment2' => $need_attachment2,
             'status' => $request->input('status'),
         ];
 
@@ -336,6 +374,15 @@ class studentApplicationController extends Controller
             $dataForDB['supportDocument_filename'] = $hashName;
         }
 
+        if ($request->hasFile('attachment1') && $request->file('attachment1')->isValid()) {
+            // TODO: delete old file if exist
+
+            $path = $request->file('attachment1')->store('public/studentApplication'); // in studentApplication folder
+            $hashName = $request->file('attachment1')->hashName();
+
+            $dataForDB['attachment1_filename'] = $hashName;
+        }
+
         if (DB::table('applicants')->where([['id', Auth::user()->id], ['semester_id', $currentSemester->semester_id]])->count() == 0) {
             // no record yet, create a new one
 
@@ -343,7 +390,7 @@ class studentApplicationController extends Controller
         } else {
             // block resubmission
             if(DB::table('applicants')->where([['id', Auth::user()->id], ['semester_id', $currentSemester->semester_id]])->first()->status == 1) {
-                $request->session()->flash('resubmission', "你已經遞出申請了！申請表已經無法更改。 You have already submitted! The application can't be changed.");
+                Session::flash('resubmission', "你已經遞出申請了！申請表已經無法更改。 You have already submitted! The application can't be changed.");
                 return $this->showApplicationForm();
             }
 

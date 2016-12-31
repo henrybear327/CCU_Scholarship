@@ -31,10 +31,10 @@ class adminStatusController extends Controller
 
         // show attachment1 if exist
         $attachment1_url = null;
-        if ($in_use->attachment1 !== null) {
+        if ($in_use !== null && $in_use->attachment1 !== null) {
             $attachment1_url = Storage::url("systemStatus/" . $in_use->attachment1);
         }
-
+        
         return view('admin.systemStatus', [
             "semesters" => $semesters,
             "in_use"    => $in_use,

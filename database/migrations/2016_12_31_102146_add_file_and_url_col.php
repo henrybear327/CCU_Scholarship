@@ -15,7 +15,7 @@ class AddFileAndUrlCol extends Migration
     {
         Schema::table('systemStatus', function (Blueprint $table) {
             $table->string('attachment1')->nullable();
-            $table->string('ruleURL')->nullable();
+            $table->string('ruleURL')->default("http://oia.ccu.edu.tw/ciaeenglish/");
         });
     }
 
@@ -27,6 +27,7 @@ class AddFileAndUrlCol extends Migration
     public function down()
     {
         Schema::table('systemStatus', function (Blueprint $table) {
+            $table->dropColumn(['attachment1', 'ruleURL']);
         });
     }
 }

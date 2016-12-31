@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddHasReadRuleColumn extends Migration
+class AddAttachmentCol extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class AddHasReadRuleColumn extends Migration
     public function up()
     {
         Schema::table('applicants', function (Blueprint $table) {
-            $table->integer('has_read_rule')->default(0);
+            $table->string('attachment1_filename')->nullable();
+            $table->integer('need_attachment2')->default(0);
         });
     }
 
@@ -26,7 +27,7 @@ class AddHasReadRuleColumn extends Migration
     public function down()
     {
         Schema::table('applicants', function (Blueprint $table) {
-            $table->dropColumn(['has_read_rule',]);
+            $table->dropColumn(['attachment1_filename', 'need_attachment2']);
         });
     }
 }
