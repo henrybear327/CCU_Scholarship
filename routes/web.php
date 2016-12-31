@@ -72,7 +72,6 @@ Route::group(['prefix' => 'administrator', 'middleware' => 'CheckAdmin'], functi
     Route::get('/statusSetting', 'adminStatusController@showStatusSettings');
     Route::post('/systemStatus/setSemester', 'adminStatusController@setSemester');
     Route::post('/systemStatus/setTimeline', 'adminStatusController@setTimeline');
-    Route::post('/systemStatus/setReviewer', 'adminStatusController@setReviewer');
 
     // 系所設定
     Route::get('/facultyManagement', 'adminFacultyController@showAllFaculty');

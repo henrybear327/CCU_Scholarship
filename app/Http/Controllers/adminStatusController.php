@@ -164,7 +164,7 @@ class adminStatusController extends Controller
             'start_show_result_date' => 'date_format:Y-m-d',
         ]);
 
-        // update date to database
+        // update date settings to database
         DB::table('systemStatus')
             ->where('in_use', "=", 1)
             ->update(
@@ -178,12 +178,7 @@ class adminStatusController extends Controller
                 ]
             );
 
-        return redirect('administrator/statusSetting');
-    }
-
-    public function setReviewer(Request $request)
-    {
-        // update date to database
+        // update reviewer setting to database
         DB::table('systemStatus')
             ->where('in_use', "=", 1)
             ->update(

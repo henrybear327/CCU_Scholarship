@@ -35,6 +35,8 @@
                                     </div>
                                 </form>
 
+                                <hr>
+
                                 @if (count($errors) > 0)
                                     <div class="alert alert-danger">
                                         <ul>
@@ -47,7 +49,7 @@
 
                                 <form class="form-horizontal" method="POST"
                                       action="{{ url('administrator/systemStatus/setTimeline') }} ">
-                                    <h1 class="text-center">目前時程</h1>
+                                    <h1 class="text-center">申請時程</h1>
 
                                     {{ csrf_field() }}
 
@@ -71,20 +73,11 @@
                                         <label for="start_show_result_date">開放結果</label>
                                         <input type="date" id="start_show_result_date" name="start_show_result_date" value="{{$in_use->start_show_result_date or ""}}">
                                     </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-success" name="submitType" value="1"> 儲存設定
-                                        </button>
-                                    </div>
-                                </form>
 
-                                <form class="form-horizontal" method="POST"
-                                      action="{{ url('administrator/systemStatus/setReviewer') }} ">
                                     <h1 class="text-center">審查人員設定</h1>
 
-                                    {{ csrf_field() }}
-
                                     <div class="form-group">
-                                        <label for="reviewByCollege">開放申請</label>
+                                        <label for="reviewByCollege">審查人員</label>
                                         <select class="form-control" id="reviewByCollege" name="reviewByCollege">
                                             <option value="1" {{isset($in_use->reviewByCollege) && $in_use->reviewByCollege == 1 ? "selected" : ""}}>院所審查</option>
                                             <option value="0" {{isset($in_use->reviewByCollege) && $in_use->reviewByCollege == 0 ? "selected" : ""}}>系所審查</option>
