@@ -130,10 +130,12 @@
                     <h4 class="modal-title">學生資料</h4>
                 </div>
                 <div class="modal-body">
+                    <p>身份: {{isset($applicant->identity) == true ? ($applicant->identity == 0 ? "大學部" : ($applicant->identity == 1 ? "碩士班" : "博士班")) : ""}}</p>
                     <p>中文姓名: {{$applicant->chinese_name or ""}}</p>
                     <p>英文姓名: {{$applicant->english_name or ""}}</p>
                     <p>國籍: {{$applicant->nationality or ""}}</p>
-                    <p>性別: {{$applicant->sex == 0 ? "男生" : "女生"}}</p>
+                    <p>性別: {{$applicant->sex == 0 ? "男" : "女"}}</p>
+                    <p>學生證號碼: {{$applicant->student_id or ""}}</p>
                     <p>護照號碼: {{$applicant->passport_number or ""}}</p>
                     <p>Arc號碼: {{$applicant->arc_number or ""}}</p>
                     <p>電話號碼: {{$applicant->phone_number or ""}}</p>
@@ -142,6 +144,13 @@
                     <p>Email: {{$applicant->email or ""}}</p>
                     <p>領過獎學金: {{$applicant->pastScholarship == 0 ? "否" : "是"}}</p>
                     <p>領了多久: {{$applicant->how_long or ""}}</p>
+
+                    <hr>
+                    
+                    <p>成績單</p>
+                    <p>其他輔助文件</p>
+                    <p>附件一</p>
+                    <p>須送語文中心審查：{{$applicant->need_attachment2 == 0 ? "否" : "是"}}</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>

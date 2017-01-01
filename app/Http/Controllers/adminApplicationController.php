@@ -29,7 +29,7 @@ class adminApplicationController extends Controller
                                 ->where('semester_id', '=', $in_use->semester_id)
                                 ->where('status', '=', '1')
                                 ->get();
-
+        
         return view('admin.application',['applicants' => $applicants]);
     }
 
