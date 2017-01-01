@@ -47,7 +47,7 @@
                                 <td>
                                     <select class="form-control" id="fee1" name="fee1"
                                             onChange='selectOnChange(this);'>
-                                        @for ($i = 1; $i <= 100; $i = $i + 1)
+                                        @for ($i = 0; $i <= 100; $i = $i + 1)
                                             @if ($applicant->reduce_tuition_percentage == $i)
                                                 <option value="{{$i}}" selected="selected">{{$i}} %</option>";
                                             @else
@@ -64,7 +64,7 @@
                                 <td>
                                     <select class="form-control" id="fee2" name="fee2"
                                             onChange='selectOnChange(this);'>
-                                        @for ($i = 1; $i <= 100; $i = $i + 1)
+                                        @for ($i = 0; $i <= 100; $i = $i + 1)
                                             @if ($applicant->reduce_miscellaneousFees_percentage == $i)
                                                 <option value="{{$i}}" selected="selected">{{$i}} %</option>";
                                             @else
@@ -81,7 +81,7 @@
                                 <td>
                                     <select class="form-control" id="fee3" name="fee3"
                                             onChange='selectOnChange(this);'>
-                                        @for ($i = 1; $i <= 100; $i = $i + 1)
+                                        @for ($i = 0; $i <= 100; $i = $i + 1)
                                             @if ($applicant->reduce_accommodation_percentage == $i)
                                                 <option value="{{$i}}" selected="selected">{{$i}} %</option>";
                                             @else
@@ -105,9 +105,7 @@
                                 </td>
 
                                 <td>
-                                    <button type="submit" class="btn btn-success" value="1" name="assignmentSubmission">
-                                        確認
-                                    </button>
+                                    <button type="submit" class="btn btn-success" value="1" name="assignmentSubmission">確認</button>
                                 </td>
                             </tr>
                         </form>
@@ -146,10 +144,25 @@
                     <p>領了多久: {{$applicant->how_long or ""}}</p>
 
                     <hr>
-                    
-                    <p>成績單</p>
-                    <p>其他輔助文件</p>
-                    <p>附件一</p>
+
+                    @if(isset($fileURL[$applicant->applicant_id]['transcript_url']) == true)
+                        <div class="alert alert-success" role="alert"><a href="{{$fileURL[$applicant->applicant_id]['transcript_url']}}" target="_blank">成績單</a></div>
+                    @else
+                        <div class="alert alert-warning" role="alert">沒有成績單</div>
+                    @endif
+
+                    @if(isset($fileURL[$applicant->applicant_id]['supportDocument_url']) == true)
+                        <div class="alert alert-success" role="alert"><a href="{{$fileURL[$applicant->applicant_id]['supportDocument_url']}}" target="_blank">其他輔助文件</a></div>
+                    @else
+                        <div class="alert alert-warning" role="alert">沒有其他輔助文件</div>
+                    @endif
+
+                    @if(isset($fileURL[$applicant->applicant_id]['attachment1_url']) == true)
+                        <div class="alert alert-success" role="alert"><a href="{{$fileURL[$applicant->applicant_id]['attachment1_url']}}" target="_blank">附件一</a></div>
+                    @else
+                        <div class="alert alert-warning" role="alert">沒有附件一</div>
+                    @endif
+
                     <p>須送語文中心審查：{{$applicant->need_attachment2 == 0 ? "否" : "是"}}</p>
                 </div>
                 <div class="modal-footer">
@@ -169,10 +182,9 @@
         });
 
         function selectOnChange(sel) {
-            if (sel.selectedIndex == 100) {
+            if (sel.selectedIndex == 101) {
                 $('#' + sel.id).siblings('.optional_input').show();
-            }
-            else {
+            } else {
                 $('#' + sel.id).siblings('.optional_input').hide();
             }
         }

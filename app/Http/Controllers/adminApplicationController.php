@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use DB;
 use Illuminate\Http\Request;
+use Storage;
 
 class adminApplicationController extends Controller
 {
@@ -29,8 +30,29 @@ class adminApplicationController extends Controller
                                 ->where('semester_id', '=', $in_use->semester_id)
                                 ->where('status', '=', '1')
                                 ->get();
+
+        // get all attachments of all applicants
+        $fileURL = [];
+        foreach($applicants as $applicant) {
+            $fileURL[$applicant->applicant_id] = [];
+
+            // transcript_filename
+            if ($applicant->transcript_filename !== null) {
+                $fileURL[$applicant->applicant_id]['transcript_url'] = Storage::url("studentApplication/" . $applicant->transcript_filename);
+            }
+
+            // supportDocument_filename
+            if ($applicant->supportDocument_filename !== null) {
+                $fileURL[$applicant->applicant_id]['supportDocument_url'] = Storage::url("studentApplication/" . $applicant->supportDocument_filename);
+            }
+
+            // attachment1_filename
+            if ($applicant->attachment1_filename !== null) {
+                $fileURL[$applicant->applicant_id]['attachment1_url'] = Storage::url("studentApplication/" . $applicant->attachment1_filename);
+            }
+        }
         
-        return view('admin.application',['applicants' => $applicants]);
+        return view('admin.application',['applicants' => $applicants, 'fileURL' => $fileURL]);
     }
 
     public function updateAllApplication(Request $request) {
