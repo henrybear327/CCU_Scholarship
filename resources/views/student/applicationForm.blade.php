@@ -209,7 +209,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="Input Phone No">聯絡電話 Phone No.</label>
-                                                <input type="number" class="form-control" id="Input Phone No" name="phone_num"
+                                                <input type="text" class="form-control" id="Input Phone No" name="phone_num"
                                                        value="@if(isset($show)){{($show->phone_number)}}@endif" placeholder="Phone No">
                                             </div>
                                         </div>
@@ -231,7 +231,7 @@
 
                                     <div class="form-group">
                                         <label for="Input E-mail">E-mail</label>
-                                        <input type="text" class="form-control" id="Input E-mail" name="email"
+                                        <input type="email" class="form-control" id="Input E-mail" name="email"
                                                value="@if(isset($show)){{($show->email)}}@endif" placeholder="E-mail">
                                     </div>
 
