@@ -34,10 +34,10 @@
                     </thead>
                     <tbody>
                     @foreach($applicants as $applicant)
+                    <tr>
                         <form class="form-horizontal" method="post">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="id" value="{{$applicant->id or ""}}">
-                            <tr>
                                 <td><!-- Trigger the modal with a button -->
                                     <button type="button" class="btn btn-info btn-lg" data-toggle="modal"
                                             data-target="#myModal-{{$applicant->id}}"> {{$applicant->name}}
@@ -45,7 +45,7 @@
                                 </td>
 
                                 <td>
-                                    <select class="form-control" id="fee1" name="fee1"
+                                    <select class="form-control" id="fee1-{{$applicant->id}}" name="fee1"
                                             onChange='selectOnChange(this);'>
                                         @for ($i = 0; $i <= 100; $i = $i + 1)
                                             @if ($applicant->reduce_tuition_percentage == $i)
@@ -62,7 +62,7 @@
                                 </td>
 
                                 <td>
-                                    <select class="form-control" id="fee2" name="fee2"
+                                    <select class="form-control" id="fee2-{{$applicant->id}}" name="fee2"
                                             onChange='selectOnChange(this);'>
                                         @for ($i = 0; $i <= 100; $i = $i + 1)
                                             @if ($applicant->reduce_miscellaneousFees_percentage == $i)
@@ -79,7 +79,7 @@
                                 </td>
 
                                 <td>
-                                    <select class="form-control" id="fee3" name="fee3"
+                                    <select class="form-control" id="fee3-{{$applicant->id}}" name="fee3"
                                             onChange='selectOnChange(this);'>
                                         @for ($i = 0; $i <= 100; $i = $i + 1)
                                             @if ($applicant->reduce_accommodation_percentage == $i)
@@ -107,8 +107,8 @@
                                 <td>
                                     <button type="submit" class="btn btn-success" value="1" name="assignmentSubmission">確認</button>
                                 </td>
-                            </tr>
                         </form>
+                    </tr>
                     @endforeach
                     </tbody>
                 </table>
