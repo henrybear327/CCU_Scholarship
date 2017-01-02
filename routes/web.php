@@ -47,6 +47,7 @@ Route::group(['prefix' => 'administrator', 'middleware' => 'CheckAdmin'], functi
     Route::get('/accountManagement/delete/{id}', 'adminAccountController@deleteAccount');   // 刪除帳號
     Route::get('/accountManagement/createAccount','adminAccountController@createAccount');  // 建立帳戶
     Route::post('/accountManagement/create/success', 'adminAccountController@Creating');    // 建立帳戶
+    Route::get('/accountManagement/createAccountForFaculties', 'adminAccountController@createAccountForFaculties');    // 建立院辦系辦帳戶
 
 
     // 公布欄

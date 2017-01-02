@@ -45,7 +45,7 @@
                                     <h3 class="panel-title">系統設定</h3>
                                 </div>
                                 <div class="panel-body">
-                                    <p>請在開放每一學期的審查之前，將系統設定完畢以，防止不可預期的錯誤！</p>
+                                    <p>請在開放每一學期的審查之前，將系統設定完畢，以防止不可預期的錯誤！</p>
 
                                     <a href="{{ url('/administrator/statusSetting') }}">系統設定</a><br>
                                     <a href="{{ url('/administrator/facultyManagement') }}">系所設定</a><br>

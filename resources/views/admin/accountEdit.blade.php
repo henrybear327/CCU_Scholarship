@@ -29,7 +29,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                                <label for="email" class="col-md-4 control-label">Username</label>
 
                                 <div class="col-md-6">
                                     {{ $toEditUser->email }}
