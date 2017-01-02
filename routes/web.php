@@ -75,7 +75,9 @@ Route::group(['prefix' => 'administrator', 'middleware' => 'CheckAdmin'], functi
  * reviewer dashboard
  */
 Route::group(['prefix' => 'reviewer', 'middleware' => 'CheckReviewer'], function () {
-
+    // 申請案管理
+    Route::get('/application', 'reviewerApplicationController@showAllApplication');
+    Route::post('/application', 'reviewerApplicationController@updateAllApplication');
 });
 
 /*

@@ -14,7 +14,7 @@ class AddInfoCol extends Migration
     public function up()
     {
         Schema::table('applicants', function (Blueprint $table) {
-            $table->integer('department')->nullable();
+            $table->integer('department_id')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddInfoCol extends Migration
     public function down()
     {
         Schema::table('applicants', function (Blueprint $table) {
-            $table->dropColumn(['department',]);
+            $table->dropColumn(['department_id',]);
         });
     }
 }

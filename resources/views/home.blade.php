@@ -63,7 +63,8 @@
                                     <a href="{{ url('/administrator/application') }}">審查介面</a><br>
                                 </div>
                             </div>
-                        @elseif(Auth::user()->user_type == 2) reviewer
+                        @elseif(Auth::user()->user_type == 2)
+                            <a href="{{ url('/reviewer/application') }}">審查介面</a><br>
                         @else
                             <a href="{{ url('/student/applicationForm') }}">學生申請表 Application</a><br>
                         @endif
