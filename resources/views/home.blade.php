@@ -40,12 +40,29 @@
                     </div>
                     <div class="panel-body">
                         @if(Auth::user()->user_type == 3)
-                            <a href="{{ url('/administrator/application') }}">審查介面</a><br>
-                            <a href="{{ url('/administrator/accountManagement') }}">帳號管理</a><br>
-                            <a href="{{ url('/administrator/capSetting') }}">金額上限設定</a><br>
-                            <a href="{{ url('/administrator/bulletinBoard') }}">公布欄</a><br>
-                            <a href="{{ url('/administrator/facultyManagement') }}">系所設定</a><br>
-                            <a href="{{ url('/administrator/statusSetting') }}">系統設定</a><br>
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">系統設定</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p>請在開放每一學期的審查之前，將系統設定完畢以，防止不可預期的錯誤！</p>
+
+                                    <a href="{{ url('/administrator/statusSetting') }}">系統設定</a><br>
+                                    <a href="{{ url('/administrator/facultyManagement') }}">系所設定</a><br>
+                                    <a href="{{ url('/administrator/capSetting') }}">金額上限設定</a><br>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">資料管理</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <a href="{{ url('/administrator/accountManagement') }}">帳號管理</a><br>
+                                    <a href="{{ url('/administrator/bulletinBoard') }}">公布欄</a><br>
+                                    <a href="{{ url('/administrator/application') }}">審查介面</a><br>
+                                </div>
+                            </div>
                         @elseif(Auth::user()->user_type == 2) reviewer
                         @else
                             <a href="{{ url('/student/applicationForm') }}">學生申請表 Application</a><br>
