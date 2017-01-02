@@ -27,7 +27,8 @@ class adminFacultyController extends Controller
         $departments = [];
         foreach($faculties as $faculty) {
             $results = explode("(", $faculty->dept);
-            array_push($departments, $results[0]);
+            if(mb_strlen($results[0],'utf8') > 0)
+                array_push($departments, $results[0]);
         }
 
         // add the missing department into the database
