@@ -45,5 +45,6 @@ class CreateApplicantsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('applicants');
+        Schema::dropIfExists('systemStatus');
     }
 }
