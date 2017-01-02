@@ -30,8 +30,8 @@
             {{ csrf_field() }}
             <label for="faculty_id">系/院</label>
             <select class="form-control" id="faculty_id" name="faculty_id">
-                @foreach($faculties as $faculty)
-                    <option value="{{$faculty->department_id or $faculty->college_id}}">{{$faculty->chinese_name}}</option>
+                @foreach($allFaculties as $faculty)
+                    <option value="{{$faculty['faculty_id']}}">{{$faculty['chinese_name']}}</option>
                 @endforeach
             </select>
 
