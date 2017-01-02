@@ -44,7 +44,9 @@ class adminFacultyController extends Controller
         }
 
         // get all departments from our database
-        $departments = DB::table('departments')->get();
+        $departments = DB::table('departments')
+                        ->orderBy('chinese_name', 'asc')
+                        ->get();
 
         // get all colleges from our database
         $colleges = DB::table('colleges')->get();
