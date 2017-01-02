@@ -49,7 +49,7 @@
 
                                     <a href="{{ url('/administrator/statusSetting') }}">系統設定</a><br>
                                     <a href="{{ url('/administrator/facultyManagement') }}">系所設定</a><br>
-                                    <a href="{{ url('/administrator/capSetting') }}">金額上限設定</a><br>
+                                    <a href="{{ url('/administrator/capSetting') }}">基數 與 上限設定</a><br>
                                 </div>
                             </div>
 

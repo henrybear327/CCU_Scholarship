@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddInfoCol extends Migration
+class DropInfoCol extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddInfoCol extends Migration
     public function up()
     {
         Schema::table('applicants', function (Blueprint $table) {
-            $table->integer('department_id')->nullable();
+            $table->dropColumn(['department_id',]);
         });
     }
 
@@ -26,7 +26,7 @@ class AddInfoCol extends Migration
     public function down()
     {
         Schema::table('applicants', function (Blueprint $table) {
-            $table->dropColumn(['department',]);
+            //
         });
     }
 }

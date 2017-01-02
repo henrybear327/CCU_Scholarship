@@ -48,14 +48,9 @@
                                     <select class="form-control" id="fee1-{{$applicant->id}}" name="fee1"
                                             onChange='selectOnChange(this);'>
                                         @for ($i = 0; $i <= 100; $i = $i + 1)
-                                            @if ($applicant->reduce_tuition_percentage == $i)
-                                                <option value="{{$i}}" selected="selected">{{$i}} %</option>";
-                                            @else
-                                                <option value="{{$i}}">{{$i}} %</option>
-                                            @endif
+                                            <option value="{{$i}}" {{$applicant->reduce_tuition_percentage == $i ? "selected=\"selected\"" : ""}}>{{$i}} %</option>
                                         @endfor
-                                        <option value="{{$i}}">其他（請輸入欲減免金額(元）</option>
-                                        ";
+                                        <option value="{{$i}}" {{$applicant->reduce_tuition_percentage == 101 ? "selected=\"selected\"" : ""}}>其他（請輸入欲減免金額(元））</option>
                                     </select>
                                     <input type="number" class="form-control optional_input" name="fee1_optional_input"
                                            value='{{$applicant->reduce_tuition_amount}}'>
@@ -65,14 +60,9 @@
                                     <select class="form-control" id="fee2-{{$applicant->id}}" name="fee2"
                                             onChange='selectOnChange(this);'>
                                         @for ($i = 0; $i <= 100; $i = $i + 1)
-                                            @if ($applicant->reduce_miscellaneousFees_percentage == $i)
-                                                <option value="{{$i}}" selected="selected">{{$i}} %</option>";
-                                            @else
-                                                <option value="{{$i}}">{{$i}} %</option>
-                                            @endif
+                                            <option value="{{$i}}" {{$applicant->reduce_miscellaneousFees_percentage == $i ? "selected=\"selected\"" : ""}}>{{$i}} %</option>
                                         @endfor
-                                        <option value="{{$i}}">其他（請輸入欲減免金額(元）</option>
-                                        ";
+                                        <option value="{{$i}}" {{$applicant->reduce_miscellaneousFees_percentage == 101 ? "selected=\"selected\"" : ""}}>其他（請輸入欲減免金額(元））</option>
                                     </select>
                                     <input type="number" class="form-control optional_input" name="fee2_optional_input"
                                            value='{{$applicant->reduce_miscellaneousFees_amount}}'>
@@ -82,14 +72,9 @@
                                     <select class="form-control" id="fee3-{{$applicant->id}}" name="fee3"
                                             onChange='selectOnChange(this);'>
                                         @for ($i = 0; $i <= 100; $i = $i + 1)
-                                            @if ($applicant->reduce_accommodation_percentage == $i)
-                                                <option value="{{$i}}" selected="selected">{{$i}} %</option>";
-                                            @else
-                                                <option value="{{$i}}">{{$i}} %</option>
-                                            @endif
+                                            <option value="{{$i}}" {{$applicant->reduce_accommodation_percentage == $i ? "selected=\"selected\"" : ""}}>{{$i}} %</option>
                                         @endfor
-                                        <option value="{{$i}}">其他（請輸入欲減免金額(元）</option>
-                                        ";
+                                        <option value="{{$i}}" {{$applicant->reduce_accommodation_percentage == 101 ? "selected=\"selected\"" : ""}}>其他（請輸入欲減免金額(元））</option>
                                     </select>
                                     <input type="number" class="form-control optional_input" name="fee3_optional_input"
                                            value='{{$applicant->reduce_accommodation_amount}}'>
@@ -101,7 +86,7 @@
                                 </td>
 
                                 <td>
-                                    1000元
+                                    {{$toPay[$applicant->applicant_id] == -1 ? "基數沒設定" : $toPay[$applicant->applicant_id]}}
                                 </td>
 
                                 <td>

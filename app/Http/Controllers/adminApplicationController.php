@@ -53,8 +53,108 @@ class adminApplicationController extends Controller
                 $fileURL[$applicant->applicant_id]['attachment1_url'] = Storage::url("studentApplication/" . $applicant->attachment1_filename);
             }
         }
+
+        // calculate amount to pay
+        $toPay = [];
+        foreach($applicants as $applicant) {
+            // if no fee is set, return -1 -> N/A
+            $total = 0;
+            $tuition_base = 0;
+            $miscellaneousFees_base = 0;
+            $accommodation_base = 0;
+            $cost_of_living_base = 0;
+
+            // see use department fee or college fee
+            $department_id = $applicant->department_id;
+
+            if(DB::table('fees')
+                    ->where('semester_id', '=', $in_use->semester_id)
+                    ->where('department_id', '=', $department_id)
+                    ->count() == 1) {
+                // has department fee set
+                $query = DB::table('fees')
+                    ->where('semester_id', '=', $in_use->semester_id)
+                    ->where('department_id', '=', $department_id)
+                    ->get()->first();
+                $tuition_base = $query->tuition_base;
+                $miscellaneousFees_base = $query->miscellaneousFees_base;
+                $accommodation_base = $query->accommodation_base;
+                $cost_of_living_base = $query->cost_of_living_base;
+            } else {
+                $college_id = DB::table('departments')->where('department_id', '=', $department_id)->get()->first();
+                if($college_id === null) {
+                    $toPay[$applicant->applicant_id] = -1;
+                    $total = -1;
+                } else {
+                    if(DB::table('fees')
+                            ->where('semester_id', '=', $in_use->semester_id)
+                            ->where('college_id', '=', $college_id->college_id)
+                            ->count() == 1) {
+                        // has college fee set
+                        $query = DB::table('fees')
+                            ->where('semester_id', '=', $in_use->semester_id)
+                            ->where('college_id', '=', $college_id->college_id)
+                            ->get()->first();
+                        $tuition_base = $query->tuition_base;
+                        $miscellaneousFees_base = $query->miscellaneousFees_base;
+                        $accommodation_base = $query->accommodation_base;
+                        $cost_of_living_base = $query->cost_of_living_base;
+                    } else {
+                        $toPay[$applicant->applicant_id] = -1;
+                        $total = -1;
+                    }
+                }
+            }
+
+            if($total == -1)
+                continue;
+
+            $total = $tuition_base + $miscellaneousFees_base + $accommodation_base;
+            $total *= 1.0;
+
+            // var_dump($total);
+
+            if($applicant->reduce_tuition_percentage != "101") {
+                // echo "Here1";
+                $total -= $tuition_base * (1.0 * $applicant->reduce_tuition_percentage / 100);
+            } else {
+                // echo "Here2";
+                $total -= $applicant->reduce_tuition_amount;
+            }
+
+            /*
+            var_dump($applicant->reduce_tuition_percentage);
+            var_dump($applicant->reduce_tuition_amount);
+            var_dump($tuition_base * (1.0 * $applicant->reduce_tuition_percentage / 100));
+            var_dump($total);
+            */
+
+
+            if($applicant->reduce_miscellaneousFees_percentage != "101") {
+                $total -= $miscellaneousFees_base * (1.0 * $applicant->reduce_miscellaneousFees_percentage / 100);
+            } else {
+                $total -= $applicant->reduce_miscellaneousFees_amount;
+            }
+
+            // var_dump($miscellaneousFees_base * (1.0 * $applicant->reduce_miscellaneousFees_percentage / 100));
+            // var_dump($total);
+
+
+            if($applicant->reduce_accommodation_percentage != "101") {
+                $total -= $accommodation_base * (1.0 * $applicant->reduce_accommodation_percentage / 100);
+            } else {
+                $total -= $applicant->reduce_accommodation_amount;
+            }
+
+            // var_dump($accommodation_base * (1.0 * $applicant->reduce_accommodation_percentage / 100));
+            // var_dump($total);
+
+            $toPay[$applicant->applicant_id] = round($total);
+        }
+
+        // dd($toPay);
         
-        return view('admin.application',['applicants' => $applicants, 'fileURL' => $fileURL]);
+        return view('admin.application',['applicants' => $applicants, 'fileURL' => $fileURL, 'toPay' => $toPay]);
     }
 
     public function updateAllApplication(Request $request) {
