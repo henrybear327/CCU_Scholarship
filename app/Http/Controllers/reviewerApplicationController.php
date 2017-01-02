@@ -19,24 +19,49 @@ class reviewerApplicationController extends Controller
         // get semester in use
         $in_use = DB::table('systemStatus')->where('in_use', '=', '1')->get()->first();
         if($in_use === null) // semester not set
-            return redirect()->action('adminStatusController@showStatusSettings');
+            return redirect()->action('HomeController@index');
 
         if(Auth::user()->college_id !== null) {
+            if($in_use->reviewByCollege == 0) {
+                // college don't have the privilege to review
+                return redirect()->action('HomeController@index');
+            }
             // get all applications of current semester, of the current department
             // if this is a college account, get all department id with the college_id = Auth::user()->college_id,
             // and get all applications of that department id set
 
-
-        } else {
-            // if this is a department account, get all applications of Auth::user()->department_id
+            // select d.department_id from departments d where d.college_id not null and d.college_id=3;
+            $department_set = DB::table('departments')
+                                ->whereNotNull('college_id')
+                                ->where('college_id', '=', Auth::user()->college_id)
+                                ->pluck('department_id');
 
             $applicants = DB::table('applicants')
                 ->join('users','users.id','=','applicants.id')
-                ->where('semester_id', '=', $in_use->semester_id)
-                ->where('department_id', '=', Auth::user()->department_id)
-                ->where('status', '=', '1')
+                ->where('applicants.semester_id', '=', $in_use->semester_id)
+                ->whereIn('users.department_id', $department_set)
+                ->where('applicants.status', '=', '1')
+                ->join('departments', 'departments.department_id', '=', 'users.department_id')
+                ->select('departments.chinese_name as department_name', 'applicants.*', 'users.*')
+                ->get();
+        } else {
+            if($in_use->reviewByCollege == 1) {
+                // department don't have the privilege to review
+                return redirect()->action('HomeController@index');
+            }
+
+            // if this is a department account, get all applications of Auth::user()->department_id
+            $applicants = DB::table('applicants')
+                ->join('users','users.id','=','applicants.id')
+                ->where('applicants.semester_id', '=', $in_use->semester_id)
+                ->where('users.department_id', '=', Auth::user()->department_id)
+                ->where('applicants.status', '=', '1')
+                ->join('departments', 'departments.department_id', '=', 'users.department_id')
+                ->select('departments.chinese_name as department_name', 'applicants.*', 'users.*')
                 ->get();
         }
+
+        // dd($applicants);
 
         // get all attachments of all applicants
         $fileURL = [];
@@ -90,12 +115,7 @@ class reviewerApplicationController extends Controller
                 'reduce_accommodation_amount' => $fee3_optional_input
             ]);
 
-        // $applicants = DB::table('applicants')
-        //                         ->join('users','users.id','=','applicants.id')
-        //                         ->get();
-        // return view('admin.application',['applicants' => $applicants]);
-
-        return redirect('administrator/application');
+        return $this->showAllApplication();
 
     }
 }

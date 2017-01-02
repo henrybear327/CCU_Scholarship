@@ -63,8 +63,19 @@ class studentApplicationController extends Controller
             // if the student id exists in the student data and the student id isn't taken yet
             if(DB::connection('student_data')->table('students_inf')->where('student_id', '=', $request->student_id)->count() > 0 &&
                 DB::table('users')->where('student_id', '=', $request->student_id)->count() == 0) {
+                // record the department id for the student
+                $data = DB::connection('student_data')->table('students_inf')->where('student_id', '=', $request->student_id)->get()->first();
 
-                DB::table('users')->where('id', '=', Auth::user()->id)->update(['student_id' => $request->student_id]);
+                $studentInDepartment = $data->dept;
+                $studentInDepartment = explode("(", $studentInDepartment);
+                $studentInDepartment = $studentInDepartment[0];
+
+                $department = DB::table('departments')->where('chinese_name', '=', $studentInDepartment)->get()->first();
+                
+                DB::table('users')->where('id', '=', Auth::user()->id)->update([
+                    'student_id'    => $request->student_id,
+                    'department_id' => $department->department_id,
+                ]);
                 // Auth::user()->update(['student_id'=>$request->student_id]);
             } else {
                 Session::flash('invalidStudentID', "The student ID entered is not found or is used already");

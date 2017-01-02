@@ -40,7 +40,7 @@
                             <input type="hidden" name="id" value="{{$applicant->id or ""}}">
                                 <td><!-- Trigger the modal with a button -->
                                     <button type="button" class="btn btn-info btn-lg" data-toggle="modal"
-                                            data-target="#myModal-{{$applicant->id}}"> {{$applicant->name}}
+                                            data-target="#myModal-{{$applicant->id}}"> {{$applicant->chinese_name}}
                                     </button>
                                 </td>
 
@@ -131,6 +131,7 @@
                     <p>身份: {{isset($applicant->identity) == true ? ($applicant->identity == 0 ? "大學部" : ($applicant->identity == 1 ? "碩士班" : "博士班")) : ""}}</p>
                     <p>中文姓名: {{$applicant->chinese_name or ""}}</p>
                     <p>英文姓名: {{$applicant->english_name or ""}}</p>
+                    <p>系所: {{$applicant->department_name or ""}}</p>
                     <p>國籍: {{$applicant->nationality or ""}}</p>
                     <p>性別: {{$applicant->sex == 0 ? "男" : "女"}}</p>
                     <p>學生證號碼: {{$applicant->student_id or ""}}</p>

@@ -26,10 +26,12 @@ class adminApplicationController extends Controller
 
         // get all applications of current semester
         $applicants = DB::table('applicants')
-                                ->join('users','users.id','=','applicants.id')
-                                ->where('semester_id', '=', $in_use->semester_id)
-                                ->where('status', '=', '1')
-                                ->get();
+            ->join('users','users.id','=','applicants.id')
+            ->where('applicants.semester_id', '=', $in_use->semester_id)
+            ->where('applicants.status', '=', '1')
+            ->join('departments', 'departments.department_id', '=', 'users.department_id')
+            ->select('departments.chinese_name as department_name', 'applicants.*', 'users.*')
+            ->get();
 
         // get all attachments of all applicants
         $fileURL = [];

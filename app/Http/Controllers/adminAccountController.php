@@ -42,7 +42,10 @@ class adminAccountController extends Controller
 
         // get all departments
         $departments = DB::table('departments')->get();
-        $has_departments = DB::table('users')->whereNotNull('department_id')->get();
+        $has_departments = DB::table('users')
+                            ->whereNotNull('department_id')
+                            ->where('user_type', '=', '2') /* filter out students*/
+                            ->get();
 
         foreach($departments as $department) {
             $has_entry = false;
@@ -58,7 +61,6 @@ class adminAccountController extends Controller
                     'name'          => $department->chinese_name,
                     'email'         => "department" . $department->department_id,
                     'password'      => bcrypt("default"),
-                    'created_at'    => Carbon::now(),
                     'user_type'     => 2,
                     'department_id' => $department->department_id,
                 ]);
@@ -67,7 +69,10 @@ class adminAccountController extends Controller
 
         // get all colleges
         $colleges = DB::table('colleges')->get();
-        $has_colleges = DB::table('users')->whereNotNull('college_id')->get();
+        $has_colleges = DB::table('users')
+                        ->whereNotNull('college_id')
+                        ->where('user_type', '=', '2') /* filter out students*/
+                        ->get();
 
         foreach($colleges as $college) {
             $has_entry = false;
@@ -83,13 +88,14 @@ class adminAccountController extends Controller
                     'name'          => $college->chinese_name,
                     'email'         => "college" . $college->college_id,
                     'password'      => bcrypt("default"),
-                    'created_at'    => Carbon::now(),
                     'user_type'     => 2,
                     'college_id'    => $college->college_id,
                 ]);
             }
         }
-        
+
+        //dd($accountToCreate);
+
         // create missing accounts
         DB::table('users')->insert($accountToCreate);
 
