@@ -33,7 +33,6 @@ Route::get('/home', 'HomeController@index');
 Route::group(['prefix' => 'administrator', 'middleware' => 'CheckAdmin'], function () {
     // 申請案管理
     Route::get('/application', 'adminApplicationController@showAllApplication');
-
     Route::post('/application', 'adminApplicationController@updateAllApplication');
 
 
@@ -56,10 +55,6 @@ Route::group(['prefix' => 'administrator', 'middleware' => 'CheckAdmin'], functi
     // 建立帳戶
     Route::get('/accountManagement/createAccount','adminAccountController@createAccount');
     Route::post('/accountManagement/create/success', 'adminAccountController@Creating');
-    // Route::post('/accountManagement/create/success', function(){
-    //     return 'HI';
-    // });
-
 
 
     // 公布欄

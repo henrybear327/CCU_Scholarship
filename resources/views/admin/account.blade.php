@@ -28,8 +28,8 @@
                             Admin
                         @endif
                     </td>
-                    <td>Not available</td>
-                    <td> 魔貫光殺砲!（ﾟДﾟ）σ弌弌弌弌弌弌⊃</td>
+                    <td>{{$user->student_id or "沒有學生證號碼"}}</td>
+                    <td>Hashed</td>
                     <td>{{$user->email}}</td>
                     <td>
                         <a href="{{ url('administrator/accountManagement/edit/') }}/{{$user->id}}" class="btn btn-primary">編輯</a>

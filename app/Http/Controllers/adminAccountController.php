@@ -24,7 +24,10 @@ class adminAccountController extends Controller
     public function showAllAccount()
     {
         // get all users
-        $users = DB::table('users')->get();
+        $users = DB::table('users')
+                ->orderBy('user_type', 'asc')
+                ->orderBy('name', 'asc')
+                ->get();
 
         return view('admin.account', [
             "users" => $users,
