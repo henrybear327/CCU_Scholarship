@@ -41,20 +41,12 @@ Route::group(['prefix' => 'administrator', 'middleware' => 'CheckAdmin'], functi
     Route::post('/capSetting', 'adminCapSettingController@updateCurrentSetting');
 
     // 帳號管理
-
-    // 觀看所有帳號
-    Route::get('/accountManagement', 'adminAccountController@showAllAccount');
-
-    // 更新帳戶資料
-    Route::get('/accountManagement/edit/{id}', 'adminAccountController@editAccount');
-    Route::post('/accountManagement/edit/success', 'adminAccountController@updateAccount');
-
-    // 刪除帳號
-    Route::get('/accountManagement/delete/{id}', 'adminAccountController@deleteAccount');
-
-    // 建立帳戶
-    Route::get('/accountManagement/createAccount','adminAccountController@createAccount');
-    Route::post('/accountManagement/create/success', 'adminAccountController@Creating');
+    Route::get('/accountManagement', 'adminAccountController@showAllAccount');              // 觀看所有帳號
+    Route::get('/accountManagement/edit/{id}', 'adminAccountController@editAccount');       // 更新帳戶資料
+    Route::post('/accountManagement/edit/success', 'adminAccountController@updateAccount'); // 更新帳戶資料
+    Route::get('/accountManagement/delete/{id}', 'adminAccountController@deleteAccount');   // 刪除帳號
+    Route::get('/accountManagement/createAccount','adminAccountController@createAccount');  // 建立帳戶
+    Route::post('/accountManagement/create/success', 'adminAccountController@Creating');    // 建立帳戶
 
 
     // 公布欄

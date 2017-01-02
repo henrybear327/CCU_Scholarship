@@ -7,12 +7,12 @@
         <table class="table table-condensed">
             <thead>
             <tr>
-                <th>Name</th>
-                <th>User Type</th>
-                <th>ID Number</th>
-                <th>Password</th>
+                <th>名字</th>
+                <th>身份別</th>
+                <th>學生證號碼</th>
+                <th>密碼</th>
                 <th>E-mail</th>
-                <th>Operations</th>
+                <th>操作</th>
             </tr>
             </thead>
             <tbody>
@@ -21,11 +21,11 @@
                     <td>{{$user->name}}</td>
                     <td>
                         @if($user->user_type == 1)
-                            Student
+                            學生
                         @elseif($user->user_type == 2)
-                            Reviewer
+                            審查人員
                         @else
-                            Admin
+                            管理員
                         @endif
                     </td>
                     <td>{{$user->student_id or "沒有學生證號碼"}}</td>
@@ -33,9 +33,7 @@
                     <td>{{$user->email}}</td>
                     <td>
                         <a href="{{ url('administrator/accountManagement/edit/') }}/{{$user->id}}" class="btn btn-primary">編輯</a>
-                        <a href="{{ url('administrator/accountManagement/delete/') }}/{{$user->id}}" class="btn btn-danger">刪除</a>
-                        <!-- <button type="button" class="btn btn-primary btn-sm">編輯</button>
-                        <button type="button" class="btn btn-danger btn-sm">刪除</button> -->
+                        <!--<a href="{{ url('administrator/accountManagement/delete/') }}/{{$user->id}}" class="btn btn-danger">刪除</a>-->
                     </td>
                 </tr>
             @endforeach
