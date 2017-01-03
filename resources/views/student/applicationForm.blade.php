@@ -170,7 +170,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="Sex">性別 Sex</label>
+                                                <label for="Sex">性別 Gender</label>
                                                 <div class="radio" id="Sex">
                                                     <label>
                                                         <input type="radio" name="sex" id="optionsRadios1" value="0"

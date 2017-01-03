@@ -57,13 +57,17 @@ class adminAccountController extends Controller
             }
 
             if($has_entry == false) {
-                array_push($accountToCreate, [
-                    'name'          => $department->chinese_name,
-                    'email'         => "department" . $department->department_id,
-                    'password'      => bcrypt("default"),
-                    'user_type'     => 2,
-                    'department_id' => $department->department_id,
-                ]);
+                if(DB::table('users')
+                        ->where('email', '=', "college" . $department->department_id)
+                        ->count() == 0) {
+                    array_push($accountToCreate, [
+                        'name' => $department->chinese_name,
+                        'email' => "department" . $department->department_id,
+                        'password' => bcrypt("default"),
+                        'user_type' => 2,
+                        'department_id' => $department->department_id,
+                    ]);
+                }
             }
         }
 
@@ -84,13 +88,17 @@ class adminAccountController extends Controller
             }
 
             if($has_entry == false) {
-                array_push($accountToCreate, [
-                    'name'          => $college->chinese_name,
-                    'email'         => "college" . $college->college_id,
-                    'password'      => bcrypt("default"),
-                    'user_type'     => 2,
-                    'college_id'    => $college->college_id,
-                ]);
+                if(DB::table('users')
+                    ->where('email', '=', "college" . $college->college_id) /* filter out students*/
+                    ->count() == 0) {
+                    array_push($accountToCreate, [
+                        'name'          => $college->chinese_name,
+                        'email'         => "college" . $college->college_id,
+                        'password'      => bcrypt("default"),
+                        'user_type'     => 2,
+                        'college_id'    => $college->college_id,
+                    ]);
+                }
             }
         }
 
