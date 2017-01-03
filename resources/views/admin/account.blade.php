@@ -48,7 +48,7 @@
     </div>
     <div class="form-group">
         <div class="container">
-        <a href= "{{url('administrator/accountManagement/createAccount')}}" class="btn btn-success" >新增帳號</a>
+        <!-- <a href= "{{url('administrator/accountManagement/createAccount')}}" class="btn btn-success" >新增帳號</a> -->
         <a href= "{{url('administrator/accountManagement/createAccountForFaculties')}}" class="btn btn-success" >為所有系院創立帳號</a>
     </div>
     </div>
