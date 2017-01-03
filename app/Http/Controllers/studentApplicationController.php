@@ -413,4 +413,105 @@ class studentApplicationController extends Controller
         return $this->showApplicationForm();
     }
 
+
+    public function showApplicationResult()
+    {
+        // block submission before start
+        $in_use = DB::table('systemStatus')->where('in_use', '=', '1')->get()->first();
+        $parsedData = Carbon::parse($in_use->start_show_result_date); // http://carbon.nesbot.com/docs/
+        if($in_use === null || $in_use->start_show_result_date === null || Carbon::today()->lt($parsedData)) {
+            return view('student.result', ["errorMsg" => "結果尚未開放！ The result isn't released yet!"]);
+        }
+
+        $applicant = DB::table('applicants')
+                    ->where('id', '=', Auth::user()->id)
+                    ->where('semester_id', '=', $in_use->semester_id)
+                    ->get()->first();
+
+
+        // if no fee is set, return -1 -> N/A
+        $total = 0;
+        $tuition_base = 0;
+        $miscellaneousFees_base = 0;
+        $accommodation_base = 0;
+        $result = [];
+
+        // see use department fee or college fee
+        $department_id = Auth::user()->department_id;
+        if(DB::table('fees')
+                ->where('semester_id', '=', $in_use->semester_id)
+                ->where('department_id', '=', $department_id)
+                ->count() == 1) {
+            // has department fee set
+            $query = DB::table('fees')
+                ->where('semester_id', '=', $in_use->semester_id)
+                ->where('department_id', '=', $department_id)
+                ->get()->first();
+            $tuition_base = $query->tuition_base;
+            $miscellaneousFees_base = $query->miscellaneousFees_base;
+            $accommodation_base = $query->accommodation_base;
+        } else {
+            $college_id = DB::table('departments')->where('department_id', '=', $department_id)->get()->first();
+            if($college_id === null) {
+                $total = -1;
+            } else {
+                if(DB::table('fees')
+                        ->where('semester_id', '=', $in_use->semester_id)
+                        ->where('college_id', '=', $college_id->college_id)
+                        ->count() == 1) {
+                    // has college fee set
+                    $query = DB::table('fees')
+                        ->where('semester_id', '=', $in_use->semester_id)
+                        ->where('college_id', '=', $college_id->college_id)
+                        ->get()->first();
+                    $tuition_base = $query->tuition_base;
+                    $miscellaneousFees_base = $query->miscellaneousFees_base;
+                    $accommodation_base = $query->accommodation_base;
+                } else {
+                    $total = -1;
+                }
+            }
+        }
+
+        if($total == -1) {
+            return view('student.result', ["errorMsg" => "基數設定錯誤 Fee setting error"]);
+        }
+
+        $total = $tuition_base + $miscellaneousFees_base + $accommodation_base;
+        $total *= 1.0;
+
+        if($applicant->reduce_tuition_percentage != "101") {
+            // echo "Here1";
+            $total -= $tuition_base * (1.0 * $applicant->reduce_tuition_percentage / 100);
+            $result['tuition_reduce'] = $tuition_base * (1.0 * $applicant->reduce_tuition_percentage / 100);
+        } else {
+            // echo "Here2";
+            $total -= $applicant->reduce_tuition_amount;
+            $result['tuition_reduce'] = $applicant->reduce_tuition_amount;
+        }
+
+        if($applicant->reduce_miscellaneousFees_percentage != "101") {
+            $total -= $miscellaneousFees_base * (1.0 * $applicant->reduce_miscellaneousFees_percentage / 100);
+            $result['miscellaneousFees_reduce'] = $miscellaneousFees_base * (1.0 * $applicant->reduce_miscellaneousFees_percentage / 100);
+        } else {
+            $total -= $applicant->reduce_miscellaneousFees_amount;
+            $result['miscellaneousFees_reduce'] = $applicant->reduce_miscellaneousFees_amount;
+        }
+
+
+        if($applicant->reduce_accommodation_percentage != "101") {
+            $total -= $accommodation_base * (1.0 * $applicant->reduce_accommodation_percentage / 100);
+            $result['accommodation_reduce'] = $accommodation_base * (1.0 * $applicant->reduce_accommodation_percentage / 100);
+        } else {
+            $total -= $applicant->reduce_accommodation_amount;
+            $result['accommodation_reduce'] = $applicant->reduce_accommodation_amount;
+        }
+
+        $result['living_reduce'] = $applicant->livingExpense_amount;
+        $result['total'] = $total;
+
+        // dd($result);
+
+        return view('student.result', ["result" => $result,]);
+    }
 }

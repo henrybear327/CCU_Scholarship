@@ -67,6 +67,7 @@
                             <a href="{{ url('/reviewer/application') }}">審查介面</a><br>
                         @else
                             <a href="{{ url('/student/applicationForm') }}">學生申請表 Application</a><br>
+                            <a href="{{ url('/student/applicationResult') }}">結果查詢 Result</a><br>
                         @endif
                     </div>
                 </div>
