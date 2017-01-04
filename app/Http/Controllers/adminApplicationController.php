@@ -159,7 +159,7 @@ class adminApplicationController extends Controller
 
     public function updateAllApplication(Request $request) {
         $input = $request->input();
-
+        
         $id = $input['id'];
 
         $fee1 = $input["fee1"];
@@ -171,6 +171,18 @@ class adminApplicationController extends Controller
         $fee1_optional_input = $input["fee1_optional_input"];
         $fee2_optional_input = $input["fee2_optional_input"];
         $fee3_optional_input = $input["fee3_optional_input"];
+
+        if($fee1 != 101) {
+            $fee1_optional_input = 0;
+        }
+
+        if($fee2 != 101) {
+            $fee2_optional_input = 0;
+        }
+
+        if($fee3 != 101) {
+            $fee3_optional_input = 0;
+        }
 
 
         DB::table('applicants')
