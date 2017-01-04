@@ -452,7 +452,7 @@ class studentApplicationController extends Controller
             $accommodation_base = $query->accommodation_base;
         } else {
             $college_id = DB::table('departments')->where('department_id', '=', $department_id)->get()->first();
-            if($college_id === null) {
+            if($college_id->college_id === null) {
                 $total = -1;
             } else {
                 if(DB::table('fees')

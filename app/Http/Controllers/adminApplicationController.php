@@ -82,7 +82,7 @@ class adminApplicationController extends Controller
                 $cost_of_living_base = $query->cost_of_living_base;
             } else {
                 $college_id = DB::table('departments')->where('department_id', '=', $department_id)->get()->first();
-                if($college_id === null) {
+                if($college_id->college_id === null) {
                     $toPay[$applicant->applicant_id] = -1;
                     $total = -1;
                 } else {
