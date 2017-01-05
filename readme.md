@@ -20,7 +20,7 @@ Here are some instructions that you can follow after cloning the repository loca
 2. run `composer install`
 3. make a `.env` file by copying `.env.example`
    * update `APP_URL`
-   * use `DB_CONNECTION=sqlite` 
+   * use `DB_CONNECTION=sqlite`
    * add `#` before `DB_DATABASE=homestead`
    * setup mail server credentials, and add two new fields `MAIL_ADDRESS` and `MAIL_NAME` (optional for local tests)
 4. generate an app key (`php artisan key:generate`)
@@ -74,3 +74,16 @@ mv composer.phar /usr/local/bin/composer
    3. `source ~/.bashrc`
    4. `valet install`
    5. For more instructions, read [Serving Sites](https://laravel.com/docs/5.3/valet#serving-sites)
+
+# Work to be done
+
+* Send out email notification to applicants after registration and the release of the review result
+* Implement language center review interface
+* Add edit, rejection, etc. functionality for reviewer
+* Use pagination for lists to eliminate scrolling
+* Implement cap check for reviewer
+* Implement change profile data, such as change password
+* Auto apply for scholarship for all freshmen
+* Export data in excel file format
+* Fix UI and JS bug (Use bootstrap CDN)
+* Implement basic checks, such as date settings must be set in increasing order, etc.
